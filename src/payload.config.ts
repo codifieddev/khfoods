@@ -5,7 +5,7 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 import { en } from "payload/i18n/en";
 import { pl } from "payload/i18n/pl";
-import { hr } from "payload/i18n/hr";
+import { zh } from "payload/i18n/zh";
 import sharp from "sharp"; // sharp-import
 
 import { defaultLexical } from "@/fields/defaultLexical";
@@ -77,9 +77,8 @@ export default buildConfig({
       // header: [
       //   "@/components/AdminHeader#CustomHeader",s
       // ]
-    
     },
-    
+
     meta: {
       icons: [
         {
@@ -119,14 +118,16 @@ export default buildConfig({
     },
   },
   i18n: {
-  supportedLanguages: { en,pl, hr
-  },
+    supportedLanguages: { en, zh },
     // fallbackLanguage: "en",
     translations: customTranslationsObject,
   },
   localization: {
-    locales: ["en", "pl","hr"],
-    defaultLocale: "pl"
+    locales: [
+      { code: "en", label: "English" },
+      { code: "zh", label: "Chinease" },
+    ],
+    defaultLocale: "en",
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,

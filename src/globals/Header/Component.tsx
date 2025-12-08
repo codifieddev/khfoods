@@ -14,8 +14,8 @@ export async function Header({ disableCart }: { disableCart?: boolean }) {
 
   return (
     <>
-      <HeaderClient data={headerData} disableCart={disableCart} />
-      {/* <HeaderMinor/> */}
+      {/* <HeaderClient data={headerData} disableCart={disableCart} /> */}
+      <HeaderMinor/>
     </>
   );
 }

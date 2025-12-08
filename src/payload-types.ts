@@ -158,7 +158,7 @@ export interface Config {
     'inpost-courier-cod': InpostCourierCodSelect<false> | InpostCourierCodSelect<true>;
     fulfilment: FulfilmentSelect<false> | FulfilmentSelect<true>;
   };
-  locale: 'en' | 'pl' | 'hr';
+  locale: 'en' | 'zh';
   user:
     | (Administrator & {
         collection: 'administrators';

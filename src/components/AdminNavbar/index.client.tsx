@@ -94,7 +94,6 @@ export const NavClient = ({ groups, navPreferences }: Props) => {
   const changeLanguage = async (lang:string) => {
     if(!switchLanguage) return 
     await switchLanguage(lang as any)
-    // window.location.reload();
   }
   useEffect(()=>{
     changeLanguage(lang ? lang : "en")
