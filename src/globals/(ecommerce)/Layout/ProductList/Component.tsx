@@ -16,7 +16,7 @@ import { None } from "./variants/filters/None";
 import { WithSidebar } from "./variants/filters/WithSidebar/WithSidebar";
 import { WithInlinePrice } from "./variants/listings/WithInlinePrice";
 
-export const ProductList = async ({
+export const  ProductList = async ({
   filteredProducts,
   title,
   category,
@@ -59,15 +59,15 @@ export const ProductList = async ({
               equals: category?.id,
             },
           },
-          {
-            "categoriesArr.subcategories": {
-              equals: subcategory?.id,
-            },
-          },
+          // {
+          //   "categoriesArr.subcategories": {
+          //     equals: subcategory?.id,
+          //   },
+          // },
         ],
       },
     });
-
+  console.log("all producrts,==", allProducts)
     return (
       <div>
         {category && <ListingBreadcrumbs category={category} />}

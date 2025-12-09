@@ -8,6 +8,7 @@ export const ListingBreadcrumbs = ({
   category: ProductCategory;
   subcategory?: ProductSubCategory;
 }) => {
+ 
   return (
     <>
       <nav aria-label="Breadcrumb" className="container mr-auto px-4 pt-6 sm:px-6 lg:px-8">
@@ -15,7 +16,7 @@ export const ListingBreadcrumbs = ({
           <li key={category.id}>
             <div className="flex items-center">
               <Link href={`/category/${category.slug}`} className="mr-4 text-sm font-medium text-gray-900">
-                {category.title}
+              Products / {category.title}
               </Link>
               <svg viewBox="0 0 6 20" aria-hidden="true" className="h-5 w-auto text-gray-300">
                 <path d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z" fill="currentColor" />

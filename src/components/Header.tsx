@@ -19,15 +19,15 @@ const [open, setOpen] =useState(false);
     ],
 
     PRODUCTS: [
-      { name: "DOMESTIC", link: "/products/domestic" },
-      { name: "INTERNATIONAL", link: "/products/international" },
+      { name: "DOMESTIC", link: "/our-products/domestic" },
+      { name: "INTERNATIONAL", link: "/our-products/international" },
     ],
   };
 
   const mainMenu = [
     { name: "HOME", link: "/", active: true },
     { name: "ABOUT US", link: "/about", dropdown: true },
-    { name: "PRODUCTS", link: "/products", dropdown: true },
+    { name: "PRODUCTS", link: "/our-products", dropdown: true },
     { name: "CONTACT US", link: "/contact" },
     { name: "STORE LOCATOR", link: "/store-locator" },
     { name: "WHOLESALE", link: "/wholesale" },

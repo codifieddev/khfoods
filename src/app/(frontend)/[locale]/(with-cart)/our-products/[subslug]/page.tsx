@@ -1,10 +1,11 @@
-import { notFound } from "next/navigation";
+
 import { getLocale } from "next-intl/server";
 import { getPayload, type Sort } from "payload";
 
 import { ProductList } from "@/globals/(ecommerce)/Layout/ProductList/Component";
 import { type Locale } from "@/i18n/config";
 import config from "@payload-config";
+import notFound from "../../../not-found";
 
 const SubcategoryPage = async ({
   params,
@@ -17,18 +18,19 @@ const SubcategoryPage = async ({
     const payload = await getPayload({ config });
     // console.log("payload---",payload)
     const locale = (await getLocale()) as Locale;
-      //  console.log("locale---",locale)
+        console.log("locale---",locale)
     const { color, size, sortBy } = await searchParams;
+
     const { subslug } = await params;
 
-        // console.log("subslug---",subslug)
+        console.log("subslug---",subslug)
     const { docs: subcategories } = await payload.find({
       collection: "productCategories",
       depth: 1,
       locale,
       where: {
         slug: {
-          equals: "domestic-shipping",
+          equals: subslug,
         },
       },
     });
@@ -62,11 +64,11 @@ const SubcategoryPage = async ({
       collection: "products",
       depth: 2,
       locale,
-      // where: {
-      //   "categoriesArr.subcategories": {
-      //     equals: subcategories[0].id,
-      //   },
-      // },
+      where: {
+        "categoriesArr.category": {
+          equals: subcategories[0].id,
+        },
+      },
       // ...(color && !size && { "variants.color": { in: colorArr } }),
       // ...(size && !color && { "variants.size": { in: sizeArr } }),
       // ...(size &&
@@ -74,7 +76,7 @@ const SubcategoryPage = async ({
       // sort: sortQuery,
     });
 
-      //  console.log("products---",products)
+      // console.log("products---",products)
 
     return (
       <ProductList

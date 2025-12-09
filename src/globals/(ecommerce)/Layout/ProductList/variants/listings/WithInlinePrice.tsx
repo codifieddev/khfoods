@@ -9,6 +9,7 @@ import { getPriceRange } from "@/utilities/getPriceRange";
 
 export const WithInlinePrice = ({ products }: { products: Product[] }) => {
   const t = useTranslations("ProductList");
+
   return (
     <>
       {products.map((product) => {

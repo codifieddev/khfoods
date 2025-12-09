@@ -125,7 +125,7 @@ export default buildConfig({
   localization: {
     locales: [
       { code: "en", label: "English" },
-      { code: "zh", label: "Chinease" },
+      { code: "zh", label: "Chinese" },
     ],
     defaultLocale: "en",
   },
