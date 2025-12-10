@@ -137,11 +137,11 @@
 
 
     /* PRIMARY BRAND COLORS */
-  --primary: #fed24d;        /* Gold / Brown accent */
+  --primary: #eaba88;        /* Gold / Brown accent */
   --primary-light: #fed24d;  /* Lighter Gold (hover, highlight) */
 
   /* DARK THEME */
-  --dark: #7c1502;           /* Main dark header/menu */
+  --dark: #7d1a03;           /* Main dark header/menu */
    --light-dark: #EEEEEE;  
   --gray-dark: #413b3b;   /* Dark gray */
   --gray-darker: #222222; /* Darker gray */
