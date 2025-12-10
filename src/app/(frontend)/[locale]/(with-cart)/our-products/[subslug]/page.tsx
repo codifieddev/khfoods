@@ -18,7 +18,7 @@ const SubcategoryPage = async ({
     const payload = await getPayload({ config });
     // console.log("payload---",payload)
     const locale = (await getLocale()) as Locale;
-        console.log("locale---",locale)
+      
     const { color, size, sortBy } = await searchParams;
 
     const { subslug } = await params;

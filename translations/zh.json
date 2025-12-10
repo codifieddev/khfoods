@@ -5,7 +5,29 @@
   },
   "LocaleSwitch": {
     "label": "變更語言",
-    "locale": "{locale, select, en {英文} hr {克羅埃西亞文} other {未知}}"
+    "locale": "{locale, select, en {English} zh {繁體中文} hr {Hrvatski} pl {Polski} other {Unknown}}"
+  },
+  "Header": {
+    "home": "首頁",
+    "about": "關於我們",
+    "products": "產品",
+    "contact": "聯絡我們",
+    "store-locator": "門市查詢",
+    "wholesale": "批發",
+    "cart": "購物車",
+    "phone": "(714)639-1201",
+    "email": "contact@khfood.com",
+    "free-shipping": "美國境內免運費",
+    "languages": "語言",
+    "my-account": "我的帳戶",
+    "history": "歷史",
+    "nutrition": "營養",
+    "process": "製程",
+    "domestic": "國內",
+    "international": "國際"
+  },
+  "Breadcrumbs": {
+    "products": "產品"
   },
   "ProductDetails": {
     "add-to-cart": "加入購物車",

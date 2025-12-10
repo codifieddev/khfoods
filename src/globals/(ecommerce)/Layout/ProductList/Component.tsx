@@ -67,7 +67,7 @@ export const  ProductList = async ({
         ],
       },
     });
-  console.log("all producrts,==", allProducts)
+
     return (
       <div>
         {category && <ListingBreadcrumbs category={category} />}

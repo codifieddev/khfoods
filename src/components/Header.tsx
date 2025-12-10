@@ -1,36 +1,43 @@
 
 "use client";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { FaPhone, FaEnvelope, FaShoppingCart, FaChevronDown } from "react-icons/fa";
 import { IoLanguageSharp } from "react-icons/io5";
 import { MdAccountCircle, MdOutlineShoppingBag } from "react-icons/md";
 import { HiMenu, HiX } from "react-icons/hi";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter, usePathname, Link } from "@/i18n/routing";
 
 
 const HeaderMinor = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-const [open, setOpen] =useState(false);
+  const [open, setOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  const t = useTranslations("Header");
+ 
   const dropdownMenu = {
-    "ABOUT US": [
-      { name: "HISTORY", link: "/about/history" },
-      { name: "NUTRITION", link: "/about/nutrition" },
-      { name: "PROCESS", link: "/about/process" },
+    [t("about")]: [
+      { name: t("history"), link: "/about/history" },
+      { name: t("nutrition"), link: "/about/nutrition" },
+      { name: t("process"), link: "/about/process" },
     ],
-
-    PRODUCTS: [
-      { name: "DOMESTIC", link: "/our-products/domestic" },
-      { name: "INTERNATIONAL", link: "/our-products/international" },
+    [t("products")]: [
+      { name: t("domestic"), link: "/our-products/domestic" },
+      { name: t("international"), link: "/our-products/international" },
     ],
   };
 
   const mainMenu = [
-    { name: "HOME", link: "/", active: true },
-    { name: "ABOUT US", link: "/about", dropdown: true },
-    { name: "PRODUCTS", link: "/our-products", dropdown: true },
-    { name: "CONTACT US", link: "/contact" },
-    { name: "STORE LOCATOR", link: "/store-locator" },
-    { name: "WHOLESALE", link: "/wholesale" },
+    { name: t("home"), link: "/", active: true },
+    { name: t("about"), link: "/about", dropdown: true },
+    { name: t("products"), link: "/our-products", dropdown: true },
+    { name: t("contact"), link: "/contact" },
+    { name: t("store-locator"), link: "/store-locator" },
+    { name: t("wholesale"), link: "/wholesale" },
     {
       name: "",
       icon: <MdOutlineShoppingBag size={15}/>,
@@ -47,16 +54,16 @@ const [open, setOpen] =useState(false);
 
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-2">
-              <FaPhone /> (714)639-1201
+              <FaPhone /> {t("phone")}
             </span>
 
             <span className="flex items-center gap-2">
-              <FaEnvelope /> contact@khfood.com 
+              <FaEnvelope /> {t("email")}
             </span>
           </div>
 
           <div className="flex items-center gap-6 font-medium">
-            <span>FREE SHIPPING WITHIN US</span>
+            <span>{t("free-shipping")}</span>
            
            <div className="relative">
               {/* Trigger */}
@@ -65,7 +72,7 @@ const [open, setOpen] =useState(false);
                 onClick={() => setOpen(!open)}
               >
                 <IoLanguageSharp size={16} />
-                Languages 
+                {t("languages")}
                 <RiArrowDropDownLine className="w-8 h-8 -ms-3"/>
 
               </span>
@@ -73,10 +80,30 @@ const [open, setOpen] =useState(false);
               {/* Dropdown */}
               {open && (
                 <div className="absolute left-0 mt-2 w-32 bg-white text-black rounded shadow-lg py-2 z-50">
-                  <div className="px-4 py-2 hover:bg-[#7c1502] cursor-pointer">
+                  <div 
+                    className={`px-4 py-2 hover:bg-[#7c1502] hover:text-white cursor-pointer transition ${
+                      locale === "en" ? "bg-gray-100 font-semibold" : ""
+                    }`}
+                    onClick={() => {
+                      startTransition(() => {
+                        router.replace(pathname, { locale: "en" });
+                        setOpen(false);
+                      });
+                    }}
+                  >
                     English
                   </div>
-                  <div className="px-4 py-2 hover:bg-[#7c1502] cursor-pointer">
+                  <div 
+                    className={`px-4 py-2 hover:bg-[#7c1502] hover:text-white cursor-pointer transition ${
+                      locale === "zh" ? "bg-gray-100 font-semibold" : ""
+                    }`}
+                    onClick={() => {
+                      startTransition(() => {
+                        router.replace(pathname, { locale: "zh" });
+                        setOpen(false);
+                      });
+                    }}
+                  >
                     繁體中文
                   </div>
                 </div>
@@ -85,7 +112,7 @@ const [open, setOpen] =useState(false);
 
          
             <span className="flex items-center gap-1 cursor-pointer">
-              <MdAccountCircle size={18} /> My Account
+              <MdAccountCircle size={18} /> {t("my-account")}
             </span>
           </div>
         </div>
@@ -96,19 +123,20 @@ const [open, setOpen] =useState(false);
         <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
 
           {/* LOGO */}
-          <a href="/">
+          <Link href="/">
             <img
               src="/assets/Image/khfoodImage/khfood_logo.png"
               className="w-32 h-auto"
+              alt="KH Food Logo"
             />
-          </a>
+          </Link>
 
           {/* DESKTOP MENU */}
           <nav className="hidden md:flex items-center gap-8 uppercase tracking-wide relative">
             {mainMenu.map((item) => (
               <div key={item.name} className="group relative flex items-center">
 
-                <a
+                <Link
                   href={item.link}
                   className={`text-[15px] flex items-center gap-1 transition ${
                     item.active ? "text-[#d4a762]" : "text-white group-hover:text-[#d4a762]"
@@ -130,20 +158,20 @@ const [open, setOpen] =useState(false);
                       className="transition-transform duration-300 group-hover:rotate-180 text-[#d4a762]"
                     />
                   )}
-                </a>
+                </Link>
 
                 {/* DROPDOWN MENU */}
                 {item.dropdown && (
                   <div className="absolute left-0 top-8 mt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div className="w-48 bg-[#423f3a]/90 backdrop-blur-md text-white shadow-xl p-4 space-y-3 rounded">
                       {dropdownMenu[item.name].map((sub) => (
-                        <a
+                        <Link
                           key={sub.name}
                           href={sub.link}
                           className="block text-[14px] hover:text-[#d4a762] transition"
                         >
                           {sub.name}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -192,7 +220,7 @@ const [open, setOpen] =useState(false);
               <div className="flex items-center justify-between">
 
                 {/* ICON + NAME */}
-                <a
+                <Link
                   href={item.link}
                   onClick={() => setMobileOpen(false)}
                   className={`block flex items-center gap-2 transition ${
@@ -200,7 +228,7 @@ const [open, setOpen] =useState(false);
                   }`}
                 >
                   {item.icon && item.icon} {item.name}
-                </a>
+                </Link>
 
                 {/* DROPDOWN ARROW */}
                 {item.dropdown && (
@@ -212,13 +240,14 @@ const [open, setOpen] =useState(false);
               {item.dropdown && (
                 <div className="ml-3 mt-2 space-y-2">
                   {dropdownMenu[item.name].map((sub) => (
-                    <a
+                    <Link
                       key={sub.name}
                       href={sub.link}
+                      onClick={() => setMobileOpen(false)}
                       className="block text-[14px] text-gray-300 hover:text-[#d4a762]"
                     >
                       {sub.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}

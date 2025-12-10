@@ -5,7 +5,29 @@
   },
   "LocaleSwitch": {
     "label": "Change language",
-     "locale": "{locale, select, en {English} hr {Harvatski} other {Unknown}}"
+    "locale": "{locale, select, en {English} zh {繁體中文} hr {Hrvatski} pl {Polski} other {Unknown}}"
+  },
+  "Header": {
+    "home": "HOME",
+    "about": "ABOUT US",
+    "products": "PRODUCTS",
+    "contact": "CONTACT US",
+    "store-locator": "STORE LOCATOR",
+    "wholesale": "WHOLESALE",
+    "cart": "Cart",
+    "phone": "(714)639-1201",
+    "email": "contact@khfood.com",
+    "free-shipping": "FREE SHIPPING WITHIN US",
+    "languages": "Languages",
+    "my-account": "My Account",
+    "history": "HISTORY",
+    "nutrition": "NUTRITION",
+    "process": "PROCESS",
+    "domestic": "DOMESTIC",
+    "international": "INTERNATIONAL"
+  },
+  "Breadcrumbs": {
+    "products": "Products"
   },
   "ProductDetails": {
     "add-to-cart": "Add to cart",

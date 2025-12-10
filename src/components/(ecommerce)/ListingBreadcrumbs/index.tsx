@@ -1,13 +1,16 @@
 import { Link } from "@/i18n/routing";
+import { getTranslations, getLocale } from "next-intl/server";
 import { type ProductCategory, type ProductSubCategory } from "@/payload-types";
 
-export const ListingBreadcrumbs = ({
+export const ListingBreadcrumbs = async ({
   category,
   subcategory,
 }: {
   category: ProductCategory;
   subcategory?: ProductSubCategory;
 }) => {
+  const t = await getTranslations("Breadcrumbs");
+  const locale = await getLocale();
  
   return (
     <>
@@ -16,7 +19,7 @@ export const ListingBreadcrumbs = ({
           <li key={category.id}>
             <div className="flex items-center">
               <Link href={`/category/${category.slug}`} className="mr-4 text-sm font-medium text-gray-900">
-              Products / {category.title}
+                {t("products")} / {category.title}
               </Link>
               <svg viewBox="0 0 6 20" aria-hidden="true" className="h-5 w-auto text-gray-300">
                 <path d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z" fill="currentColor" />
