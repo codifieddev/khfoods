@@ -10,6 +10,8 @@ import { getPriceRange } from "@/utilities/getPriceRange";
 export const WithInlinePrice = ({ products }: { products: Product[] }) => {
   const t = useTranslations("ProductList");
 
+  console.log(products[0].images)
+
   return (
     <>
       {products.map((product) => {
