@@ -170,6 +170,7 @@ export const OrderSummary = ({
                   <div className="ml-4">
                     <div className="grid grid-cols-1">
                       <QuantityInput
+                        productid={product.id}
                         quantity={
                           cart?.find(
                             (cartProduct) =>

@@ -63,13 +63,22 @@
   },
   "Cart": {
     "title": "Shopping cart",
+    "shopping-cart": "Shopping Cart",
+    "items-in-cart": "Items in your shopping cart",
+    "empty-cart": "Your cart is empty",
     "close-panel": "Close panel",
     "remove": "Remove",
     "subtotal": "Subtotal",
     "subtotal-info": "Shipping will be calculated at checkout.",
     "checkout": "Checkout",
     "or": "or",
-    "continue-shopping": "Continue shopping"
+    "continue-shopping": "Continue Shopping",
+    "order-summary": "Order Summary",
+    "shipping-estimate": "Shipping estimate",
+    "calculated-at-checkout": "Calculated at checkout",
+    "order-total": "Order total",
+    "in-stock": "In stock",
+    "out-of-stock": "Out of stock"
   },
   "WishList": {
     "title": "Wishlist",
@@ -206,6 +215,7 @@
       "ua": "Ukraine",
       "va": "Vatican City",
       "us": "United States",
+      "cn": "China",
       "other": "Other"
     },
     "errors": {
@@ -250,10 +260,23 @@
   },
   "Account": {
     "navigation": {
-      "orders": "Orders",
-      "settings": "Settings",
-      "orders-data": "Data for orders",
-      "help": "Help"
+      "Dashboard": "Dashboard",
+      "Orders": "Orders",
+      "Address": "Addresses",
+      "Payment method": "Payment methods",
+      "Account details": "Account details",
+      "Log out": "Log out"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "greeting": "Hello {username}",
+      "log-out": "Log out",
+      "description": "From your account dashboard you can view your",
+      "recent-orders": "recent orders",
+      "manage-your": "manage your",
+      "shipping-billing": "shipping and billing addresses",
+      "and": "and",
+      "edit-password": "edit your password and account details"
     },
     "orders": {
       "title": "Orders",
@@ -393,5 +416,85 @@
     "search": "Search...",
     "categories": "Categories",
     "products": "Products"
+  },
+  "Home": {
+    "hero": {
+      "presents": "KHFOOD PRESENTS",
+      "title": "BEST PEANUTS ON EARTH",
+      "shop-now": "SHOP NOW",
+      "contact-us": "CONTACT US"
+    },
+    "about": {
+      "title": "A LITTLE STORY",
+      "title-highlight": "ABOUT US",
+      "para1": "For nearly three decades, our vision for our peanuts stands the same: To process and manufacture the best peanuts in the world.",
+      "para2": "With only natural ingredients and absolutely no preservatives, we guarantee that our peanuts do not go through any unnatural processing before they reach your home! We not only highly value the quality and health of our products, but we also strive to bring out the natural deliciousness of peanuts that leave you both satiated and satisfied.",
+      "para3": "From farm to table, we insist on quality first, providing customers with the healthiest and most delicious peanuts."
+    },
+    "special-offers": {
+      "title": "OUR SPECIAL OFFERS",
+      "gift-box": {
+        "title": "GIFT BOX",
+        "description": "With ANY order of our 6 oz. products, you will receive FREE complimentary gift boxes! 100% natural, no preservatives.",
+        "button": "SHOP NOW"
+      },
+      "wholesale": {
+        "title": "WHOLESALE",
+        "description": "Click the link below to checkout our amazing deals for wholesale! Premium roasted peanuts since 1991.",
+        "button": "SIGN UP"
+      },
+      "international": {
+        "title": "INTERNATIONAL SHIPPING",
+        "description": "Available now! Shipping to Taiwan. With ANY 6 oz. order, you will receive FREE complimentary gift boxes!",
+        "button": "SHOP NOW"
+      }
+    },
+    "news": {
+      "title": "WHAT MAKES OUR PEANUTS THE BEST",
+      "read-more": "READ MORE",
+      "article1": {
+        "title": "Where we Get Our Peanuts",
+        "description": "Our peanuts are a product of the USA, received from states like Texas and Virginia, to ensure that they are gathered and farmed without unnatural methods. …"
+      },
+      "article2": {
+        "title": "Health Benefits of Peanuts",
+        "description": "Our peanuts are not only delicious and the perfect go-to snack, but they are also extremely healthy and beneficial to our diet. Unlike most snacks …"
+      },
+      "article3": {
+        "title": "Health Benefits of Peanuts",
+        "description": "Our peanuts are not only delicious and the perfect go-to snack, but they are also extremely healthy and beneficial to our diet. Unlike most snacks …"
+      }
+    },
+    "testimonials": {
+      "title": "Customer Testimonials"
+    },
+    "features": {
+      "free-delivery": {
+        "title": "Free Delivery",
+        "desc": "from $40"
+      },
+      "best-quality": {
+        "title": "Best Quality",
+        "desc": "Brand"
+      },
+      "return": {
+        "title": "1 Year",
+        "desc": "for free Return"
+      },
+      "feedback": {
+        "title": "Feedback",
+        "desc": "98% Real Data"
+      },
+      "payment": {
+        "title": "Payment",
+        "desc": "Secure"
+      }
+    },
+    "newsletter": {
+      "title": "SIGN UP TO NEWSLETTER",
+      "description": "SUBSCRIBE TO THE KHFOOD MAILING LIST TO RECEIVE UPDATES ON NEW ARRIVALS, SPECIAL OFFERS AND OTHER DISCOUNT INFORMATION.",
+      "email-placeholder": "Email",
+      "subscribe": "SUBSCRIBE"
+    }
   }
 }

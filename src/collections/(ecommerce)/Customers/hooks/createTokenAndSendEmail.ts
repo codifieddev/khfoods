@@ -14,7 +14,7 @@ export const createTokenAndSendEmail: CollectionAfterOperationHook<"customers"> 
 }) => {
   const payload = req.payload;
   if (operation !== "create" || !result) return result;
-
+   console.log("result--", result)
   const user = await payload.findByID({
     collection: "customers",
     id: result.id,
@@ -34,7 +34,7 @@ export const createTokenAndSendEmail: CollectionAfterOperationHook<"customers"> 
     );
 
     const t = await getTranslations({ locale, namespace: "Emails.verify-email" });
-
+     console.log("get the customer ")
     const res = await sendEmail({ to: result.email, subject: t("subject"), html });
     console.log(res);
   } catch (error) {

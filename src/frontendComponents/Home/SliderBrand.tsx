@@ -11,34 +11,7 @@ import {
   MessageCircle,
   CreditCard
 } from "lucide-react";
-
-const features = [
-  {
-    icon: <Truck className="w-10 h-10 text-orange-500" />,
-    title: "Free Delivery",
-    desc: "from $40"
-  },
-  {
-    icon: <Star className="w-10 h-10 text-orange-500" />,
-    title: "Best Quality",
-    desc: "Brand"
-  },
-  {
-    icon: <RotateCcw className="w-10 h-10 text-orange-500" />,
-    title: "1 Year",
-    desc: "for free Return"
-  },
-  {
-    icon: <MessageCircle className="w-10 h-10 text-orange-500" />,
-    title: "Feedback",
-    desc: "98% Real Data"
-  },
-  {
-    icon: <CreditCard className="w-10 h-10 text-orange-500" />,
-    title: "Payment",
-    desc: "Secure"
-  },
-];
+import { useTranslations } from "next-intl";
 
 const brands = [
   { img: "assets/Image/khfoodImage/logo1.jpg", alt: "Highlow" },
@@ -50,6 +23,35 @@ const brands = [
 ];
 
 const SliderBrand = () => {
+  const t = useTranslations("Home.features");
+
+  const features = [
+    {
+      icon: <Truck className="w-10 h-10 text-orange-500" />,
+      title: t("free-delivery.title"),
+      desc: t("free-delivery.desc")
+    },
+    {
+      icon: <Star className="w-10 h-10 text-orange-500" />,
+      title: t("best-quality.title"),
+      desc: t("best-quality.desc")
+    },
+    {
+      icon: <RotateCcw className="w-10 h-10 text-orange-500" />,
+      title: t("return.title"),
+      desc: t("return.desc")
+    },
+    {
+      icon: <MessageCircle className="w-10 h-10 text-orange-500" />,
+      title: t("feedback.title"),
+      desc: t("feedback.desc")
+    },
+    {
+      icon: <CreditCard className="w-10 h-10 text-orange-500" />,
+      title: t("payment.title"),
+      desc: t("payment.desc")
+    },
+  ];
   return (
     <div className="bg-white py-24">
       <div className="container-xl mx-auto">

@@ -2,8 +2,11 @@ import { Input } from "@headlessui/react";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 import { cn } from "@/utilities/cn";
+import { useEffect } from "react";
+import { Cart, CartProduct } from "@/stores/CartStore/types";
 
 export const QuantityInput = ({
+  productid,
   minQuantity,
   maxQuantity,
   quantity,
@@ -11,6 +14,7 @@ export const QuantityInput = ({
   updateQuantity,
   inputVariant = "default"
 }: {
+  productid:string
   minQuantity: number;
   maxQuantity: number;
   quantity: number;
@@ -30,6 +34,19 @@ export const QuantityInput = ({
     }
   };
 
+  console.log("minQuantit y",minQuantity)
+   const preSaveItem= localStorage.getItem("cart")
+
+   useEffect(()=>{
+    if(preSaveItem){
+      const item= JSON.parse(preSaveItem)
+      const prd= item.find(item=>item.id===productid) as CartProduct
+      console.log("already existy ", prd)
+      if (prd?.quantity) {
+        updateQuantity(prd.quantity);
+      }
+    }
+   },[])
   return (
     <div
       className={cn(
@@ -56,7 +73,7 @@ export const QuantityInput = ({
           inputVariant === "cart" && "p-1",
         )}
         value={quantity}
-        min={1}
+        min={0}
         max={maxQuantity}
         onKeyDown={(e) => {
           const key = e.key;

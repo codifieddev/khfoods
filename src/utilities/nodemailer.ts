@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
 
 import { getCachedGlobal } from "./getGlobals";
 
@@ -29,6 +30,8 @@ const createEmailTransporter = async () => {
   const finalSecure = secure ?? false;
 
   console.log(`[SMTP] Configuring email transporter with host: ${finalHost}, user: ${finalUser}, port: ${finalPort}, secure: ${finalSecure}`);
+  console.log(`[SMTP] Password length: ${finalPassword?.length || 0} characters`);
+  console.log(`[SMTP] Username format check: ${finalUser?.includes('@') ? '✅ Contains @' : '⚠️ Missing @ (should be full email)'}`);
 
   if (!finalHost || !finalUser || !finalPassword) {
     console.error('[SMTP] ❌ Missing SMTP configuration. Please configure in Admin Panel or environment variables.');
@@ -38,7 +41,7 @@ const createEmailTransporter = async () => {
   // For Hostinger and most SMTP providers:
   // Port 465: use secure: true
   // Port 587: use secure: false with requireTLS: true
-  const transportConfig: any = {
+  const transportConfig: SMTPTransport.Options = {
     host: finalHost,
     port: finalPort,
     secure: finalSecure,
@@ -51,22 +54,13 @@ const createEmailTransporter = async () => {
       rejectUnauthorized: false, // For development - set to true in production
       minVersion: 'TLSv1.2',
     },
+    requireTLS: finalPort === 465 && !finalSecure ? true : undefined,
   };
 
-  // Add specific settings for port 587 (STARTTLS)
-  if (finalPort === 587 && !finalSecure) {
-    transportConfig.requireTLS = true;
-  }
-  
-  // For port 465 (SSL), ensure we're using the right protocol
-  if (finalPort === 465 && finalSecure) {
-    transportConfig.secure = true;
-  }
-
   console.log(`[SMTP] Transport config:`, { 
-    host: transportConfig.host, 
-    port: transportConfig.port, 
-    secure: transportConfig.secure,
+    host: finalHost, 
+    port: finalPort, 
+    secure: finalSecure,
     requireTLS: transportConfig.requireTLS,
     user: finalUser 
   });

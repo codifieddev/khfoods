@@ -194,6 +194,7 @@ export const SlideOver = () => {
 
                                 <div className="flex flex-1 items-end justify-between text-sm">
                                   <QuantityInput
+                                    productid={product.id}
                                     quantity={
                                       cart?.find(
                                         (cartProduct) =>

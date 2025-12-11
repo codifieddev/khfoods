@@ -1,46 +1,46 @@
 "use client";
 import React from "react";
 import { Building2, LayoutGrid, Home } from "lucide-react";
-
-// Updated CONTENT — Based on your provided images
-const services = [
-  {
-    id: 1,
-    icon: <Building2 className="w-12 h-12 text-[#8C2C1A]" />, // Dark Brown
-    title: "GIFT BOX",
-    description:
-      "With ANY order of our 6 oz. products, you will receive FREE complimentary gift boxes! 100% natural, no preservatives.",
-    number: "01",
-    button: "SHOP NOW"
-  },
-  {
-    id: 2,
-    icon: <LayoutGrid className="w-12 h-12 text-[#8C2C1A]" />,
-    title: "WHOLESALE",
-    description:
-      "Click the link below to checkout our amazing deals for wholesale! Premium roasted peanuts since 1991.",
-    number: "02",
-    button: "SIGN UP"
-  },
-  {
-    id: 3,
-    icon: <Home className="w-12 h-12 text-[#8C2C1A]" />,
-    title: "INTERNATIONAL SHIPPING",
-    description:
-      "Available now! Shipping to Taiwan. With ANY 6 oz. order, you will receive FREE complimentary gift boxes!",
-    number: "03",
-    button: "SHOP NOW"
-  },
-];
+import { useTranslations } from "next-intl";
 
 export default function OurWork() {
+  const t = useTranslations("Home.special-offers");
+
+  // Updated CONTENT — Based on your provided images
+  const services = [
+    {
+      id: 1,
+      icon: <Building2 className="w-12 h-12 text-[#8C2C1A]" />, // Dark Brown
+      title: t("gift-box.title"),
+      description: t("gift-box.description"),
+      number: "01",
+      button: t("gift-box.button")
+    },
+    {
+      id: 2,
+      icon: <LayoutGrid className="w-12 h-12 text-[#8C2C1A]" />,
+      title: t("wholesale.title"),
+      description: t("wholesale.description"),
+      number: "02",
+      button: t("wholesale.button")
+    },
+    {
+      id: 3,
+      icon: <Home className="w-12 h-12 text-[#8C2C1A]" />,
+      title: t("international.title"),
+      description: t("international.description"),
+      number: "03",
+      button: t("international.button")
+    },
+  ];
+
   return (
     <section className="py-20 md:py-28 bg-light-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Heading (Color matched to roasted peanut label) */}
         <h2 className="text-4xl sm:text-4xl font-bold mb-16 tracking-normal text-black text-center">
-          OUR SPECIAL OFFERS
+          {t("title")}
         </h2>
 
         {/* 3 Cards */}

@@ -41,13 +41,22 @@
   },
   "Cart": {
     "title": "Košarica",
+    "shopping-cart": "Košarica",
+    "items-in-cart": "Artikli u vašoj košarici",
+    "empty-cart": "Vaša košarica je prazna",
     "close-panel": "Zatvori panel",
     "remove": "Ukloni",
     "subtotal": "Međuzbroj",
     "subtotal-info": "Dostava će biti izračunata pri naplati.",
     "checkout": "Naplata",
     "or": "ili",
-    "continue-shopping": "Nastavi kupovinu"
+    "continue-shopping": "Nastavi kupovinu",
+    "order-summary": "Sažetak narudžbe",
+    "shipping-estimate": "Procjena dostave",
+    "calculated-at-checkout": "Izračunato pri naplati",
+    "order-total": "Ukupno",
+    "in-stock": "Na skladištu",
+    "out-of-stock": "Rasprodano"
   },
   "WishList": {
     "title": "Lista želja",
@@ -184,6 +193,7 @@
       "ua": "Ukrajina",
       "va": "Vatikan",
       "us": "Sjedinjene Američke Države",
+      "cn": "Kina",
       "other": "Ostalo"
     },
     "errors": {
@@ -228,10 +238,23 @@
   },
   "Account": {
     "navigation": {
-      "orders": "Narudžbe",
-      "settings": "Postavke",
-      "orders-data": "Podaci za narudžbe",
-      "help": "Pomoć"
+      "Dashboard": "Kontrolna ploča",
+      "Orders": "Narudžbe",
+      "Address": "Adrese",
+      "Payment method": "Načini plaćanja",
+      "Account details": "Pojedinosti računa",
+      "Log out": "Odjava"
+    },
+    "dashboard": {
+      "title": "Kontrolna ploča",
+      "greeting": "Pozdrav {username}",
+      "log-out": "Odjava",
+      "description": "S kontrolne ploče vašeg računa možete vidjeti vaše",
+      "recent-orders": "nedavne narudžbe",
+      "manage-your": "upravljati vašim",
+      "shipping-billing": "adresama za dostavu i naplatu",
+      "and": "i",
+      "edit-password": "uređivati vašu lozinku i pojedinosti računa"
     },
     "orders": {
       "title": "Narudžbe",

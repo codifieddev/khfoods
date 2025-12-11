@@ -1,8 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export default function AboutSection() {
+  const t = useTranslations("Home.about");
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -38,21 +41,16 @@ export default function AboutSection() {
           {/* LEFT TEXT COLUMN */}
           <motion.div variants={textVariants}>
             <h2 className="text-3xl sm:text-4xl font-semibold mb-6">
-              A LITTLE STORY <span className="text-primary">ABOUT US</span>
+              {t("title")} <span className="text-primary">{t("title-highlight")}</span>
             </h2>
 
             <div className="space-y-5 text-lg text-gray-700">
               <p>
-                For nearly three decades, our vision for our peanuts stands the same: 
-                To process and manufacture the best peanuts in the world.
+                {t("para1")}
               </p>
 
               <p>
-                With only natural ingredients and absolutely no preservatives, 
-                we guarantee that our peanuts do not go through any unnatural processing 
-                before they reach your home! We not only highly value the quality and 
-                health of our products, but we also strive to bring out the natural 
-                deliciousness of peanuts that leave you both satiated and satisfied.
+                {t("para2")}
               </p>
 
               <button className="mt-4 bg-dark text-white py-2 px-6 rounded hover:bg-opacity-80 transition">

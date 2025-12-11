@@ -69,6 +69,7 @@ export const ShippingAddressForm = () => {
                   <SelectItem value="pl">{c("pl")}</SelectItem>
                   <SelectItem value="gb">{c("gb")}</SelectItem>
                   <SelectItem value="us">{c("us")}</SelectItem>
+                  <SelectItem value="cn">{c("cn")}</SelectItem>
                 </SelectContent>
               </Select>
             </FormControl>

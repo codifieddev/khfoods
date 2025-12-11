@@ -10,6 +10,7 @@ type CartState = {
   cart: Cart | null;
   setCart: (cartToSet: Cart | null) => void;
   updateCart: (cartToSet: Cart) => void;
+  updatecartQuantity: (productId: string, quantity: number, variantSlug?: string) => void;
   removeFromCart: (productId: string, variantSlug?: string) => void;
   synchronizeCart: () => Promise<void>;
 };
@@ -58,6 +59,7 @@ const useCartStore = create<CartState>((set) => ({
   setCart: (cartToSet: Cart) => {
     if (canUseDOM) {
       window.localStorage.setItem("cart", JSON.stringify(cartToSet));
+      window.dispatchEvent(new Event("cartUpdated"));
     }
     void debouncedSaveCartToUserAccount(cartToSet);
     set({ cart: cartToSet });
@@ -81,12 +83,13 @@ const useCartStore = create<CartState>((set) => ({
         const existingProductIndex = updatedCart.findIndex(
           (product) =>
             product.id === newProduct.id &&
+
             (product.choosenVariantSlug === newProduct.choosenVariantSlug ||
               (!product.choosenVariantSlug && !newProduct.choosenVariantSlug)),
         );
 
         if (existingProductIndex >= 0) {
-          updatedCart[existingProductIndex].quantity += newProduct.quantity;
+          updatedCart[existingProductIndex].quantity = newProduct.quantity;
         } else {
           updatedCart.push(newProduct);
         }
@@ -94,6 +97,55 @@ const useCartStore = create<CartState>((set) => ({
 
       if (canUseDOM) {
         window.localStorage.setItem("cart", JSON.stringify(updatedCart));
+        window.dispatchEvent(new Event("cartUpdated"));
+      }
+      void debouncedSaveCartToUserAccount(updatedCart);
+      return { cart: updatedCart };
+    });
+  },
+
+  updatecartQuantity: (productId: string, quantity: number, variantSlug?: string) => {
+    console.log("productId--",productId)
+     console.log("quantity--",quantity)
+    set((state) => {
+      if (!state.cart) return state;
+
+      // If quantity is 0, remove the product from cart
+      if (quantity === 0) {
+        const updatedCart = state.cart.filter((product) => {
+          const isTargetProduct =
+            product.id === productId &&
+            (variantSlug
+              ? product.choosenVariantSlug === variantSlug
+              : !product.choosenVariantSlug);
+          return !isTargetProduct;
+        });
+
+        if (canUseDOM) {
+          window.localStorage.setItem("cart", JSON.stringify(updatedCart));
+          window.dispatchEvent(new Event("cartUpdated"));
+        }
+        void debouncedSaveCartToUserAccount(updatedCart);
+        return { cart: updatedCart };
+      }
+
+      // Otherwise, update the quantity
+      const updatedCart = state.cart.map((product) => {
+        const isTargetProduct =
+          product.id === productId &&
+          (variantSlug
+            ? product.choosenVariantSlug === variantSlug
+            : !product.choosenVariantSlug);
+
+        if (isTargetProduct) {
+          return { ...product, quantity };
+        }
+        return product;
+      });
+
+      if (canUseDOM) {
+        window.localStorage.setItem("cart", JSON.stringify(updatedCart));
+        window.dispatchEvent(new Event("cartUpdated"));
       }
       void debouncedSaveCartToUserAccount(updatedCart);
       return { cart: updatedCart };
@@ -111,6 +163,7 @@ const useCartStore = create<CartState>((set) => ({
 
       if (canUseDOM) {
         window.localStorage.setItem("cart", JSON.stringify(updatedCart));
+        window.dispatchEvent(new Event("cartUpdated"));
       }
       void debouncedSaveCartToUserAccount(updatedCart ?? []);
       return { cart: updatedCart };

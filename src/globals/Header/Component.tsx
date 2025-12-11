@@ -11,7 +11,7 @@ import HeaderMinor from "@/components/Header";
 export async function Header({ disableCart }: { disableCart?: boolean }) {
   const locale = (await getLocale()) as Locale;
   const headerData: Header = await getCachedGlobal("header", locale, 1)();
-  const data = await getCachedGlobal("sitesetting", "en", 1);
+  const data = getCachedGlobal("sitesetting", "en", 1);
   const d = await data()
   const logourl = d?.logo
 

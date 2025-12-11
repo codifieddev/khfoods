@@ -90,8 +90,6 @@ export const MyAccountRegisterForm = () => {
       return;
     }
 
-    console.log("email---", values.email);
-    console.log("password---", values.password);
     try {
       const res = await axios.post("/api/customers", {
         email: values.email,

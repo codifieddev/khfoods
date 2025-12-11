@@ -63,13 +63,22 @@
   },
   "Cart": {
     "title": "購物車",
+    "shopping-cart": "購物車",
+    "items-in-cart": "購物車中的商品",
+    "empty-cart": "您的購物車是空的",
     "close-panel": "關閉",
     "remove": "移除",
     "subtotal": "小計",
     "subtotal-info": "運費將在結帳時計算。",
     "checkout": "前往結帳",
     "or": "或",
-    "continue-shopping": "繼續購物"
+    "continue-shopping": "繼續購物",
+    "order-summary": "訂單摘要",
+    "shipping-estimate": "運費預估",
+    "calculated-at-checkout": "結帳時計算",
+    "order-total": "訂單總計",
+    "in-stock": "有貨",
+    "out-of-stock": "缺貨"
   },
   "WishList": {
     "title": "願望清單",
@@ -206,6 +215,7 @@
       "ua": "烏克蘭",
       "va": "梵蒂岡",
       "us": "美國",
+      "cn": "中國",
       "other": "其他"
     },
     "errors": {
@@ -250,10 +260,23 @@
   },
   "Account": {
     "navigation": {
-      "orders": "訂單",
-      "settings": "設定",
-      "orders-data": "出貨資料",
-      "help": "協助"
+      "Dashboard": "儀表板",
+      "Orders": "訂單",
+      "Address": "地址",
+      "Payment method": "付款方式",
+      "Account details": "帳戶詳情",
+      "Log out": "登出"
+    },
+    "dashboard": {
+      "title": "儀表板",
+      "greeting": "您好 {username}",
+      "log-out": "登出",
+      "description": "從您的帳戶儀表板，您可以查看您的",
+      "recent-orders": "最近訂單",
+      "manage-your": "管理您的",
+      "shipping-billing": "運送和帳單地址",
+      "and": "以及",
+      "edit-password": "編輯您的密碼和帳戶詳細資料"
     },
     "orders": {
       "title": "訂單",
@@ -393,5 +416,85 @@
     "search": "搜尋...",
     "categories": "分類",
     "products": "商品"
+  },
+  "Home": {
+    "hero": {
+      "presents": "KHFOOD 呈獻",
+      "title": "世界上最好的花生",
+      "shop-now": "立即購買",
+      "contact-us": "聯絡我們"
+    },
+    "about": {
+      "title": "關於我們的",
+      "title-highlight": "小故事",
+      "para1": "近三十年來，我們對花生的願景始終如一：加工和製造世界上最好的花生。",
+      "para2": "我們用心挑選原料，採用傳統工藝，確保每一顆花生都是最優質的產品。",
+      "para3": "從農場到餐桌，我們堅持品質第一的原則，為顧客提供最健康、最美味的花生。"
+    },
+    "special-offers": {
+      "title": "我們的特別優惠",
+      "gift-box": {
+        "title": "禮盒",
+        "description": "購買任何 6 盎司產品，您將獲得免費的精美禮盒！100% 天然，無防腐劑。",
+        "button": "立即購買"
+      },
+      "wholesale": {
+        "title": "批發",
+        "description": "點擊下面的連結查看我們驚人的批發優惠！自 1991 年以來的優質烤花生。",
+        "button": "註冊"
+      },
+      "international": {
+        "title": "國際運送",
+        "description": "現已推出！運送至台灣。購買任何 6 盎司訂單，您將獲得免費的精美禮盒！",
+        "button": "立即購買"
+      }
+    },
+    "news": {
+      "title": "為什麼我們的花生是最好的",
+      "read-more": "閱讀更多",
+      "article1": {
+        "title": "我們的花生來自哪裡",
+        "description": "我們的花生是美國產品，來自德克薩斯州和維吉尼亞州等地，確保它們是在沒有人工方法的情況下收集和種植的。..."
+      },
+      "article2": {
+        "title": "花生的健康益處",
+        "description": "我們的花生不僅美味可口，是完美的零食選擇，而且非常健康，對我們的飲食也很有益。與大多數零食不同..."
+      },
+      "article3": {
+        "title": "花生的健康益處",
+        "description": "我們的花生不僅美味可口，是完美的零食選擇，而且非常健康，對我們的飲食也很有益。與大多數零食不同..."
+      }
+    },
+    "testimonials": {
+      "title": "客戶評價"
+    },
+    "features": {
+      "free-delivery": {
+        "title": "免費配送",
+        "desc": "訂單滿 $40"
+      },
+      "best-quality": {
+        "title": "最佳品質",
+        "desc": "品牌"
+      },
+      "return": {
+        "title": "1 年",
+        "desc": "免費退貨"
+      },
+      "feedback": {
+        "title": "反饋",
+        "desc": "98% 真實數據"
+      },
+      "payment": {
+        "title": "付款",
+        "desc": "安全"
+      }
+    },
+    "newsletter": {
+      "title": "訂閱電子報",
+      "description": "訂閱 KHFOOD 郵件列表，接收新品上市、特別優惠和其他折扣信息。",
+      "email-placeholder": "電子郵件",
+      "subscribe": "訂閱"
+    }
   }
 }

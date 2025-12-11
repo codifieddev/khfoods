@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useMemo, useState, useTransition } from "react";
 import { FaPhone, FaEnvelope, FaShoppingCart, FaChevronDown } from "react-icons/fa";
 import { IoLanguageSharp } from "react-icons/io5";
 import { MdAccountCircle, MdOutlineShoppingBag } from "react-icons/md";
@@ -9,6 +9,10 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter, usePathname, Link } from "@/i18n/routing";
 
+interface ItemModel {
+  id?: string;
+  quantity?: number;
+}
 
 const HeaderMinor = ({logourl}:any) => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -18,7 +22,55 @@ const HeaderMinor = ({logourl}:any) => {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations("Header");
- 
+  const [allItems, setAllitems] = useState<ItemModel[]>([]);
+   
+  // update the item 
+  useEffect(() => {
+    const updateCartFromStorage = () => {
+      const localStorageItem = localStorage.getItem("cart");
+      console.log("localStorageItem", localStorageItem);
+      if (localStorageItem) {
+        try {
+          const items = JSON.parse(localStorageItem) as ItemModel[];
+          console.log("items", items);
+          setAllitems(items);
+        } catch (error) {
+          console.error("Error parsing cart items:", error);
+          setAllitems([]);
+        }
+      } else {
+        setAllitems([]);
+      }
+    };
+
+    // Initial load
+    updateCartFromStorage();
+
+    // Listen for storage changes from other tabs/windows
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "cart") {
+        updateCartFromStorage();
+      }
+    };
+
+    // Listen for custom cart update events (same tab)
+    const handleCartUpdate = () => {
+      updateCartFromStorage();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("cartUpdated", handleCartUpdate);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("cartUpdated", handleCartUpdate);
+    };
+  }, []);
+
+  const itemCount = useMemo(() => {
+    return allItems.length;
+  }, [allItems]);
+
   const dropdownMenu = {
     [t("about")]: [
       { name: t("history"), link: "/about/history" },
@@ -113,6 +165,11 @@ const HeaderMinor = ({logourl}:any) => {
          
             <Link href="/my-account" className="flex items-center gap-1 cursor-pointer hover:text-gray-200 transition">
               <MdAccountCircle size={18} /> {t("my-account")}
+            </Link>
+
+            <Link href="/cart" className="flex items-center gap-2 cursor-pointer hover:text-gray-200 transition bg-white text-black px-3 py-1 rounded">
+              <FaShoppingCart size={16} className="text-black" />
+              <span className="text-black font-semibold">{itemCount} {itemCount === 1 ? 'Item' : 'Items'}</span>
             </Link>
           </div>
         </div>

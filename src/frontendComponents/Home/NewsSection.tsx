@@ -1,33 +1,32 @@
 "use client";
 import React from "react";
 import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export default function NewsSection() {
-  // 🎨 YAHAA BADLA HAI: Architect website ke liye naya content
+  const t = useTranslations("Home.news");
+
   const news = [
     {
       id: 1,
-      title: "Where we Get Our Peanuts",
-      description:
-        "Our peanuts are a product of the USA, received from states like Texas and Virginia, to ensure that they are gathered and farmed without unnatural methods. …",
-      button: "READ MORE",
-      image: "/assets/Image/khfoodImage/Mobile-version-image-1.jpg", // ⚠️ Apni image ka path yahaan daalein
+      title: t("article1.title"),
+      description: t("article1.description"),
+      button: t("read-more"),
+      image: "/assets/Image/khfoodImage/Mobile-version-image-1.jpg",
     },
     {
       id: 2,
-      title: "Health Benefits of Peanuts",
-      description:
-        "Our peanuts are not only delicious and the perfect go-to snack, but they are also extremely healthy and beneficial to our diet. Unlike most snacks …",
-      button: "READ MORE",
-      image: "/assets/Image/khfoodImage/Mobile-version-image-2.jpg", // ⚠️ Apni image ka path yahaan daalein
+      title: t("article2.title"),
+      description: t("article2.description"),
+      button: t("read-more"),
+      image: "/assets/Image/khfoodImage/Mobile-version-image-2.jpg",
     },
     {
       id: 3,
-      title: "Health Benefits of Peanuts",
-      description:
-        "Our peanuts are not only delicious and the perfect go-to snack, but they are also extremely healthy and beneficial to our diet. Unlike most snacks …",
-      button: "READ MORE",
-      image: "/assets/Image/khfoodImage/Mobile-version-image-1.jpg", // ⚠️ Apni image ka path yahaan daalein
+      title: t("article3.title"),
+      description: t("article3.description"),
+      button: t("read-more"),
+      image: "/assets/Image/khfoodImage/Mobile-version-image-1.jpg",
     },
  
   ];
@@ -37,8 +36,7 @@ export default function NewsSection() {
     <section className="relative bg-white py-24">
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold text-center text-dark mb-12">
-          {/* 🎨 Title text ko white kiya */}
-        WHAT MAKES OUR PEANUTS THE BEST
+          {t("title")}
         </h2>
 
         <div className="grid md:grid-cols-3 gap-8 py-4">

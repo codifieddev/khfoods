@@ -10,7 +10,7 @@ const MyAccount = async ({ params }: { params: Promise<{ locale: Locale }> }) =>
   const { locale } = await params;
 
   if (user?.id) {
-    return redirect({ locale: locale, href: "/account/orders" });
+    return redirect({ locale: locale, href: "/account" });
   }
 
   return <MyAccountPage />;
