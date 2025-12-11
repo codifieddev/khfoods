@@ -125,7 +125,7 @@ const HeaderMinor = ({logourl}:any) => {
           {/* LOGO */}
           <Link href="/">
             <img
-              src={logourl.url ? logourl.url : "https://equalengineers.com/wp-content/uploads/2024/04/dummy-logo-5b.png"}
+              src={logourl?.url ? logourl.url : "https://equalengineers.com/wp-content/uploads/2024/04/dummy-logo-5b.png"}
               className="w-32 h-auto"
               alt="KH Food Logo"
             />

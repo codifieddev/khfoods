@@ -34,6 +34,7 @@ export const getCachedGlobal = <T extends Global>(
     },
     [slug],
     {
-      tags: [`global_${slug}`]
+      tags: [`global_${slug}`],
+      revalidate: 900
     },
   );
