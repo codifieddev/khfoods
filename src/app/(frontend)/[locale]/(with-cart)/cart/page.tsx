@@ -98,24 +98,27 @@ const CartPage = () => {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">{t("shopping-cart")}</h1>
 
-        <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
-          <section aria-labelledby="cart-heading" className="lg:col-span-7">
-            <h2 id="cart-heading" className="sr-only">
-              {t("items-in-cart")}
-            </h2>
+        {cartProducts.length === 0 ? (
+          <div className="flex min-h-[60vh] items-center justify-center">
+            <div className="text-center">
+              <p className="text-xl text-gray-500">{t("empty-cart")}</p>
+              <Link
+                href="/our-products"
+                className="mt-6 inline-block rounded-md bg-main-600 px-6 py-3 text-base font-medium text-white hover:bg-main-700"
+              >
+                {t("continue-shopping")}
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+            <section aria-labelledby="cart-heading" className="lg:col-span-7">
+              <h2 id="cart-heading" className="sr-only">
+                {t("items-in-cart")}
+              </h2>
 
-            <ul role="list" className="divide-y divide-gray-200 border-b border-t border-gray-200">
-              {cartProducts.length === 0 ? (
-                <div className="py-12 text-center">
-                  <p className="text-gray-500">{t("empty-cart")}</p>
-                  <Link
-                    href="/our-products"
-                    className="mt-6 inline-block rounded-md bg-main-600 px-6 py-3 text-base font-medium text-white hover:bg-main-700"
-                  >
-                    {t("continue-shopping")}
-                  </Link>
-                </div>
-              ) : (
+              <ul role="list" className="divide-y divide-gray-200 border-b border-t border-gray-200">
+                {
                 cartProducts
                   .filter((product) => cart?.map((cartProduct) => cartProduct.id).includes(product.id))
                   .map((product) => {
@@ -226,13 +229,12 @@ const CartPage = () => {
                         </div>
                       </li>
                     );
-                  })
-              )}
-            </ul>
-          </section>
+                  })}
+              </ul>
+            </section>
 
-          {/* Order summary */}
-          <section
+            {/* Order summary */}
+            <section
             aria-labelledby="summary-heading"
             className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8"
           >
@@ -302,7 +304,8 @@ const CartPage = () => {
               </p>
             </div>
           </section>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

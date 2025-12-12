@@ -31,7 +31,7 @@ export const QuantityInput = ({
   const handleDecreaseQuantity = () => {
     if (quantity > minQuantity) {
       const minQuantity=quantity-1;
-      if(minQuantity<0){
+      if(minQuantity<=0){
  updateQuantity(0);
       }else{
          updateQuantity(minQuantity);

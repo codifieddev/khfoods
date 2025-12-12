@@ -44,11 +44,12 @@ export const ProductForm = ({
   const router = useRouter();
 
   const updateQuantity = (delta: number) => {
-    setQuantity((prev) => prev + delta);
+    setQuantity(delta);
 
-    updatecartQuantity(product.id, quantity + delta);
+    updatecartQuantity(product.id, delta);
   };
 
+  console.log("Quantity---", quantity)
   const setSelectedVariant = (slug?: string) => {
     const params = new URLSearchParams(searchParams?.toString());
 
