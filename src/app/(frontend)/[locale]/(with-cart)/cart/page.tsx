@@ -104,6 +104,7 @@ const CartPage = () => {
               <p className="text-xl text-gray-500">{t("empty-cart")}</p>
               <Link
                 href="/our-products"
+                prefetch={true}
                 className="mt-6 inline-block rounded-md bg-main-600 px-6 py-3 text-base font-medium text-white hover:bg-main-700"
               >
                 {t("continue-shopping")}
@@ -151,6 +152,7 @@ const CartPage = () => {
                                 <h3 className="text-sm">
                                   <Link
                                     href={`/product/${product.slug}`}
+                                    prefetch={true}
                                     className="font-medium text-gray-700 hover:text-gray-800"
                                   >
                                     {product.title}
@@ -288,6 +290,7 @@ const CartPage = () => {
             <div className="mt-6">
               <Link
                 href="/checkout"
+                prefetch={true}
                 className="w-full rounded-md border border-transparent bg-main-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-main-700 focus:outline-hidden focus:ring-2 focus:ring-main-500 focus:ring-offset-2 focus:ring-offset-gray-50"
               >
                 {t("checkout")}
@@ -297,7 +300,7 @@ const CartPage = () => {
             <div className="mt-6 text-center text-sm">
               <p>
                 {t("or")}{" "}
-                <Link href="/our-products" className="font-medium text-main-600 hover:text-main-500">
+                <Link href="/our-products" prefetch={true} className="font-medium text-main-600 hover:text-main-500">
                   {t("continue-shopping")}
                   <span aria-hidden="true"> &rarr;</span>
                 </Link>

@@ -49,7 +49,7 @@ export const WithInlinePrice = ({ products }: { products: Product[] }) => {
               <div className="mt-4 flex justify-between">
                 <div className="w-3/5">
                   <h3 className="text-sm text-gray-700 1">
-                    <Link href={`/product/${product.slug}`}>
+                    <Link href={`/product/${product.slug}`} prefetch={true}>
                       <span aria-hidden="true" className="absolute inset-0" />
                       {product.title}
                     </Link>

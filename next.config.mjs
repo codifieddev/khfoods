@@ -28,7 +28,7 @@ const nextConfig = {
   transpilePackages: ['date-fns'],
   experimental: {
     reactCompiler: true,
-    viewTransition: false,
+    viewTransition: true,
     optimizePackageImports: ['react-icons'],
   },
   // Enable SWC minification for faster builds
