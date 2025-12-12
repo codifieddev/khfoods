@@ -157,6 +157,17 @@ export const Products: CollectionConfig = {
                 },
               ]
             },
+            {
+              name: "Highlight",
+              label: {
+                en: "Highlight",
+                zh: "包装",
+              
+              },
+              localized: true,
+              type: "text",
+              
+            }
           ]
         },
         {

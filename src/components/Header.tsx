@@ -163,11 +163,11 @@ const HeaderMinor = ({logourl}:any) => {
             </div>
 
          
-            <Link href="/my-account" className="flex items-center gap-1 cursor-pointer hover:text-gray-200 transition">
+            <Link href="/my-account" prefetch={true} className="flex items-center gap-1 cursor-pointer hover:text-gray-200 transition">
               <MdAccountCircle size={18} /> {t("my-account")}
             </Link>
 
-            <Link href="/cart" className="flex items-center gap-2 cursor-pointer hover:text-gray-200 transition bg-white text-black px-3 py-1 rounded">
+            <Link href="/cart" prefetch={true} className="flex items-center gap-2 cursor-pointer hover:text-gray-200 transition bg-white text-black px-3 py-1 rounded">
               <FaShoppingCart size={16} className="text-black" />
               <span className="text-black font-semibold">{itemCount} {itemCount === 1 ? 'Item' : 'Items'}</span>
             </Link>
@@ -180,7 +180,7 @@ const HeaderMinor = ({logourl}:any) => {
         <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
 
           {/* LOGO */}
-          <Link href="/">
+          <Link href="/" prefetch={true}>
             <img
               src={logourl?.url ? logourl.url : "https://equalengineers.com/wp-content/uploads/2024/04/dummy-logo-5b.png"}
               className="w-32 h-auto"
@@ -195,6 +195,7 @@ const HeaderMinor = ({logourl}:any) => {
 
                 <Link
                   href={item.link}
+                  prefetch={true}
                   className={`text-[15px] flex items-center gap-1 transition ${
                     item.active ? "text-[#d4a762]" : "text-white group-hover:text-[#d4a762]"
                   }`}
@@ -212,23 +213,23 @@ const HeaderMinor = ({logourl}:any) => {
                   {item.dropdown && (
                     <FaChevronDown
                       size={12}
-                      className="transition-transform duration-300 group-hover:rotate-180 text-[#d4a762]"
+                      className="transition-transform duration-150 group-hover:rotate-180 text-[#d4a762]"
                     />
                   )}
                 </Link>
 
                 {/* DROPDOWN MENU */}
                 {item.dropdown && (
-                  <div className="absolute left-0 top-8 mt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  <div className="absolute left-0 top-8 mt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
                     <div className="w-48 bg-[#423f3a]/90 backdrop-blur-md text-white shadow-xl p-4 space-y-3 rounded">
                       {dropdownMenu[item.name].map((sub) => (
-                        <Link
+                        <div
                           key={sub.name}
-                          href={sub.link}
-                          className="block text-[14px] hover:text-[#d4a762] transition"
+                          onClick={() => router.push(sub.link)}
+                          className="block text-[14px] hover:text-[#d4a762] transition cursor-pointer"
                         >
                           {sub.name}
-                        </Link>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -277,15 +278,17 @@ const HeaderMinor = ({logourl}:any) => {
               <div className="flex items-center justify-between">
 
                 {/* ICON + NAME */}
-                <Link
-                  href={item.link}
-                  onClick={() => setMobileOpen(false)}
-                  className={`block flex items-center gap-2 transition ${
+                <div
+                  onClick={() => {
+                    setMobileOpen(false);
+                    router.push(item.link);
+                  }}
+                  className={`block flex items-center gap-2 transition cursor-pointer ${
                     item.active ? "text-[#d4a762]" : "text-white hover:text-[#d4a762]"
                   }`}
                 >
                   {item.icon && item.icon} {item.name}
-                </Link>
+                </div>
 
                 {/* DROPDOWN ARROW */}
                 {item.dropdown && (
@@ -297,14 +300,16 @@ const HeaderMinor = ({logourl}:any) => {
               {item.dropdown && (
                 <div className="ml-3 mt-2 space-y-2">
                   {dropdownMenu[item.name].map((sub) => (
-                    <Link
+                    <div
                       key={sub.name}
-                      href={sub.link}
-                      onClick={() => setMobileOpen(false)}
-                      className="block text-[14px] text-gray-300 hover:text-[#d4a762]"
+                      onClick={() => {
+                        setMobileOpen(false);
+                        router.push(sub.link);
+                      }}
+                      className="block text-[14px] text-gray-300 hover:text-[#d4a762] cursor-pointer"
                     >
                       {sub.name}
-                    </Link>
+                    </div>
                   ))}
                 </div>
               )}

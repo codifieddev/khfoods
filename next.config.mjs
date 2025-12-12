@@ -29,7 +29,12 @@ const nextConfig = {
   experimental: {
     reactCompiler: true,
     viewTransition: false,
+    optimizePackageImports: ['react-icons'],
   },
+  // Enable SWC minification for faster builds
+  swcMinify: true,
+  // Optimize runtime performance
+  poweredByHeader: false,
   eslint: {
     ignoreDuringBuilds: true,
   },

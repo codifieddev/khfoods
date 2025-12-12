@@ -15,6 +15,12 @@ export const WithInlinePrice = ({ products }: { products: Product[] }) => {
   return (
     <>
       {products.map((product) => {
+        // Skip products without valid slugs
+        if (!product.slug) {
+          console.warn(`Product "${product.title}" (ID: ${product.id}) is missing a slug`);
+          return null;
+        }
+        
         if (product.images && product.images.length > 0 && typeof product.images[0] !== "string") {
           const priceRange = getPriceRange(product.variants, product.enableVariantPrices ?? false);
 

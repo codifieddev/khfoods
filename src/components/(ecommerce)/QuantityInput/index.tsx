@@ -24,13 +24,19 @@ export const QuantityInput = ({
 }) => {
   const handleIncreaseQuantity = () => {
     if (quantity < maxQuantity) {
-      updateQuantity(1);
+      updateQuantity(1+quantity);
     }
   };
 
   const handleDecreaseQuantity = () => {
     if (quantity > minQuantity) {
-      updateQuantity(-1);
+      const minQuantity=quantity-1;
+      if(minQuantity<0){
+ updateQuantity(0);
+      }else{
+         updateQuantity(minQuantity);
+      }
+     
     }
   };
 

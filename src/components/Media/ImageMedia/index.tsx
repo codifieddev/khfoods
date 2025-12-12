@@ -41,7 +41,7 @@ export const ImageMedia = (props: MediaProps) => {
     // Use relative URL - Next.js will handle it properly
     src = url ?? "";
   }
-  console.log("srcvvvvvvv", src)
+  
   const loading = loadingFromProps ?? (!priority ? "lazy" : undefined);
 
   // NOTE: this is used by the browser to determine which image to download at different screen sizes
