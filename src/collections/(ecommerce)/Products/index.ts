@@ -11,6 +11,12 @@ import { generatePreviewPath } from "@/utilities/generatePreviewPath";
 
 export const Products: CollectionConfig = {
   slug: "products",
+  access: {
+    read: anyone,
+    create: authenticated,
+    update: authenticated,
+    delete: authenticated,
+  },
   labels: {
     singular: {
       en: "Product",
