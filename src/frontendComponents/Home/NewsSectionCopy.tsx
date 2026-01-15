@@ -90,56 +90,58 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react"; 
 
-// Swiper components
+// 🆕 Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+
+// 🆕 Swiper modules
 import { Pagination, Autoplay } from "swiper/modules";
 
-// Swiper styles
+// 🆕 Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
-// 🌟 Updated Data: Content from your Screenshots, Images from your Code
-const sliderData = [
+// 🌟 Updated Data - Based on your "Gift Box", "Wholesale", & "Story" images
+const featuredProjects = [
   {
     id: 1,
-    preTitle: "Hot Deal",
-    title: "GIFT BOX",
-    subTitle: "COMPLIMENTARY",
-    desc: "With ANY order of our 6 oz. products, you will receive FREE complimentary gift boxes!",
-    btnText: "SHOP NOW",
-    image: "/assets/Image/khfoodImage/Image-2.jpg", // Same image as before
-    link: "/shop",
+    title: "GIFT BOXES",
+    category: "Hot Deal",
+    image: "/assets/Image/khfoodImage/Image-2.jpg", // Replace with actual Gift Box image
+    slug: "/projects/gift-box",
   },
   {
     id: 2,
-    preTitle: "INTERESTED IN",
-    title: "WHOLESALE?",
-    subTitle: "",
-    desc: "Click the link below or WHOLESALE on our menu bar to checkout our amazing deals for wholesale!",
-    btnText: "SIGN UP",
-    image: "/assets/Image/khfoodImage/Image-2.jpg", // Same image as before
-    link: "/wholesale",
+    title: "WHOLESALE DEALS",
+    category: "Interested In",
+    image: "/assets/Image/khfoodImage/Image-2.jpg", // Replace with Peanuts Bulk image
+    slug: "/projects/wholesale",
   },
   {
     id: 3,
-    preTitle: "Available Now",
-    title: "INTERNATIONAL SHIPPING",
-    subTitle: "TO TAIWAN",
-    desc: "With ANY order of our 6 oz. products, you will receive FREE complimentary gift boxes!",
-    btnText: "SHOP NOW",
-    image: "/assets/Image/khfoodImage/Image-2.jpg", // Same image as before
-    link: "/shipping",
+    title: "GLOBAL SHIPPING",
+    category: "Available Now",
+    image: "/assets/Image/khfoodImage/Image-2.jpg", // Replace with Shipping/Taiwan image
+    slug: "/projects/shipping",
+  },
+  {
+    id: 4,
+    title: "OUR STORY",
+    category: "Since 1990",
+    image: "/assets/Image/khfoodImage/Image-2.jpg", // Replace with Story/Processing image
+    slug: "/projects/story",
   },
 ];
 
-// Animation Variants
+// --- Animation Variants (Code same as provided) ---
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.5 },
+    transition: {
+      duration: 0.5,
+    },
   },
 };
 
@@ -147,18 +149,36 @@ const cardVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
+// ----------------------------
 
 export default function OurProjects() {
   return (
     <section className="relative py-20 md:py-28 overflow-hidden bg-black">
-      
-      {/* === BACKGROUND PATTERNS === */}
-      <div className="absolute inset-0 z-0 bg-cover bg-center opacity-40"
-        style={{ backgroundImage: "radial-gradient(rgb(255 255 255 / 10%) 1px, #000000 1px)" }}
+
+      {/* === BACKGROUND IMAGE (Behind everything) === */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center opacity-40"
+        style={{
+          // Optional: Add a subtle peanut texture or keep generic dark pattern
+          backgroundImage:
+            "radial-gradient(rgb(255 255 255 / 10%) 1px, #000000 1px)",
+        }}
       ></div>
+
+      {/* === DARK OVERLAY === */}
       <div className="absolute inset-0 z-0 bg-black/60"></div>
 
-      {/* === CONTENT === */}
+      {/* === PATTERN OVERLAY === */}
+      <div
+        className="absolute inset-0 z-0 opacity-[0.1]"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px)",
+          backgroundSize: "6px 6px",
+        }}
+      ></div>
+
+      {/* === ALL CONTENT === */}
       <motion.div
         className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white"
         initial="hidden"
@@ -166,14 +186,16 @@ export default function OurProjects() {
         viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
       >
+        {/* Updated Title to match Peanut Theme */}
         <motion.h2
           className="text-3xl md:text-[48px] font-bold uppercase mb-10 tracking-wide text-center md:text-left"
           variants={cardVariants}
         >
-          Discover Our Offers
+          Discover Our World
         </motion.h2>
 
         <motion.div variants={cardVariants}>
+          {/* ⭐ SWIPER CODE — Unchanged Logic ⭐ */}
           <Swiper
             modules={[Pagination, Autoplay]}
             spaceBetween={30}
@@ -182,59 +204,49 @@ export default function OurProjects() {
               640: { slidesPerView: 2, spaceBetween: 20 },
               1024: { slidesPerView: 3, spaceBetween: 30 },
             }}
-            pagination={{ clickable: true, dynamicBullets: true }}
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
+            pagination={{
+              clickable: true,
+              el: ".custom-project-pagination", // Ensure you have styling for this or rely on default
+              dynamicBullets: true,
+            }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
             loop={true}
-            className="pb-16 !px-2"
+            className="pb-16 !px-2" // Added px-2 to prevent shadow clip
           >
-            {sliderData.map((item) => (
-              <SwiperSlide key={item.id}>
-                <div className="relative overflow-hidden group rounded-2xl h-[500px] border border-white/10">
-                  
-                  {/* Background Image */}
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+            {featuredProjects.map((project) => (
+              <SwiperSlide key={project.id}>
+                <div className="relative overflow-hidden group rounded-2xl cursor-pointer">
 
-                  {/* Dark Overlay for Text Readability */}
-                  <div className="absolute inset-0 bg-black/60 group-hover:bg-black/70 transition-colors duration-300" />
+                  <a href={project.slug} className="block relative">
+                    {/* Image */}
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-[400px] md:h-[500px] object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
 
-                  {/* Text Content Overlay (Matching your Screenshots) */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 z-10">
-                    
-                    {/* Pre-Title (e.g., Hot Deal) */}
-                    <span className="text-[#EAB159] text-sm font-bold tracking-widest uppercase mb-3">
-                      {item.preTitle}
-                    </span>
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
 
-                    {/* Main Title (e.g., GIFT BOX) */}
-                    <h3 className="text-3xl font-extrabold text-white uppercase leading-tight mb-2">
-                      {item.title}
-                    </h3>
+                    {/* Content Positioned at Bottom */}
+                    <div className="absolute bottom-0 left-0 w-full p-8">
+                      
+                      {/* Sub-Category (Added to match your image style like 'Hot Deal') */}
+                      <span className="inline-block px-3 py-1 mb-3 text-[10px] font-bold tracking-widest uppercase bg-[#EAB159] text-black rounded-full">
+                        {project.category}
+                      </span>
 
-                    {/* Sub-Title (e.g., COMPLIMENTARY) */}
-                    {item.subTitle && (
-                      <h4 className="text-white/90 text-lg font-light uppercase tracking-widest mb-4">
-                        {item.subTitle}
-                      </h4>
-                    )}
+                      <h3 className="text-2xl font-bold text-white uppercase tracking-wider mb-2">
+                        {project.title}
+                      </h3>
 
-                    {/* Divider */}
-                    <div className="w-12 h-[2px] bg-[#EAB159] my-4"></div>
+                      <div className="flex items-center text-[#EAB159] mt-4 opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                        <span className="text-sm font-bold tracking-widest uppercase">Explore</span>
+                        <ArrowRight className="w-5 h-5 ml-2" />
+                      </div>
+                    </div>
+                  </a>
 
-                    {/* Description */}
-                    <p className="text-gray-300 text-sm leading-relaxed mb-8 max-w-[280px]">
-                      {item.desc}
-                    </p>
-
-                    {/* Button */}
-                    <button className="bg-[#EAB159] text-black text-xs font-bold py-3 px-8 rounded-full uppercase tracking-widest hover:bg-white transition-colors duration-300">
-                      {item.btnText}
-                    </button>
-
-                  </div>
                 </div>
               </SwiperSlide>
             ))}

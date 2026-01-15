@@ -233,11 +233,13 @@ export default function Header() {
             <Image
               src={isMegaOpen ? LOGO_BLACK : LOGO_COLOURED}
               alt="KH FOOD"
-              width={190}
-              height={46}
+              // UPDATED: Reduced width and height here
+              width={150} 
+              height={36}
               priority
-              sizes="(min-width: 1024px) 190px, 150px"
-              className="h-auto w-[150px] lg:w-[190px] object-contain"
+              sizes="(min-width: 1024px) 150px, 120px"
+              // UPDATED: Changed w-[150px] to w-[120px] and lg:w-[190px] to lg:w-[150px]
+              className="h-auto w-[120px] lg:w-[150px] object-contain"
             />
           </Link>
 
@@ -534,10 +536,12 @@ function MobileMenu({
           <Image
             src={LOGO_BLACK}
             alt="Goodyear Bicycle Tires"
-            width={170}
-            height={44}
+            // UPDATED: Reduced Mobile Menu logo size
+            width={140}
+            height={36}
             priority
-            className="h-auto w-[160px] object-contain"
+            // UPDATED: Changed w-[160px] to w-[130px]
+            className="h-auto w-[130px] object-contain"
           />
         </div>
 
@@ -547,18 +551,18 @@ function MobileMenu({
 
       {/* --- MOBILE LANGUAGE SWITCHER --- */}
       <div className="px-5 py-3 border-b border-neutral-200/80 bg-gray-50 flex gap-2">
-         <button 
+          <button 
             onClick={() => onLanguageChange('en')}
             className={`flex-1 py-1.5 text-sm rounded border ${locale === 'en' ? 'bg-black text-white border-black' : 'bg-white text-gray-600 border-gray-300'}`}
-         >
+          >
             English
-         </button>
-         <button 
+          </button>
+          <button 
             onClick={() => onLanguageChange('zh')}
             className={`flex-1 py-1.5 text-sm rounded border ${locale === 'zh' ? 'bg-black text-white border-black' : 'bg-white text-gray-600 border-gray-300'}`}
-         >
+          >
             繁體中文
-         </button>
+          </button>
       </div>
 
       {/* Content */}

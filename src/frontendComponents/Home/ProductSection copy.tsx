@@ -15,31 +15,31 @@ type Product = {
 const products: Product[] = [
   {
     id: 1,
-    name: "Roasted Peanuts: 8 Packs",
-    price: "$36.00",
-    // oldPrice: "$9.00",
-    img: "/assets/Image/khfoodImage/2Q6A4963.jpg",
+    name: "Handwoven Decorative Storage Basket",
+    price: "$8.00",
+    oldPrice: "$9.00",
+    img: "https://www.goodyearbike.com/wp-content/uploads/2021/03/Studio-Peak-Gravel1001.png",
     badge: "-11%",
   },
   {
     id: 2,
-    name: "Roasted Peanuts: 14 Packs",
-    price: "$55.00",
-    // oldPrice: "$23.00",
-    img: "https://khfood.com/wp-content/uploads/2019/11/2Q6A4971.jpg",
+    name: "Cozy Wooden Sofa with Decorative Cushions",
+    price: "$18.00",
+    oldPrice: "$23.00",
+    img: "https://www.goodyearbike.com/wp-content/uploads/2021/03/Studio-Peak-Gravel1001.png",
     badge: "-10%",
   },
   {
     id: 3,
-    name: "Roasted Peanuts: 21 Packs",
-    price: "$75.00",
-    img: "https://khfood.com/wp-content/uploads/2019/11/2Q6A4622-3-scaled.jpg",
+    name: "Mid-Century Wooden Chest of Drawers",
+    price: "$45.00",
+    img: "https://www.goodyearbike.com/wp-content/uploads/2021/03/Studio-Peak-Gravel1001.png",
   },
   {
     id: 4,
-    name: "Roasted Peanuts: 6 Bags",
-    price: "$65.00",
-    img: "https://khfood.com/wp-content/uploads/2019/10/6-bags.jpg",
+    name: "Minimalist Wooden Nightstand",
+    price: "$33.00",
+    img: "https://www.goodyearbike.com/wp-content/uploads/2021/03/Studio-Peak-Gravel1001.png",
   },
 ];
 
@@ -76,7 +76,7 @@ const ProductSection: React.FC = () => {
               </div>
 
               <button className="mt-8 self-start inline-flex items-center justify-center rounded-full bg-white text-black px-8 py-3 text-[13px] font-bold tracking-[0.16em] uppercase hover:bg-neutral-100 transition">
-                Shop now
+                Learn More
                 <span className="ml-2 text-lg">↗</span>
               </button>
             </div>
@@ -142,4 +142,3 @@ const ProductSection: React.FC = () => {
 };
 
 export default ProductSection;
-
