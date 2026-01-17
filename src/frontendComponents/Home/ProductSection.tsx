@@ -58,11 +58,15 @@ const ProductSection: React.FC = () => {
           
           {/* LEFT PROMO CARD */}
           <div className="w-full lg:w-[42%] flex-shrink-0 relative overflow-hidden rounded-3xl bg-black text-white min-h-[500px] lg:min-h-0">
-            <img
-              src="/assets/Image/khfoodImage/Image-2.jpg"
-              alt="Promo"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+           <div className="absolute inset-0">
+              <img
+                src="/assets/Image/khfoodImage/Image-2.jpg"
+                alt="Promo"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/40" /> {/* change 40 -> 20/50 */}
+            </div>
+
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
 
             <div className="relative flex flex-col justify-between h-full p-8 md:p-10">
@@ -71,7 +75,7 @@ const ProductSection: React.FC = () => {
                   Coffee Table Set
                 </p>
                 <h2 className="text-3xl md:text-4xl font-semibold leading-tight max-w-sm">
-                  The Perfect Pairing <br /> For Relaxed Moments
+                  The Perfect Pairing<br /> For Relaxed Moments
                 </h2>
               </div>
 

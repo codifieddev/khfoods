@@ -35,7 +35,7 @@ const HomePage = async () => {
       <ProductSection />
       <ProductSectionCopy>
       </ProductSectionCopy>
-      <NewsSection />
+      {/* <NewsSection /> */}
       
       <NewsSectionCopy />
       <TestimonialsSection />

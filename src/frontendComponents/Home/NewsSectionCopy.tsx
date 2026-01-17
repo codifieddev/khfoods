@@ -108,28 +108,28 @@ const featuredProjects = [
     id: 1,
     title: "GIFT BOXES",
     category: "Hot Deal",
-    image: "/assets/Image/khfoodImage/Image-2.jpg", // Replace with actual Gift Box image
+    image: "https://khfood.com/wp-content/uploads/2019/12/Box-image.jpg", // Replace with actual Gift Box image
     slug: "/projects/gift-box",
   },
   {
     id: 2,
     title: "WHOLESALE DEALS",
     category: "Interested In",
-    image: "/assets/Image/khfoodImage/Image-2.jpg", // Replace with Peanuts Bulk image
+    image: "https://khfood.com/wp-content/uploads/2019/12/Image-3.jpg", // Replace with Peanuts Bulk image
     slug: "/projects/wholesale",
   },
   {
     id: 3,
     title: "GLOBAL SHIPPING",
     category: "Available Now",
-    image: "/assets/Image/khfoodImage/Image-2.jpg", // Replace with Shipping/Taiwan image
+    image: "https://khfood.com/wp-content/uploads/2019/12/Image-1.jpg", // Replace with Shipping/Taiwan image
     slug: "/projects/shipping",
   },
   {
     id: 4,
     title: "OUR STORY",
     category: "Since 1990",
-    image: "/assets/Image/khfoodImage/Image-2.jpg", // Replace with Story/Processing image
+    image: "https://khfood.com/wp-content/uploads/2019/11/Screen-Shot-2019-07-16-at-1.11.14-PM@1X.png", // Replace with Story/Processing image
     slug: "/projects/story",
   },
 ];

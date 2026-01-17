@@ -263,24 +263,25 @@ export default function Header() {
     
       <header className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${headerClass}`}>
 
-        <div className="w-full border-b bg-white">
+        <div className="w-full border-b bg-[#eaba88]">
       {/* height like screenshot */}
       <div className="mx-auto flex h-10 w-full max-w-7xl items-center justify-between px-4">
         {/* LEFT / CENTER text */}
-        <div className="flex-1 text-start text-sm text-muted-foreground">
-          Welcome to SmartTech center!
+        <div className="flex-1 text-start text-sm text-[#323131] font-medium ">
+          Welcome to Khfoods!
         </div>
 
         {/* RIGHT LINKS */}
-        <div className="hidden flex-1 items-center justify-end gap-3 text-sm text-muted-foreground md:flex">
+        <div className="hidden flex-1 items-center justify-end gap-3 text-sm text-[#323131] md:flex">
           {/* <Link href="#" className="hover:text-foreground">
             Login/Register
           </Link> */}
 
           <Separator  className="h-4" />
 
-          <Link href="#" className="hover:text-foreground">
-            Store Location
+          <Link href="store-locator" className="hover:text-foreground text-[#323131] font-medium hover:text-white">
+            Store locator
+            
           </Link>
 
           <Separator  className="h-4" />
@@ -289,7 +290,7 @@ export default function Header() {
 
           <Separator  className="h-4" />
 
-          <Link href="#" className="hover:text-foreground">
+          <Link href="#" className="hover:text-foreground text-[#323131] font-medium hover:text-white">
              Wholesale
           </Link>
 
@@ -300,8 +301,8 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => setLangOpen(!langOpen)}
-                className={`flex items-center gap-1 text-sm font-normal  tracking-wide transition-colors ${
-                    isMegaOpen ? "text-black hover:text-black/70" : "text-muted-foreground hover:text-[#FFD100]"
+                className={`flex items-center gap-1 text-sm font-medium  tracking-wide  transition-colors ${
+                    isMegaOpen ? "text-black hover:text-black/70" : "text-[#323131] hover:text-[#fff]"
                 }`}
               >
                 <IoLanguageSharp size={20} />
@@ -347,16 +348,16 @@ export default function Header() {
 
           {/* Social icons */}
           <div className="flex items-center gap-3">
-            <Link href="#" className="hover:text-foreground" aria-label="Facebook">
-              <Facebook className="h-4 w-4" />
+            <Link href="#" className="hover:text-[#fff]" aria-label="Facebook">
+              <Facebook className="h-4 w-4 hover:text-[#fff]" />
             </Link>
-            <Link href="#" className="hover:text-foreground" aria-label="Twitter">
+            <Link href="#" className="hover:text-[#fff]" aria-label="Twitter">
               <Twitter className="h-4 w-4" />
             </Link>
-            <Link href="#" className="hover:text-foreground" aria-label="LinkedIn">
+            <Link href="#" className="hover:text-[#fff]" aria-label="LinkedIn">
               <Linkedin className="h-4 w-4" />
             </Link>
-            <Link href="#" className="hover:text-foreground" aria-label="Website">
+            <Link href="#" className="hover:text-[#fff]" aria-label="Website">
               <Globe className="h-4 w-4" />
             </Link>
           </div>
@@ -365,7 +366,7 @@ export default function Header() {
         {/* MOBILE right dropdown */}
         <div className="flex flex-1 justify-end md:hidden">
           <DropdownMenu>
-            <DropdownMenuTrigger className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+            <DropdownMenuTrigger className="inline-flex items-center gap-1 text-sm text-[#323131] hover:text-foreground">
               Menu <ChevronDown className="h-4 w-4 opacity-70" />
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
@@ -397,7 +398,7 @@ export default function Header() {
               src={isMegaOpen ? LOGO_BLACK : LOGO_COLOURED}
               alt="KH FOOD"
               // UPDATED: Reduced width and height here
-              width={150} 
+              width={120} 
               height={36}
               priority
               sizes="(min-width: 1024px) 150px, 120px"
@@ -543,7 +544,7 @@ export default function Header() {
           {activeConfig && (
             <>
               <div
-                className="fixed inset-0 top-20 bg-black/40 backdrop-blur-[2px]"
+                className="fixed inset-0 top-20 "
                 onClick={() => setOpenMega(null)}
               />
               <div className="relative z-10 bg-white">

@@ -10,12 +10,12 @@ export default function NewsSection() {
           <p className="text-xs tracking-[0.18em] uppercase text-gray-500">
             News & Insights
           </p>
-          <h2 className="text-2xl sm:text-[36px] md:text-[48px] uppercase font-regular mt-1 leading-tight">
+          <h2 className="text-2xl sm:text-[36px] md:text-[42px] uppercase font-semibold mt-1 leading-tight">
             Discover The World Of Premium Peanuts.
           </h2>
         </div>
 
-        <button className="flex items-center gap-2 text-sm font-medium uppercase hover:opacity-80 transition self-start sm:self-auto">
+        <button className="flex bg-[#eaba88] py-2 px-4 items-center gap-2 text-sm font-semibold uppercase hover:opacity-80 transition self-start sm:self-auto">
           VIEW ALL <span>→</span>
         </button>
       </div>
@@ -27,13 +27,9 @@ export default function NewsSection() {
           <div className="relative overflow-hidden rounded-2xl shadow-sm">
             <img
               // Replace with your actual large peanut image path
-              src="/assets/Image/khfoodImage/Image-2.jpg" 
+              src="https://khfood.com/wp-content/uploads/2019/10/About-Us-Photo-1.png" 
               alt="Peanut Roasting Process"
-              className="
-                w-full
-                h-[260px] sm:h-[360px] md:h-[420px] lg:h-[480px]
-                object-cover
-                rounded-2xl
+              className="w-full h-[260px] sm:h-[360px] md:h-[420px] lg:h-[480px] object-cover rounded-2xl
               "
             />
 
@@ -60,19 +56,19 @@ export default function NewsSection() {
           {[
             {
               // Replace with small peanut/health image
-              img: "/assets/Image/khfoodImage/Image-2.jpg",
+              img: "https://khfood.com/wp-content/uploads/2016/08/khfood_blog2_1-1.jpg",
               title: "The Surprising Health Benefits of Peanuts",
               desc: "Rich in protein and heart-healthy fats, discover why adding premium roasted peanuts to your daily diet is a smart choice for your lifestyle...",
             },
             {
                // Replace with wholesale/business image
-              img: "/assets/Image/khfoodImage/Image-2.jpg",
+              img: "https://khfood.com/wp-content/uploads/2016/08/peanuts_blog_4-1.jpg",
               title: "KH Food Expands Wholesale Distribution Network",
               desc: "We are proud to announce new partnerships that bring our premium roasted peanuts to more retailers and businesses across the country...",
             },
             {
-               // Replace with gift box image
-              img: "/assets/Image/khfoodImage/Image-2.jpg",
+           
+              img: "https://khfood.com/wp-content/uploads/2019/12/Image-1.jpg",
               title: "Perfect Gifting: Why Our Gift Boxes Are Best Sellers",
               desc: "From corporate events to family gatherings, find out why our complimentary peanut gift boxes are the perfect way to share the joy...",
             },
@@ -85,7 +81,7 @@ export default function NewsSection() {
                 src={item.img}
                 alt="Blog"
                 className="
-                  w-full sm:w-44 md:w-52
+                  w-full sm:w-44 md:w-[445px]
                   h-[180px] sm:h-28 md:h-32
                   object-cover
                   rounded-xl

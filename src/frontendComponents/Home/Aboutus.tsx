@@ -40,12 +40,12 @@ export default function AboutSection() {
               variants={itemVariants}
               className="bg-[#F5F5F7] rounded-[2rem] p-8 md:p-12 flex flex-col justify-center h-full min-h-[300px]"
             >
-              <span className="uppercase tracking-widest text-xs font-bold text-gray-500 mb-3">
+              <span className="uppercase tracking-widest text-xs font-bold text-[#ecb984] mb-3">
                 Since 1990
               </span>
               
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4">
-                {t("title")} <span className="text-gray-500">{t("title-highlight")}</span>
+                {t("title")} <span className="text-[#ecb984]">{t("title-highlight")}</span>
               </h2>
 
               <div className="space-y-4 text-gray-700 text-base sm:text-lg mb-6 max-w-md">
@@ -65,7 +65,7 @@ export default function AboutSection() {
               <motion.div variants={itemVariants} className="relative w-full h-full overflow-hidden rounded-[2rem]">
                  {/* Replace this src with a secondary image */}
                 <img
-                  src="/assets/Image/khfoodImage/peanuts_newproduct_left_sec.jpg" 
+                  src="https://khfood.com/wp-content/uploads/2020/11/About-Us-Photo-1-2.png" 
                   alt="Detail Shot 1"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
@@ -88,7 +88,7 @@ export default function AboutSection() {
             className="h-[500px] lg:h-auto w-full relative overflow-hidden rounded-[2rem]"
           >
             <img
-              src="/assets/Image/khfoodImage/peanuts_newproduct_left_sec.jpg" // Main vertical image
+              src="https://khfood.com/wp-content/uploads/2019/12/Image-1.jpg" // Main vertical image
               alt="Main Feature"
               className="w-full h-full object-cover"
             />

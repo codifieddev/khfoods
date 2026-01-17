@@ -218,8 +218,8 @@ const TestimonialsSection = () => {
             <p className="text-[11px] tracking-[0.18em] uppercase text-gray-400 mb-2">
               5.00 from 1230+ reviews
             </p>
-            <h2 className="text-3xl md:text-[48px] font-regular uppercase text-[#111111]">
-              What Customers Say
+            <h2 className="text-3xl md:text-[48px] font-semibold uppercase text-[#111111]">
+              What Customers Say 
             </h2>
           </div>
 
