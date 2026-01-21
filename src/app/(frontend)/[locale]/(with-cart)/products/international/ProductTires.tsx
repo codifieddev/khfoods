@@ -111,7 +111,7 @@ function FoodCard({ p }: { p: Product }) {
           className="absolute right-4 top-1/2 -translate-y-1/2 z-20
           flex flex-col gap-3
           opacity-0 translate-x-4
-          transition-all duration-300
+          transition-all duration-300 
           group-hover:opacity-100 group-hover:translate-x-0"
           onClick={(e) => e.preventDefault()}
         >

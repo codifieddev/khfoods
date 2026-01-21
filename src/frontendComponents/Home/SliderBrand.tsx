@@ -52,7 +52,7 @@ const SliderBrand = () => {
     },
   ];
   return (
-    <div className="bg-white py-20">
+    <div className="bg-white md:py-20 py-8">
       <div className="container-xl mx-auto">
         {/* ---------- Top Features ---------- */}
 
@@ -62,7 +62,7 @@ const SliderBrand = () => {
             slidesPerView={5}
             spaceBetween={20}
             loop={true}
-            navigation={true}
+            // navigation={true}
             modules={[Navigation]}
             breakpoints={{
               320: { slidesPerView: 3 },

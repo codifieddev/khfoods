@@ -34,7 +34,7 @@ export default function NewsSection() {
             />
 
             {/* Category badge */}
-            <span className="absolute bottom-24 sm:bottom-28 left-4 sm:left-6 bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium shadow uppercase">
+            <span className="absolute bottom-28 sm:bottom-28 left-4 sm:left-6 bg-white text-gray-700 px-3 py-1 rounded-full text-xs font-medium shadow uppercase">
               Processing
             </span>
 

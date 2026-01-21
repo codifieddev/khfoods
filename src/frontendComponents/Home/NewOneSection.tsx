@@ -46,12 +46,12 @@ export default function NewsLatter() {
         <Swiper
           modules={[Pagination, Autoplay]}
           autoplay={{ delay: 4000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
+          // pagination={{ clickable: true }}
           className="newsletter-swiper"
         >
           {slides.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="max-w-xl">
+              <div className="max-w-xl md:py-0 py-10">
                 <h1 className="text-2xl sm:text-3xl md:text-[48px] font-regular leading-tight mb-5 uppercase">
                   {item.title}
                 </h1>
