@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import ProductTires from "./ProductTires";
 import Modelmap from "@/frontendComponents/Home/Modelmap";
+// Ensure this path matches your folder structure
+import SliderBrand from "@/frontendComponents/Home/SliderBrand"; 
+import Internationallogo from "@/frontendComponents/Home/Internationallogo";
 
 /* -------------------------------------------------------------------------- */
 /* TYPES */
@@ -27,32 +30,52 @@ type FAQItem = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* CONSTANTS */
+/* CONSTANTS (FAQ DATA) */
 /* -------------------------------------------------------------------------- */
 
-const VECTOR_BG =
-  "https://www.goodyearbike.com/wp-content/uploads/2025/01/WangerBazin2025TeamCamp-1011.jpg";
+// const DOMESTIC_FAQS: FAQItem[] = [
+//   {
+//     question: "How long does domestic shipping take?",
+//     answer: "For domestic orders, we usually deliver within 3-5 business days. We ship out your product on the same day if ordered before 12 PM.",
+//   },
+//   {
+//     question: "Is shipping free within the country?",
+//     answer: "Yes! We offer FREE shipping on all domestic orders above a minimum value. For smaller orders, a standard shipping fee applies.",
+//   },
+//   {
+//     question: "Do you offer Cash on Delivery (COD)?",
+//     answer: "Yes, COD is available for select pin codes. You can check availability at checkout by entering your zip code.",
+//   },
+//   {
+//     question: "How do you ensure product freshness?",
+//     answer: "Our products are packed directly from the factory line using premium nitrogen-flushed packaging to ensure they stay crispy and fresh for up to 6 months.",
+//   },
+//   {
+//     question: "Can I return the products if I don't like them?",
+//     answer: "Due to the perishable nature of food products, we do not accept returns. However, if you receive a damaged package, please contact us within 24 hours for a replacement.",
+//   },
+// ];
 
-const FAQS: FAQItem[] = [
+const INTERNATIONAL_FAQS: FAQItem[] = [
   {
     question: "Do you ship KH Food products internationally?",
-    answer:
-      "Yes, we ship our premium namkeen and peanuts globally. We handle all export documentation to ensure smooth customs clearance.",
+    answer: "Yes, we ship our premium namkeen and peanuts globally. We handle all export documentation to ensure smooth customs clearance.",
   },
   {
-    question: "How is the freshness maintained for export?",
-    answer:
-      "We use nitrogen-flushed, 3-layer packaging to ensure freshness for up to 12 months.",
+    question: "What is the Minimum Order Quantity (MOQ) for exports?",
+    answer: "For air cargo, the MOQ is 100kg. For sea freight (LCL/FCL), the minimum order starts from 1 pallet. Contact our export team for bulk rates.",
   },
   {
-    question: "Is there a minimum order quantity (MOQ) for exports?",
-    answer:
-      "MOQ is 100kg for air cargo and 1 pallet for sea freight (LCL).",
+    question: "How is freshness maintained for long-distance shipping?",
+    answer: "We use industrial-grade 3-layer nitrogen-flushed packaging that guarantees freshness for up to 12 months, even during long transit times.",
   },
   {
-    question: "Are your products FSSAI and FDA compliant?",
-    answer:
-      "Yes, our products are manufactured in FSSAI-certified facilities and meet FDA standards.",
+    question: "Do you offer Private Labeling (White Labeling)?",
+    answer: "Yes, we offer private labeling services for international distributors. We can customize the packaging design and weight according to your market needs.",
+  },
+  {
+    question: "Who handles the customs duties for international orders?",
+    answer: "For standard international shipments, customs duties and taxes are the responsibility of the buyer as per their country's regulations. We provide all necessary certificates (FDA, FSSAI, Phytosanitary).",
   },
 ];
 
@@ -74,7 +97,7 @@ export default function InternationalPage() {
         }}
       >
         <div className="mx-auto min-h-[260px] max-w-7xl flex items-center justify-center">
-          <h1 className="text-4xl font-bold uppercase">International Products</h1>
+          <h1 className="text-4xl font-bold uppercase">International Products (TAIWAN)</h1>
         </div>
       </section>
 
@@ -82,9 +105,7 @@ export default function InternationalPage() {
       <ProductTires />
 
       {/* ========================== NUTRITION SECTION ========================== */}
-
-
-      <section className="py-24 flex justify-center">
+      {/* <section className="py-24 flex justify-center">
         <section className="nf" aria-label="Nutrition Facts">
           <header className="nf__left">
             <h2 className="nf__title">Nutrition Facts</h2>
@@ -166,13 +187,20 @@ export default function InternationalPage() {
             </div>
           </div>
         </section>
-      </section>
+      </section> */}
 
       {/* ========================== MODEL MAP ========================== */}
       <Modelmap />
 
+      {/* ========================== SLIDER BRAND ========================== */}
+      {/* <SliderBrand /> */}
+
       {/* ========================== FAQ ========================== */}
       <FAQSection />
+
+      <Internationallogo />
+
+      <SliderBrand />
 
       {/* ========================== STYLES ========================== */}
       <style jsx global>{`
@@ -222,9 +250,30 @@ function FAQSection() {
   return (
     <section className="py-24 bg-neutral-50">
       <div className="max-w-3xl mx-auto px-6">
-        {FAQS.map((faq, i) => (
-          <Accordion key={i} {...faq} />
-        ))}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+          {/* <p className="text-neutral-600">Everything you need to know about our products and shipping.</p> */}
+        </div>
+
+        {/* --- Domestic Section --- */}
+        <div className="mb-12">
+          {/* <h3 className="text-xl font-bold text-orange-600 mb-6 flex items-center gap-2">
+             🏠 Domestic Queries
+          </h3> */}
+          {/* {DOMESTIC_FAQS.map((faq, i) => (
+            <Accordion key={`dom-${i}`} {...faq} />
+          ))} */}
+        </div>
+
+        {/* --- International Section --- */}
+        <div>
+          {/* <h3 className="text-xl font-bold text-blue-600 mb-6 flex items-center gap-2">
+             🌍 International & Export Queries
+          </h3> */}
+          {INTERNATIONAL_FAQS.map((faq, i) => (
+            <Accordion key={`int-${i}`} {...faq} />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -234,15 +283,21 @@ function Accordion({ question, answer }: FAQItem) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border rounded-xl bg-white mb-4">
+    <div className="border rounded-xl bg-white mb-4 shadow-sm overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex justify-between p-5"
+        className="w-full flex justify-between items-center p-5 text-left hover:bg-neutral-50 transition-colors"
       >
-        <span>{question}</span>
-        {open ? <FaMinus /> : <FaPlus />}
+        <span className="font-medium text-lg">{question}</span>
+        <div className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}>
+           {open ? <FaMinus className="text-orange-500" /> : <FaPlus className="text-neutral-400" />}
+        </div>
       </button>
-      {open && <p className="p-5 pt-0 text-sm">{answer}</p>}
+      <div 
+        className={`transition-all duration-300 ease-in-out ${open ? "max-h-48 opacity-100" : "max-h-0 opacity-0"}`}
+      >
+        <p className="p-5 pt-0 text-neutral-600 leading-relaxed">{answer}</p>
+      </div>
     </div>
   );
 }

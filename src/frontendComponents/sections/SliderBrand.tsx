@@ -59,7 +59,7 @@ const SliderBrand = () => {
     <div className="bg-white py-24">
     <div className="container mx-auto">
         {/* ---------- Top Features ---------- */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-12" >
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 mb-12" >
           {features.map((item, i) => (
             <div
               key={i}

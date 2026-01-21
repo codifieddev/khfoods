@@ -750,149 +750,79 @@ function SlimAccordion({ title, children }: SlimAccordionProps) {
         </div>
       </section> */}
 
-      <section className="grid lg:grid-cols-[1.05fr_1.1fr] gap-6 lg:gap-10 items-stretch">
-          {/* text block */}
-          <div className="bg-white border border-neutral-200 rounded-[26px] shadow-sm px-6 md:px-10 py-8 md:py-10">
-            <div className="max-w-xl space-y-6 text-[16px] leading-relaxed text-neutral-800">
-              <div className="space-y-3">
-                <h2 className="text-[24px] font-semibold uppercase text-black">
-                  Description
-                </h2>
-                <div>
-                  <h4 className="text-lg font-medium">14 Packs, 6 oz each </h4>
-                   <ul className="list-disc pl-6 ">
-                     <li>Plastic container/lid with a sealed film to ensure freshness.</li>
-                     <li>Non-GMO Verified</li>
-                     <li>All Natural Ingredients: Salt and Peanuts</li>
-                     <li>Made in USA</li>
-                  </ul>
-                  </div>
-              </div>
+     <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
+  
+  {/* LEFT CONTENT */}
+  <div className="bg-white border border-neutral-200 rounded-[26px] shadow-sm px-6 md:px-8 py-6 md:py-8">
+    <div className="space-y-5 text-[15px] leading-relaxed text-neutral-800">
 
-              {/* <div className="pt-4 border-t border-neutral-200 space-y-4">
-                <h3 className="text-[20px] md:text-[28px] font-medium uppercase text-black">
-                  For Peak Performance
-                </h3>
-                <p>
-                  A round profile, closely–spaced tread, and supple casing
-                  contribute to Peak&apos;s low rolling resistance, while ample
-                  traction and braking performance are delivered thanks to
-                  siping on every knob and its multi–dimensional Dynamic:A/T
-                  compound.
-                </p>
-                <p>Optimized for hard hitting gravel terrain.</p>
-              </div> */}
-            </div>
-          </div>
+      <h2 className="text-[22px] font-semibold uppercase text-black">
+        Description
+      </h2>
 
-          {/* lifestyle image */}
-          {/* <div className="rounded-[26px] overflow-hidden border border-neutral-200 shadow-sm bg-[#020617]">
-            <img
-              src="https://khfood.com/wp-content/uploads/2019/12/Image-1.jpg"
-              alt="Gravel bike with Peak tyres"
-              className="w-full h-full object-cover"
-            />
-          </div> */}
-
-        <section className="nf" aria-label="Nutrition Facts">
-  <header className="nf__left">
-    <h2 className="nf__title">Nutrition Facts a</h2>
-
-    <div className="nf__meta">
-      <div>Serving Size <strong>1 oz (28g)</strong></div>
-      <div>Servings Per Container <strong>6</strong></div>
-    </div>
-
-    <div className="nf__divider nf__divider--thick" aria-hidden="true"></div>
-
-    <div className="nf__calories">
-      <div className="nf__caloriesTop">
-        <span className="nf__caloriesLabel">Calories</span>
-        <span className="nf__caloriesValue">170</span>
-      </div>
-      <div className="nf__caloriesSub">Calories from Fat 110</div>
-    </div>
-
-    <div className="nf__divider" aria-hidden="true"></div>
-
-    <p className="nf__footnote">
-      *Percent Daily Value (DV) are based on a 2,000 calorie diet.
-    </p>
-  </header>
-
-  <div className="nf__right">
-    <div className="nf__cols" role="group" aria-label="Nutrients">
-      
-      <div className="nf__col" role="table" aria-label="Left nutrient column">
-        <div className="nf__colHead" role="row">
-          <span>Amount Per Serving</span>
-          <span className="nf__dvHead">%DV*</span>
-        </div>
-
-        <div className="nf__row nf__row--major" role="row">
-          <span>Total Fat <span className="nf__amt">13g</span></span>
-          <span className="nf__dv">21%</span>
-        </div>
-        <div className="nf__row nf__row--sub" role="row">
-          <span>Saturated Fat <span className="nf__amt">2g</span></span>
-          <span className="nf__dv">9%</span>
-        </div>
-        <div className="nf__row nf__row--sub" role="row">
-          <span>Trans Fat <span className="nf__amt">0g</span></span>
-          <span className="nf__dv">&nbsp;</span>
-        </div>
-
-        <div className="nf__row nf__row--major" role="row">
-          <span>Cholest. <span className="nf__amt">0mg</span></span>
-          <span className="nf__dv">0%</span>
-        </div>
-        <div className="nf__row nf__row--major" role="row">
-          <span>Sodium <span className="nf__amt">120mg</span></span>
-          <span className="nf__dv">5%</span>
-        </div>
+      <div>
+        <h4 className="text-base font-medium">14 Packs, 6 oz each</h4>
+        <ul className="list-disc pl-5 text-sm">
+          <li>Plastic container/lid with a sealed film to ensure freshness.</li>
+          <li>Non-GMO Verified</li>
+          <li>All Natural Ingredients: Salt and Peanuts</li>
+          <li>Made in USA</li>
+        </ul>
       </div>
 
       
-      <div className="nf__col" role="table" aria-label="Right nutrient column">
-        <div className="nf__colHead" role="row">
-          <span>Amount Per Serving</span>
-          <span className="nf__dvHead">%DV*</span>
-        </div>
+      {/* ================= Nutrition Facts ================= */}
+<section className="max-w-4xl mx-auto my-20 bg-white border border-gray-200 rounded-2xl p-6">
 
-        <div className="nf__row nf__row--major" role="row">
-          <span>Total Carb. <span className="nf__amt">6g</span></span>
-          <span className="nf__dv">2%</span>
-        </div>
-        <div className="nf__row nf__row--sub" role="row">
-          <span>Fiber <span className="nf__amt">3g</span></span>
-          <span className="nf__dv">11%</span>
-        </div>
-        <div className="nf__row nf__row--sub" role="row">
-          <span>Sugars <span className="nf__amt">1g</span></span>
-          <span className="nf__dv">&nbsp;</span>
-        </div>
+  <div className="nf">
+    <div className="nf-left">
+      <h3>Nutrition Facts</h3>
+      <p>Serving Size 1 oz (28g)</p>
+      <p>Servings Per Container 6</p>
 
-        <div className="nf__row nf__row--major" role="row">
-          <span>Protein <span className="nf__amt">7g</span></span>
-          <span className="nf__dv">&nbsp;</span>
-        </div>
+      <div className="thick-line"></div>
+
+      <div className="calories">
+        <span>Calories</span>
+        <span>170</span>
       </div>
+
+      <small>Calories from Fat 110</small>
     </div>
 
-    <div className="nf__divider nf__divider--thick" aria-hidden="true"></div>
+    <div className="nf-right">
+      <div className="row"><b>Total Fat</b> 13g <span>21%</span></div>
+      <div className="row sub">Saturated Fat 2g <span>9%</span></div>
+      <div className="row sub">Trans Fat 0g</div>
+      <div className="row"><b>Sodium</b> 120mg <span>5%</span></div>
+      <div className="row"><b>Total Carbs</b> 6g <span>2%</span></div>
+      <div className="row sub">Fiber 3g <span>11%</span></div>
+      <div className="row"><b>Protein</b> 7g</div>
 
-    <div className="nf__vitamins" aria-label="Vitamins and minerals">
-      <span>Vitamin A 4%</span>
-      <span className="nf__dot" aria-hidden="true">•</span>
-      <span>Vitamin C 0%</span>
-      <span className="nf__dot" aria-hidden="true">•</span>
-      <span>Calcium 0%</span>
-      <span className="nf__dot" aria-hidden="true">•</span>
-      <span>Iron 0%</span>
+      <div className="thick-line"></div>
+
+      <small>
+        Vitamin A 4% • Vitamin C 0% • Calcium 0% • Iron 0%
+      </small>
     </div>
   </div>
-        </section>
-         </section>
+
+</section>
+
+     
+    </div>
+  </div>
+
+ 
+  <div className="rounded-[26px] overflow-hidden border border-neutral-200 shadow-sm">
+    <img
+      src="https://khfood.com/wp-content/uploads/2019/12/Image-1.jpg"
+      alt="Peanuts"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</section>
+
 
      
       {openZoom && (

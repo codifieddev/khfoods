@@ -116,9 +116,9 @@ function FoodCard({ p }: { p: Product }) {
           onClick={(e) => e.preventDefault()}
         >
           {/* <IconBtn icon={<Heart size={18} />} /> */}
-          <IconBtn icon={<Eye size={18} />} />
+          {/* <IconBtn icon={<Eye size={18} />} /> */}
           {/* <IconBtn icon={<Shuffle size={18} />} /> */}
-          <IconBtn icon={<Check size={18} />} />
+          {/* <IconBtn icon={<Check size={18} />} /> */}
         </div>
 
         <div className="p-6">

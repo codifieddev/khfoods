@@ -11,10 +11,16 @@ import {
 import React from "react";
 import { MdLockOutline } from "react-icons/md";
 
+// ✅ FIXED: '/src' hata diya.
+// Make sure karein ki aapki file ka naam 'Newpart.tsx' hi ho folder mein.
+import Newpart from "./Newpart";
+
+
 /* ================= IMAGE ================= */
 const VECTOR_BG = "/assets/Image/khfoodImage/Image-4.jpg";
 
-const page = () => {
+// ✅ FIXED: Component name Capital 'P' se start kiya (Zaroori hai)
+const Page = () => {
   const features = [
     {
       icon: <Truck size={32} />,
@@ -86,46 +92,7 @@ const page = () => {
         </div>
       </section>
 
-      {/* ================= BRAND STORY ================= */}
-      <section className="py-14">
-        <div className="mx-auto max-w-6xl px-4 lg:grid lg:grid-cols-2 lg:items-center lg:gap-12">
-          <div>
-            <img
-              src="/assets/Image/khfoodImage/Image-4.jpg"
-              className="h-[400px] w-full rounded-2xl object-cover"
-              alt="KH Food"
-            />
-          </div>
-
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#b86823]">
-              About KH Food
-            </p>
-            <h2 className="mt-2 font-auto text-2xl font-semibold text-[#8b4f1a] md:text-3xl">
-              A Little Story About Us
-            </h2>
-            <div className="mt-4 space-y-3 text-sm text-slate-700 md:text-base">
-              <p>
-                K H Food began in Orange County, California in 1991, when a young
-                married couple who immigrated from Taiwan decided to build a
-                peanut brand dedicated to quality and care.
-              </p>
-              <p>
-                Their vision was to roast peanuts with only natural ingredients
-                and no preservatives, focusing on real flavor and everyday health
-                for families who love to snack.
-              </p>
-              <p>
-                Over the years that small idea became a steady promise: to
-                process and manufacture some of the best peanuts in the world
-                while staying true to careful sourcing and gentle roasting.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= VECTOR STORY (PLACED HERE) ================= */}
+      {/* ================= VECTOR STORY ================= */}
       <section className="relative py-16 md:py-24">
         <div className="absolute inset-0">
           <img
@@ -140,23 +107,29 @@ const page = () => {
           <div className="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-center">
             <div>
               <p className="text-xs tracking-[0.2em] uppercase text-neutral-500">
-                Global Performance
+                About KH Food
               </p>
 
               <h2 className="mt-4 text-4xl font-semibold tracking-tight">
-                Vector
+                A Little Story About Us
               </h2>
 
               <p className="mt-6 text-neutral-700 leading-relaxed">
-                Engineired for international road conditions, Vector tires
-                deliver dependable performance, durability, and confidence
-                worldwide.
+                K H Food began in Orange County, California in 1991, when a
+                young married couple who immigrated from Taiwan decided to build
+                a peanut brand dedicated to quality and care. Their vision was
+                to roast peanuts with only natural ingredients and no
+                preservatives, focusing on real flavor and everyday health for
+                families who love to snack. Over the years that small idea
+                became a steady promise: to process and manufacture some of the
+                best peanuts in the world while staying true to careful sourcing
+                and gentle roasting.
               </p>
             </div>
 
             <div className="relative h-[360px] rounded-[28px] overflow-hidden shadow-lg">
               <img
-                src={VECTOR_BG}
+                src="https://khfood.com/wp-content/uploads/2020/11/About-Us-Photo-1-2.png"
                 alt="Vector International"
                 className="object-cover w-full h-full"
               />
@@ -165,8 +138,10 @@ const page = () => {
         </div>
       </section>
 
+      <Newpart />
+
       {/* ================= TIMELINE ================= */}
-      <section className="bg-light-dark py-20">
+      {/* <section className="bg-light-dark py-20">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mx-auto max-w-xl text-center">
             <h2 className="font-auto text-3xl font-semibold text-[#8b4f1a] md:text-4xl">
@@ -198,7 +173,7 @@ const page = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ================= FEATURES ================= */}
       <section className="bg-white py-16">
@@ -214,9 +189,7 @@ const page = () => {
               <h3 className="text-xl font-semibold text-gray-800">
                 {item.title}
               </h3>
-              <p className="text-gray-500 mt-1 text-sm">
-                {item.subtitle}
-              </p>
+              <p className="text-gray-500 mt-1 text-sm">{item.subtitle}</p>
             </div>
           ))}
         </div>
@@ -225,4 +198,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

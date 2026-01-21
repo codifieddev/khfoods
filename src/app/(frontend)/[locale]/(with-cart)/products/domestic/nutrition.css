@@ -1,0 +1,224 @@
+
+ .nfchart {
+    --bg: #0b0f14;
+    --card: rgba(255, 255, 255, 0.06);
+    --card2: rgba(255, 255, 255, 0.08);
+    --stroke: rgba(255, 255, 255, 0.12);
+    --text: rgba(255, 255, 255, 0.92);
+    --muted: rgba(255, 255, 255, 0.62);
+
+    /* chart colors */
+    --fat: #ffb703;
+    --carb: #3a86ff;
+    --protein: #8ac926;
+
+    max-width: 1100px;
+    margin: 0;
+    padding: 22px;
+    border-radius: 18px;
+    background: radial-gradient(1200px 500px at 10% 10%, rgba(255,255,255,.08), transparent),
+                radial-gradient(1000px 400px at 90% 0%, rgba(255,255,255,.06), transparent),
+                var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    border: 1px solid var(--stroke);
+  }
+
+  .nfchart__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 16px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--stroke);
+    margin-bottom: 18px;
+  }
+
+  .nfchart__kicker {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nfchart__h {
+    margin: 4px 0 6px;
+    font-size: 28px;
+    line-height: 1.1;
+  }
+
+  .nfchart__meta { color: var(--muted); font-size: 14px; }
+  .nfchart__meta strong { color: var(--text); font-weight: 700; }
+
+  .nfchart__cal {
+    min-width: 180px;
+    text-align: right;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, var(--card2), var(--card));
+    border: 1px solid var(--stroke);
+  }
+
+  .nfchart__calLabel { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .12em; }
+  .nfchart__calValue { font-size: 40px; font-weight: 800; margin-top: 2px; }
+  .nfchart__calSub { font-size: 12px; color: var(--muted); }
+
+  .nfchart__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .nfchart__card {
+    border-radius: 18px;
+    background: linear-gradient(180deg, var(--card2), var(--card));
+    border: 1px solid var(--stroke);
+    padding: 16px;
+  }
+
+  .nfchart__cardHead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .nfchart__cardTitle { margin: 0; font-size: 16px; font-weight: 750; }
+  .nfchart__pill {
+    font-size: 12px;
+    color: var(--muted);
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--stroke);
+    background: rgba(0,0,0,.18);
+  }
+
+  /* Macro ring */
+  .nfchart__macro {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .nfchart__ring {
+    width: 180px;
+    height: 180px;
+    border-radius: 999px;
+    background:
+      conic-gradient(
+        var(--fat) 0 calc(var(--p-fat) * 1%),
+        var(--carb) 0 calc((var(--p-fat) + var(--p-carb)) * 1%),
+        var(--protein) 0 100%
+      );
+    position: relative;
+    box-shadow: 0 0 0 1px var(--stroke) inset;
+  }
+
+  .nfchart__ring::after {
+    content: "";
+    position: absolute;
+    inset: 22px;
+    border-radius: 999px;
+    background: rgba(10, 14, 20, 0.92);
+    box-shadow: 0 0 0 1px var(--stroke) inset;
+  }
+
+  .nfchart__ringCenter {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    z-index: 1;
+    text-align: center;
+  }
+  .nfchart__ringNum { font-size: 26px; font-weight: 850; }
+  .nfchart__ringTxt { font-size: 12px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+
+  .nfchart__legend { display: grid; gap: 10px; }
+  .nfchart__legRow {
+    display: grid;
+    grid-template-columns: 12px 70px 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+  .nfchart__swatch { width: 12px; height: 12px; border-radius: 4px; }
+  .nfchart__swatch--fat { background: var(--fat); }
+  .nfchart__swatch--carb { background: var(--carb); }
+  .nfchart__swatch--protein { background: var(--protein); }
+
+  .nfchart__legName { color: var(--text); font-weight: 700; }
+  .nfchart__legVal { color: var(--muted); font-size: 13px; }
+  .nfchart__legVal strong { color: var(--text); }
+
+  .nfchart__note { margin-top: 12px; color: var(--muted); font-size: 12px; }
+
+  /* DV Bars */
+  .nfchart__dv { display: grid; gap: 10px; }
+
+  .nfchart__dvRow {
+    display: grid;
+    grid-template-columns: 1fr 190px 46px;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .nfchart__dvLabel { font-weight: 650; }
+  .nfchart__muted { color: var(--muted); font-weight: 500; }
+
+  .nfchart__bar {
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .nfchart__fill {
+    display: block;
+    height: 100%;
+    width: calc(min(var(--w), 100) * 1%);
+    background: linear-gradient(90deg, rgba(255,255,255,.65), rgba(255,255,255,.22));
+  }
+
+  .nfchart__dvPct { text-align: right; color: var(--muted); }
+  .nfchart__dvPct strong { color: var(--text); }
+
+  .nfchart__dvRow--nodv .nfchart__dvLabel { color: rgba(255,255,255,0.78); }
+  .nfchart__dvRow--nodv .nfchart__fill { width: 0; opacity: 0.3; }
+
+  /* Micros chips */
+  .nfchart__micros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .nfchart__chip {
+    font-size: 12px;
+    color: rgba(255,255,255,0.82);
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--stroke);
+    background: rgba(0,0,0,.16);
+  }
+
+  .nfchart__foot {
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 880px) {
+    .nfchart__grid { grid-template-columns: 1fr; }
+    .nfchart__macro { grid-template-columns: 1fr; }
+    .nfchart__ring { margin: 0 auto; }
+    .nfchart__dvRow { grid-template-columns: 1fr; }
+    .nfchart__dvPct { text-align: left; }
+    .nfchart__cal { text-align: left; width: 100%; }
+    .nfchart__top { align-items: start; flex-direction: column; }
+  }

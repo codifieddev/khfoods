@@ -1,12 +1,16 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { PiMountainsFill } from "react-icons/pi";
-import { IoBusiness } from "react-icons/io5";
-import { FaMap, FaPlus, FaMinus } from "react-icons/fa"; // Added Icons
+import { FaPlus, FaMinus } from "react-icons/fa"; 
 import ProductTires from "./ProductTires";
 import Modelmap from "@/frontendComponents/Home/Modelmap";
-import SeriesSection from "@/frontendComponents/sections/SeriesSection";
+import SliderBrand from "@/frontendComponents/Home/SliderBrand";
+import Uslogo from "@/frontendComponents/Home/Uslogo";
+
+
+// -------------------------------------------------------------------------- 
+// TYPES
+// -------------------------------------------------------------------------- 
 
 type SeriesKey = "UHP" | "FS" | "HP" | "P";
 
@@ -25,71 +29,45 @@ type FAQItem = {
   answer: string;
 };
 
-/* -------------------------------------------------------------------------- */
-/* CONSTANTS                                    */
-/* -------------------------------------------------------------------------- */
+// -------------------------------------------------------------------------- 
+// CONSTANTS
+// -------------------------------------------------------------------------- 
 
 const TIRE_IMG =
   "https://goodyear.creativeconsult.co.in/wp-content/uploads/2025/11/Render-Cut-Vector-R-Z30SW-1024x1024.png";
 
-const VECTOR_BG =
-  "https://www.goodyearbike.com/wp-content/uploads/2025/01/WangerBazin2025TeamCamp-1011.jpg";
+// ======================= UPDATED FOOD FAQs ONLY ======================= 
 
-
-
-
-  
-/* ======================= UPDATED FOOD FAQs ONLY ======================= */
-
-const FAQS: FAQItem[] = [
+// ERROR FIXED HERE: Type changed from FAQS[] to FAQItem[]
+const DOMESTIC_FAQS: FAQItem[] = [
   {
-    question: "What are international food products?",
-    answer:
-      "International food products are food items that are sourced or inspired from global markets and meet international quality standards.",
+    question: "How long does domestic shipping take?",
+    answer: "For domestic orders, we usually deliver within 3-5 business days. We ship out your product on the same day if ordered before 12 PM.",
   },
   {
-    question: "Are international food products safe to consume?",
-    answer:
-      "Yes, all international food products go through quality checks and are safe for consumption when used before the expiry date.",
+    question: "Is shipping free within the country?",
+    answer: "Yes! We offer FREE shipping on all domestic orders above a minimum value. For smaller orders, a standard shipping fee applies.",
   },
   {
-    question: "Do international food products follow food safety standards?",
-    answer:
-      "Yes, these products follow international food safety and quality guidelines to ensure freshness and hygiene.",
+    question: "Do you offer Cash on Delivery (COD)?",
+    answer: "Yes, COD is available for select pin codes. You can check availability at checkout by entering your zip code.",
   },
   {
-    question: "How should international food products be stored?",
-    answer:
-      "Store the products in a cool, dry place. Always follow the storage instructions mentioned on the packaging.",
+    question: "How do you ensure product freshness?",
+    answer: "Our products are packed directly from the factory line using premium nitrogen-flushed packaging to ensure they stay crispy and fresh for up to 6 months.",
   },
   {
-    question: "Do international food products have expiry dates?",
-    answer:
-      "Yes, every international food product comes with a clearly mentioned expiry date on the package.",
-  },
-  {
-    question: "Can I order international food products online?",
-    answer:
-      "Yes, you can order international food products online through our website and get them delivered to your location.",
+    question: "Can I return the products if I don't like them?",
+    answer: "Due to the perishable nature of food products, we do not accept returns. However, if you receive a damaged package, please contact us within 24 hours for a replacement.",
   },
 ];
 
-
-/* -------------------------------------------------------------------------- */
-/* UTILITY FUNCTION                                */
-/* -------------------------------------------------------------------------- */
-
-function classNames(...c: (string | false | undefined)[]) {
-  return c.filter(Boolean).join(" ");
-}
-
-/* -------------------------------------------------------------------------- */
-/* MAIN COMPONENT                                 */
-/* -------------------------------------------------------------------------- */
+// -------------------------------------------------------------------------- 
+// MAIN COMPONENT
+// -------------------------------------------------------------------------- 
 
 export default function InternationalPage() {
-  const [openSeries, setOpenSeries] = useState<SeriesKey | null>("UHP");
-
+  
   // Products Data
   const products: Product[] = useMemo(
     () => [
@@ -190,109 +168,35 @@ export default function InternationalPage() {
         <div className="mx-auto flex min-h-[260px] max-w-7xl items-center justify-center px-5 py-14 sm:px-6 md:min-h-[320px] md:py-20">
           <div className="text-center">
             <h1 className="text-3xl font-bold uppercase tracking-tight text-black md:text-5xl">
-              Domestic Products
+              Domestic Products (US)
             </h1>
           </div>
         </div>
       </section>
 
+      {/* <Uslogo /> */}
+
       <ProductTires />
-{/* ==============================Nutrition Section================================== */}
- <section className="py-24 flex justify-center">
-        <section className="nf" aria-label="Nutrition Facts">
-          <header className="nf__left">
-            <h2 className="nf__title">Nutrition Facts</h2>
-
-            <div className="nf__meta">
-              <div>Serving Size <strong>1 oz (28g)</strong></div>
-              <div>Servings Per Container <strong>6</strong></div>
-            </div>
-
-            <div className="nf__divider nf__divider--thick" />
-
-            <div className="nf__calories">
-              <div className="nf__caloriesTop">
-                <span className="nf__caloriesLabel">Calories</span>
-                <span className="nf__caloriesValue">170</span>
-              </div>
-              <div className="nf__caloriesSub">Calories from Fat 110</div>
-            </div>
-
-            <div className="nf__divider" />
-
-            <p className="nf__footnote">
-              *Percent Daily Value (DV) are based on a 2,000 calorie diet.
-            </p>
-          </header>
-
-          <div className="nf__right">
-            <div className="nf__cols">
-              <div className="nf__col">
-                <div className="nf__colHead">
-                  <span>Amount Per Serving</span>
-                  <span className="nf__dvHead">%DV*</span>
-                </div>
-
-                <div className="nf__row nf__row--major">
-                  <span>Total Fat <span className="nf__amt">13g</span></span>
-                  <span className="nf__dv">21%</span>
-                </div>
-
-                <div className="nf__row nf__row--sub">
-                  <span>Saturated Fat <span className="nf__amt">2g</span></span>
-                  <span className="nf__dv">9%</span>
-                </div>
-
-                <div className="nf__row nf__row--major">
-                  <span>Sodium <span className="nf__amt">120mg</span></span>
-                  <span className="nf__dv">5%</span>
-                </div>
-              </div>
-
-              <div className="nf__col">
-                <div className="nf__colHead">
-                  <span>Amount Per Serving</span>
-                  <span className="nf__dvHead">%DV*</span>
-                </div>
-
-                <div className="nf__row nf__row--major">
-                  <span>Total Carb <span className="nf__amt">6g</span></span>
-                  <span className="nf__dv">2%</span>
-                </div>
-
-                <div className="nf__row nf__row--sub">
-                  <span>Fiber <span className="nf__amt">3g</span></span>
-                  <span className="nf__dv">11%</span>
-                </div>
-
-                <div className="nf__row nf__row--major">
-                  <span>Protein <span className="nf__amt">7g</span></span>
-                  <span className="nf__dv"></span>
-                </div>
-              </div>
-            </div>
-
-            <div className="nf__divider nf__divider--thick" />
-
-            <div className="nf__vitamins">
-              <span>Vitamin A 4%</span> • <span>Vitamin C 0%</span> •
-              <span>Calcium 0%</span> • <span>Iron 0%</span>
-            </div>
-          </div>
-        </section>
-      </section>
-
-
-
       
+      {/* ========================== ModelMap ========================== */}
       <Modelmap />
+      
+      {/* <SliderBrand/> */}
+{/* <Uslogo /> */}
+
+
+      {/* ========================== FAQ Section ========================== */}
       <FAQSection />
+
+       <Uslogo />
+
+       <SliderBrand/>
     </main>
   );
 }
 
 /* -------------------------------------------------------------------------- */
-/* FAQ COMPONENTS                                */
+/* FAQ COMPONENTS */
 /* -------------------------------------------------------------------------- */
 
 function FAQSection() {
@@ -306,7 +210,8 @@ function FAQSection() {
         </div>
 
         <div className="space-y-4">
-          {FAQS.map((faq, idx) => (
+          {/* ERROR FIXED HERE: Changed FAQS.map to DOMESTIC_FAQS.map */}
+          {DOMESTIC_FAQS.map((faq, idx) => (
             <Accordion key={idx} question={faq.question} answer={faq.answer} />
           ))}
         </div>
