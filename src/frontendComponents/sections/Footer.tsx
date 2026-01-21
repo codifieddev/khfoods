@@ -338,8 +338,8 @@ export function Footer() {
         {/* BRAND + SOCIAL NAV */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 border-b border-white/10 pb-8">
           {/* LOGO + TAGLINE */}
-          <div className="flex items-start gap-4">
-            <div className="flex h-11 w-[200px] items-center justify-center rounded-md ">
+          <div className="md:flex md:items-start gap-4">
+            <div className="flex h-11 w-[200px] items-center md:justify-center justify-start md:pb-0 mb-4 rounded-md ">
               {/* Replace with real logo image if you want */}
               <img src="/assets/Image/khfood_logo.png" alt="k H Food" className="object-contain h-full" />
             </div>

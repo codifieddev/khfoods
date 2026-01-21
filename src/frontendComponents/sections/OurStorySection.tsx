@@ -7,7 +7,7 @@ export default function OurStory() {
 
   return (
     <section className="w-full bg-[#f5f5f7] py-20 md:py-28">
-      <div className="container-xl  mx-auto md:px-6 text-center">
+      <div className="max-w-7xl px-6  mx-auto md:px-6 text-center">
         {/* Top Label */}
         <p className="text-[12px] tracking-[0.3em] uppercase text-gray-400 mb-4">
           Our Story
@@ -28,7 +28,7 @@ export default function OurStory() {
         </p>
 
         {/* Paragraph 2 (Always visible but lighter) */}
-        <p className="text-sm md:text-[16px] leading-relaxed text-gray-500 mb-6">
+        <p className="text-sm md:text-[16px] leading-relaxed text-gray-500 mb-3">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sagittis
           tincidunt mi at sagittis. Cras dui justo, tristique a posuere a,
           dapibus in quam. Quisque a quam euismod, interdum erat ut, commodo

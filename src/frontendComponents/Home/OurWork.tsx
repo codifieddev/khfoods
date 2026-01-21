@@ -41,7 +41,7 @@ export default function OurWork() {
         </div>
 
         {/* --- CONTENT GRID --- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-12 md:px-0 px-4">
           {services.map((service) => (
             <div key={service.id} className="flex flex-col items-start text-left">
               
