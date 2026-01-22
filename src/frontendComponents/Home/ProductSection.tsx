@@ -96,7 +96,7 @@ const ProductSection: React.FC = () => {
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     {/* readability overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent" />
                   </div>
 
                   {/* TOP LEFT QTY */}
@@ -111,12 +111,12 @@ const ProductSection: React.FC = () => {
 
                   {/* BOTTOM CONTENT ON IMAGE */}
                   <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6">
-                    <h3 className="text-[15px] font-bold text-[#ffffff] leading-snug mb-2 line-clamp-2">
+                    <h3 className="text-[21px] font-bold text-[#ffffff] leading-snug mb-2 line-clamp-2">
                       {product.name}
                     </h3>
 
                     <div className="mt-3 flex items-center gap-3">
-                      <span className="text-[16px] font-bold text-[#ffffff]">
+                      <span className="text-[20px] font-bold text-[#ffffff]">
                         {product.price}
                       </span>
 

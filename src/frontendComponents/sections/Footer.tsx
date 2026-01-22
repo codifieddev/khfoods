@@ -339,7 +339,7 @@ export function Footer() {
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 border-b border-white/10 pb-8">
           {/* LOGO + TAGLINE */}
           <div className="md:flex md:items-start gap-4">
-            <div className="flex h-11 w-[200px] items-center md:justify-center justify-start md:pb-0 mb-4 rounded-md ">
+            <div className="flex w-[100px] items-center md:justify-start justify-start md:pb-0 mb-4 rounded-md ">
               {/* Replace with real logo image if you want */}
               <img src="/assets/Image/khfood_logo.png" alt="k H Food" className="object-contain h-full" />
             </div>
@@ -447,7 +447,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 text-center">
           <p className="text-[11px] text-white/40 mb-1">
-            © 1991-2025 K H Food Corp. All rights reserved. KH logo is a trademark of KH Food Corp
+            © 1991-2026 K H Food Corp. All rights reserved. KH logo is a trademark of KH Food Corp
           </p>
         </div>
       </div>

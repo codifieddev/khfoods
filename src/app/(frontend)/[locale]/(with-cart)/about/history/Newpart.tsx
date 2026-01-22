@@ -60,17 +60,17 @@ const cardVariants = {
 
 export default function OurProjects() {
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-black">
+    <section className="relative py-20 md:py-28 overflow-hidden bg-[#f7f7f7]">
       
       {/* === BACKGROUND PATTERNS === */}
-      <div className="absolute inset-0 z-0 bg-cover bg-center opacity-40"
+      {/* <div className="absolute inset-0 z-0 bg-cover bg-center opacity-40"
         style={{ backgroundImage: "radial-gradient(rgb(255 255 255 / 10%) 1px, #000000 1px)" }}
-      ></div>
-      <div className="absolute inset-0 z-0 bg-black/60"></div>
+      ></div> */}
+      {/* <div className="absolute inset-0 z-0 bg-black/60"></div> */}
 
       {/* === CONTENT === */}
       <motion.div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white"
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 "
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -80,7 +80,7 @@ export default function OurProjects() {
           className="text-3xl md:text-[48px] font-bold uppercase mb-10 tracking-wide text-center md:text-left"
           variants={cardVariants}
         >
-          Our Journey
+          Our Journey 
         </motion.h2>
 
         <motion.div variants={cardVariants}>

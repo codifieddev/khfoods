@@ -5,7 +5,7 @@ const NutritionPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
+      {/* <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-900/90 to-orange-800/90 z-10"></div>
         <div 
           className="absolute inset-0 bg-cover bg-center"
@@ -18,11 +18,30 @@ const NutritionPage = () => {
           <h1 className="text-6xl md:text-7xl font-bold mb-6">NUTRITION</h1>
           <div className="w-24 h-1 bg-amber-300 mx-auto"></div>
         </div>
+      </section> */}
+
+      <section
+        className="relative w-full overflow-hidden pt-[120px]"
+        style={{
+          backgroundImage: "url('/assets/Image/bg-banner.png')",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      >
+        <div className="mx-auto flex min-h-[260px] max-w-7xl items-center justify-center px-5 py-14 md:min-h-[320px]">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold uppercase md:text-5xl">
+              Nutrition
+            </h1>
+          </div>
+        </div>
       </section>
+      
 
       {/* Intro Section */}
-      <section className=" max-w-6xl mx-auto px-4 py-20">
-        <div className="text-center">
+      <section className="mx-auto px-4 py-20 bg-white">
+        <div className="text-center  max-w-6xl mx-auto">
           <p className="text-amber-600 uppercase tracking-wider text-sm font-semibold mb-4">
             We value our simplicity
           </p>
@@ -36,7 +55,7 @@ const NutritionPage = () => {
       </section>
 
       {/* Two Ingredients Section */}
-      <section className="bg-gradient-to-b from-gray-800 to-gray-900 py-20">
+      <section className="bg-[#070707] py-20">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
             <p className="text-amber-400 uppercase tracking-wider text-sm font-semibold mb-4">
@@ -49,7 +68,7 @@ const NutritionPage = () => {
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
             {/* Salt Card */}
-            <div className="bg-gray-700/50 backdrop-blur rounded-2xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+            <div className="bg-white rounded-2xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
               <div className="h-64 bg-gray-900 overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1584949091598-c31daaaa4aa9?w=600&h=400&fit=crop"
@@ -58,15 +77,15 @@ const NutritionPage = () => {
                 />
               </div>
               <div className="p-8 text-center">
-                <h3 className="text-3xl font-bold text-white mb-4">SALT</h3>
-                <p className="text-gray-300 text-lg leading-relaxed">
+                <h3 className="text-3xl font-bold  mb-4">SALT</h3>
+                <p className="text-gray-600 text-lg leading-relaxed">
                   Only a dash of natural sea salt is added into our peanuts so they won't taste unnaturally salty and has just the right amount of flavor.
                 </p>
               </div>
             </div>
 
             {/* Peanuts Card */}
-            <div className="bg-gray-700/50 backdrop-blur rounded-2xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
+            <div className="bg-white rounded-2xl overflow-hidden transform hover:scale-105 transition-transform duration-300">
               <div className="h-64 bg-gray-900 overflow-hidden">
                 <img 
                   src="https://images.unsplash.com/photo-1651004276154-0e42a8b98e2b?w=600&h=400&fit=crop"
@@ -75,8 +94,8 @@ const NutritionPage = () => {
                 />
               </div>
               <div className="p-8 text-center">
-                <h3 className="text-3xl font-bold text-white mb-4">PEANUTS</h3>
-                <p className="text-gray-300 text-lg leading-relaxed">
+                <h3 className="text-3xl font-bold  mb-4">PEANUTS</h3>
+                <p className="text-gray-600  text-lg leading-relaxed">
                   Freshly roasted in our industry, peanuts are shipped on a regular basis to guarantee that only the most recent peanuts are packaged.
                 </p>
               </div>
@@ -106,7 +125,7 @@ const NutritionPage = () => {
           </div>
           <div className="relative">
             <img 
-              src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&h=600&fit=crop"
+              src="/khfood-img.png"
               alt="Growing plant"
               className="rounded-2xl shadow-2xl"
             />

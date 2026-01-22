@@ -168,42 +168,52 @@ import { IoMdQuote } from "react-icons/io";
 const testimonials = [
   {
     id: 1,
-    name: "Jennifer",
-    location: "From California",
-    title: "Perfect Quality and Customer Service!",
+    name: "Janice S.",
+    // location: "From California",
+    // title: "Perfect Quality and Customer Service!",
     // image: "https://goodyear.creativeconsult.co.in/wp-content/uploads/2022/10/testimonial-1-1.jpg",
     message:
-      "The sofa and armchairs I bought are not only beautiful but also incredibly comfortable. The colors are exactly as shown on the website, and the overall experience with Minicom has been flawless.",
+      "OMG, delicious roasted peanuts. Me and my dad went to the Oriental Food Market in Lauderdale Lakes yesterday. My father is 93 years old. He loves your peanuts. Thanks for pursuing your dream",
     rating: 5,
   },
   {
     id: 2,
-    name: "Jessica",
-    location: "From Chicago",
-    title: "Great Price & Services",
+    name: "Sophia C.",
+    // location: "From Chicago",
+    // title: "Great Price & Services",
     // image: "https://goodyear.creativeconsult.co.in/wp-content/uploads/2022/10/testimonial-1-1.jpg",
     message:
-      "The sofa and armchairs I bought are not only beautiful but also incredibly comfortable. The colors are exactly as shown on the website, and the overall experience with Minicom has been flawless.",
+      "Hi, I’m a big fan of your product! I always share them with my friends in Hong Kong. Hope your product can sell in China and Hong Kong soon.",
     rating: 5,
   },
   {
     id: 3,
-    name: "Elizabeth",
-    location: "From New York",
-    title: "Amazing Quality & Details",
+    name: "Gitfon ",
+    // location: "From New York",
+    // title: "Amazing Quality & Details",
     // image: "https://goodyear.creativeconsult.co.in/wp-content/uploads/2022/10/testimonial-1-1.jpg",
     message:
-      "The sofa and armchairs I bought are not only beautiful but also incredibly comfortable. The colors are exactly as shown on the website, and the overall experience with Minicom has been flawless.",
+      "I have been a loyal fan for years. They ARE the best peanuts I’ve ever had.",
     rating: 5,
   },
   {
     id: 4,
-    name: "Claudia",
-    location: "From Seattle",
-    title: "Beautiful & Comfortable Pieces",
+    name: "Claudia W.",
+    // location: "From Seattle",
+    // title: "Beautiful & Comfortable Pieces",
     // image: "https://goodyear.creativeconsult.co.in/wp-content/uploads/2022/10/testimonial-1-1.jpg",
     message:
-      "The sofa and armchairs I bought are not only beautiful but also incredibly comfortable. The colors are exactly as shown on the website, and the overall experience with Minicom has been flawless.",
+      "Bought these peanuts for my dad and he absolutely loved them! Super fresh and very crunchy. Love that they are available unsalted. Totally worth the price and taste great. Can’t stop eating one after another.",
+    rating: 5,
+  },
+  {
+    id: 5,
+    name: "Phillip T.",
+    // location: "From Seattle",
+    // title: "Beautiful & Comfortable Pieces",
+    // image: "https://goodyear.creativeconsult.co.in/wp-content/uploads/2022/10/testimonial-1-1.jpg",
+    message:
+      "My doctor put me on a low salt diet, so I went looking for no salt snack alternatives. After I found these peanuts, I am on my second bag already. These peanuts taste so fresh and I am glad that it has very little salt. I am very impressed how fresh they are and not oily like others. When you bite into them, there is a crisp snap to them.",
     rating: 5,
   },
 ];
@@ -219,7 +229,7 @@ const TestimonialsSection = () => {
               5.00 from 1230+ reviews
             </p>
             <h2 className="text-3xl md:text-[48px] font-semibold uppercase text-[#111111]">
-              What Customers Say 
+              What Customers Say  
             </h2>
           </div>
 
@@ -272,7 +282,7 @@ const TestimonialsSection = () => {
 
           {testimonials.map((item) => (
             <SwiperSlide key={item.id}>
-              <div className="bg-white rounded-3xl shadow-sm flex flex-col h-full px-10 py-10 md:px-12 md:py-10 ">
+              <div className="bg-white rounded-3xl shadow-sm flex flex-col px-10 py-10 md:px-12 md:py-10 h-[350px]">
 
                 {/* Top row: avatar + name + quote mark */}
                 <div className="flex items-center justify-between mb-4">
@@ -294,7 +304,7 @@ const TestimonialsSection = () => {
 
                   {/* big quote mark */}
                   <div className=" text-gray-200 leading-none select-none">
-             <IoMdQuote className="text-5xl md:text-7xl"/>
+                  <IoMdQuote className="text-5xl md:text-7xl"/>
 
                   </div>
                 </div>

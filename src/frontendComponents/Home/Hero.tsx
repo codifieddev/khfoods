@@ -125,16 +125,7 @@ export default function Hero() {
       </div>
 
       {/* Bottom CTA */}
-      <div
-        className="
-          absolute bottom-8 sm:bottom-12 md:bottom-16
-          w-full px-5 sm:px-10
-          flex flex-col md:flex-row
-          gap-6 md:gap-0
-          justify-between items-start md:items-end
-          z-20
-        "
-      >
+      <div className="absolute bottom-8 sm:bottom-12 md:bottom-16 w-full px-5 sm:px-10 flex flex-col md:flex-row gap-6 md:gap-0 justify-between items-start md:items-end z-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

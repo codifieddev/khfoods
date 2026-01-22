@@ -53,7 +53,7 @@ const SliderBrand = () => {
   ];
   return (
     <div className="bg-white md:py-20 py-8">
-      <div className="container-xl mx-auto">
+      <div className="container mx-auto">
         {/* ---------- Top Features ---------- */}
 
         {/* ---------- Bottom Brand Slider ---------- */}

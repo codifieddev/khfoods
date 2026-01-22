@@ -88,17 +88,31 @@ export default function InternationalPage() {
     <main className="w-full bg-white text-neutral-900">
       {/* ========================== HERO ========================== */}
       <section
-        className="relative w-full pt-[120px]"
+        className="relative w-full pt-[105px]"
         style={{
-          backgroundImage: "url('/assets/Image/bg-banner.png')",
+          backgroundImage: "url('/all-flag.png')",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
+          height: "460px",
         }}
       >
-        <div className="mx-auto min-h-[260px] max-w-7xl flex items-center justify-center">
-          <h1 className="text-4xl font-bold uppercase">International Products (TAIWAN)</h1>
+        {/* <div className="mx-auto min-h-[260px] max-w-7xl flex items-center justify-center">
+         
+               <h1 className="text-3xl font-bold uppercase tracking-tight text-black md:text-5xl">
+            
+            </h1>
+        </div> */}
+
+           <div className="mx-auto flex min-h-[260px] max-w-7xl items-center justify-center px-5 py-14 sm:px-6 md:min-h-[320px] md:py-20">
+          <div className="text-center grid justify-center ">
+
+            <h1 className="text-3xl font-bold uppercase tracking-tight text-black md:text-5xl">
+              International Products (TAIWAN)
+            </h1>
+          </div>
         </div>
+
       </section>
 
       {/* ========================== PRODUCT GRID ========================== */}

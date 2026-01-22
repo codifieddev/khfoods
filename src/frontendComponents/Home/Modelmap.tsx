@@ -37,7 +37,7 @@ const Modelmap = () => {
   return (
     <section id="modelmap" className="bg-white py-20 md:py-24">
       <div className="container-xl mx-auto px-0 md:px-6">
-        <div className="grid lg:grid-cols-[0.8fr_1.8fr] gap-12 md:gap-16">
+        <div className="grid lg:grid-cols-[0.8fr_1.8fr] gap-12 md:gap-16 px-8">
           {/* LEFT CONTENT */}
           <div>
             {/* <p className="text-xs tracking-[0.28em] uppercase text-neutral-500">
@@ -50,10 +50,7 @@ const Modelmap = () => {
             </h2>
 
             <div className="mt-8 space-y-5 text-sm md:text-[15px] leading-relaxed text-neutral-600">
-              <p>
-                14 Packs, 6 oz each
-
-Plastic container/lid with a sealed film to ensure freshness.
+              <p>14 Packs, 6 oz each Plastic container/lid with a sealed film to ensure freshness.
 Non-GMO Verified
 All Natural Ingredients: Salt and Peanuts
 Made in USA

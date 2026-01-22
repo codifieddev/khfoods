@@ -14,6 +14,7 @@ import { MdLockOutline } from "react-icons/md";
 // ✅ FIXED: '/src' hata diya.
 // Make sure karein ki aapki file ka naam 'Newpart.tsx' hi ho folder mein.
 import Newpart from "./Newpart";
+import NewOneSection from "@/frontendComponents/Home/NewOneSection";
 
 
 /* ================= IMAGE ================= */
@@ -92,17 +93,7 @@ const Page = () => {
         </div>
       </section>
 
-      {/* ================= VECTOR STORY ================= */}
-      <section className="relative py-16 md:py-24">
-        <div className="absolute inset-0">
-          <img
-            src={VECTOR_BG}
-            alt="Vector story"
-            className="object-cover w-full h-full"
-          />
-          <div className="absolute inset-0 bg-white/85" />
-        </div>
-
+      <section className="relative py-16 md:py-24 bg-white">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-[1fr_1.1fr] gap-10 items-center">
             <div>
@@ -176,12 +167,12 @@ const Page = () => {
       </section> */}
 
       {/* ================= FEATURES ================= */}
-      <section className="bg-white py-16">
+      <section className="bg-white py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {features.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col items-center text-center p-6 rounded-2xl shadow-md bg-white"
+              className="flex flex-col items-center text-center p-6 rounded-2xl shadow-md bg-white border border-gray-200"
             >
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-[#F4E5D2] mb-4">
                 {item.icon}
@@ -194,6 +185,8 @@ const Page = () => {
           ))}
         </div>
       </section>
+
+      <NewOneSection />
     </div>
   );
 };

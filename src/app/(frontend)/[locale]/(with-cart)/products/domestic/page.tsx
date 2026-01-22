@@ -157,18 +157,20 @@ export default function InternationalPage() {
     <main className="w-full bg-white text-neutral-900">
       {/* ========================== HERO ========================== */}
       <section
-        className="relative w-full overflow-hidden pt-[120px]"
+        className="relative w-full overflow-hidden pt-[105px]"
         style={{
-          backgroundImage: "url('/assets/Image/bg-banner.png')",
+          backgroundImage: "url('/usa-logo-flag.png')",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
+          height: "460px",
         }}
       >
         <div className="mx-auto flex min-h-[260px] max-w-7xl items-center justify-center px-5 py-14 sm:px-6 md:min-h-[320px] md:py-20">
-          <div className="text-center">
+          <div className="text-center grid justify-center ">
+
             <h1 className="text-3xl font-bold uppercase tracking-tight text-black md:text-5xl">
-              Domestic Products (US)
+              Domestic Products (US) 
             </h1>
           </div>
         </div>

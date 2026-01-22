@@ -279,7 +279,7 @@ export default function Header() {
 
           <Separator  className="h-4" />
 
-          <Link href="store-locator" className="hover:text-foreground text-[#323131] font-medium hover:text-white">
+          <Link href="/store-locator" className="hover:text-foreground text-[#323131] font-medium hover:text-white">
             Store locator
             
           </Link>
@@ -609,14 +609,17 @@ function MegaMenu({ config, onClose }: { config: MegaConfig; onClose: () => void
             <div key={idx} className="space-y-6 text-md flex justify-between " >
               {col.sections.map((section, si) => (
                 <div key={si} className="border-r pe-8">
+                  <div>
                   <h3 className="mb-3 text-[14px] font-bold uppercase text-black tracking-wide">
-                    {section.title}
+                    {section.title} 
                   </h3>
-                  <ul className="space-y-2.5">
+                   <ul className="space-y-2.5">
                     {section.links.map((l) => (
                       <MenuLink key={l.label} label={l.label} href={l.href} onClose={onClose} />
                     ))}
                   </ul>
+                  </div>
+                  
                 </div>
               ))}
             </div>
@@ -654,6 +657,7 @@ function MegaMenu({ config, onClose }: { config: MegaConfig; onClose: () => void
 function MenuLink({ label, href, onClose }: { label: string; href: string; onClose: () => void }) {
   return (
     <li>
+      
       <Link
         href={href}
         onClick={onClose}
