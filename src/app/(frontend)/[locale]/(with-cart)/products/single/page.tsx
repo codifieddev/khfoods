@@ -383,7 +383,21 @@ export default function ProductGravelPage() {
     ? `$${selectedVariant.price.toFixed(2)}`
     : `$${minPrice.toFixed(2)} – $${maxPrice.toFixed(2)}`;
 
-  const canAddToCart = Boolean(system && color && width);
+  const canAddToCart = qty > 0;
+
+  const handleAddToCart = () => {
+  const cartItem = {
+    name: "Roasted Peanuts: 14 Packs",
+    price: 58, // ya priceDisplay se number nikaal sakti ho
+    quantity: qty,
+    sku: "ROASTED-PEANUTS-14",
+    image: currentHero,
+  };
+
+  console.log("ADD TO CART 👉", cartItem);
+  alert("Item added to cart ✅");
+};
+
 
 
   type SlimAccordionProps = {
@@ -570,13 +584,18 @@ function SlimAccordion({ title, children }: SlimAccordionProps) {
                   </div>
                 </div>
 
-                <button
-                  disabled={!canAddToCart}
-                  className="flex-1 bg-[#eaba88] hover:bg-[#eaba88] text-black font-bold text-[12px] uppercase tracking-wider rounded-md shadow-sm hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                >
-                  <ShoppingCart className="w-4 h-4" /> Add To Cart
-                </button>
-              </div>
+  <button
+  type="button"
+  onClick={() => {
+    alert("ADD TO CART CLICKED ✅");
+    console.log("ADD TO CART CLICKED");
+  }}
+  className="relative z-[9999] flex-1 bg-[#eaba88] text-black font-bold uppercase tracking-wider rounded-md shadow-sm flex items-center justify-center gap-2"
+>
+  ADD TO CART
+</button>
+
+</div>
 
              
               {/* <div className="border-t border-neutral-200 mt-8">
