@@ -1,8 +1,8 @@
 import { LoginPageWithoutOAuth } from "@/components/(ecommerce)/LoginPage/WithoutOAuth";
+import { getShopSettingsData } from "@/data/storefront/globals";
 import { type Locale } from "@/i18n/config";
 import { redirect } from "@/i18n/routing";
 import { getCustomer } from "@/utilities/getCustomer";
-import { getCachedGlobal } from "@/utilities/getGlobals";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +22,7 @@ const LoginPage = async ({
   if (user?.id) {
     return redirect({ locale: locale, href: "/account/orders" });
   }
-  const shopSettings = await getCachedGlobal("shopSettings", locale, 1)();
+  const shopSettings = await getShopSettingsData(locale, 1);
 
 
   return shopSettings.enableOAuth ? <></> : <LoginPageWithoutOAuth verified={verified} />;

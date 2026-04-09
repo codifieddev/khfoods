@@ -1,5 +1,3 @@
-import { type SerializedEditorState, type SerializedLexicalNode } from "@payloadcms/richtext-lexical/lexical";
-
 import {
   paddingBottomClasses,
   paddingTopClasses,
@@ -11,8 +9,9 @@ import { cn } from "src/utilities/cn";
 
 import { Media } from "../../components/Media";
 
-import type { MediaBlock as MediaBlockProps } from "@/payload-types";
+import type { MediaBlock as MediaBlockProps } from "@/types/cms";
 import type { StaticImageData } from "next/image";
+import type { RichTextState } from "@/types/richtext";
 
 type Props = MediaBlockProps & {
   breakout?: boolean;
@@ -39,7 +38,7 @@ export const MediaBlock = (props: Props) => {
     paddingTop
   } = props;
 
-  let caption: SerializedEditorState<SerializedLexicalNode> | null | undefined;
+  let caption: RichTextState | null | undefined;
   if (media && typeof media === "object") caption = media.caption;
 
   return (
@@ -58,7 +57,7 @@ export const MediaBlock = (props: Props) => {
     >
       <Media
         imgClassName={cn("border border-border rounded-[0.8rem]", imgClassName)}
-        resource={media}
+        resource={media ?? undefined}
         src={staticImage}
       />
       {caption && (
@@ -77,3 +76,5 @@ export const MediaBlock = (props: Props) => {
     </div>
   );
 };
+
+

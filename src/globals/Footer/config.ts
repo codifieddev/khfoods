@@ -1,7 +1,7 @@
 import { checkUserPermission } from "@/access/roleBasedAccess";
 import { link } from "@/fields/link";
 import { revalidateGlobal } from "@/hooks/revalidateGlobal";
-import { Administrator } from "@/payload-types";
+import { Administrator } from "@/types/cms";
 
 import type { AccessArgs, GlobalConfig } from "payload";
 
@@ -82,3 +82,5 @@ export const Footer: GlobalConfig = {
     afterChange: [revalidateGlobal]
   }
 };
+
+

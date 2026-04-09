@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
-import { type Customer } from "@/payload-types";
+import { type Customer } from "@/types/cms";
 import { type CheckoutFormData } from "@/schemas/checkoutForm.schema";
 import { cn } from "@/utilities/cn";
 
@@ -86,3 +86,5 @@ export const ChangeAddressDialog = ({
     </Dialog>
   );
 };
+
+

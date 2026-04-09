@@ -24,13 +24,13 @@ export default function NewsSection() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         {/* LEFT FEATURED BLOG */}
         <div>
-          <div className="relative overflow-hidden rounded-2xl shadow-sm">
-            <img
-              // Replace with your actual large peanut image path
+          <div className="relative overflow-hidden rounded-2xl shadow-sm h-[260px] sm:h-[360px] md:h-[420px] lg:h-[480px]">
+            <Image
               src="https://khfood.com/wp-content/uploads/2019/10/About-Us-Photo-1.png" 
               alt="Peanut Roasting Process"
-              className="w-full h-[260px] sm:h-[360px] md:h-[420px] lg:h-[480px] object-cover rounded-2xl
-              "
+              fill
+              className="object-cover"
+              priority
             />
 
             {/* Category badge */}
@@ -77,16 +77,14 @@ export default function NewsSection() {
               key={index}
               className="flex flex-col sm:flex-row gap-4 sm:gap-5"
             >
-              <img
-                src={item.img}
-                alt="Blog"
-                className="
-                  w-full sm:w-44 md:w-[445px]
-                  h-[180px] sm:h-28 md:h-32
-                  object-cover
-                  rounded-xl
-                "
-              />
+              <div className="relative w-full sm:w-44 md:w-[445px] h-[180px] sm:h-28 md:h-32 flex-shrink-0 overflow-hidden rounded-xl">
+                <Image
+                  src={item.img}
+                  alt="Blog"
+                  fill
+                  className="object-cover"
+                />
+              </div>
 
               <div>
                 <p className="text-xs text-gray-500">

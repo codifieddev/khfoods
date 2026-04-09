@@ -1,10 +1,9 @@
 import { getTranslations } from "next-intl/server";
 import { setRequestLocale } from "next-intl/server";
-import { getPayload } from "payload";
 
+import { searchStorefrontProducts } from "@/data/storefront/ecommerce";
 import { WithInlinePrice } from "@/globals/(ecommerce)/Layout/ProductList/variants/listings/WithInlinePrice";
 import { routing } from "@/i18n/routing";
-import config from "@payload-config";
 import type { Locale } from "@/i18n/config";
 
 // Force dynamic rendering since search depends on search params
@@ -25,28 +24,7 @@ const SearchPage = async ({ params, searchParams }: SearchPageProps) => {
   
   // For dynamic pages, we still need setRequestLocale
   setRequestLocale(locale);
-  const payload = await getPayload({ config });
-  // TODO: pagination for more products
-  const { docs: products } = search
-    ? await payload.find({
-        collection: "products",
-        where: {
-          or: [
-            {
-              title: {
-                contains: search
-              }
-            },
-            {
-              slug: {
-                contains: search
-              }
-            },
-          ]
-        },
-        pagination: false
-      })
-    : { docs: [] };
+  const products = await searchStorefrontProducts({ locale, search: search ?? "" });
 
   const t = await getTranslations("Search");
 

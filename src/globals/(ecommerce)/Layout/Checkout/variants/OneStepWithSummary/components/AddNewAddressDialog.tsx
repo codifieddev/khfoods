@@ -9,7 +9,7 @@ import { ShippingAddressForm } from "@/components/(ecommerce)/ShippingAddressFor
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
-import { type Customer } from "@/payload-types";
+import { type Customer } from "@/types/cms";
 import { type CheckoutFormData, useCheckoutFormSchema } from "@/schemas/checkoutForm.schema";
 
 export const AddNewAddressDialog = ({
@@ -47,7 +47,7 @@ export const AddNewAddressDialog = ({
       const { data } = await axios.patch<{
         doc: Customer;
       }>(
-        `/api/customers/${user?.id}`,
+        "/api/customers/me",
         {
           shippings: [...(user.shippings ?? []), values.shipping]
         },
@@ -89,3 +89,5 @@ export const AddNewAddressDialog = ({
     </Dialog>
   );
 };
+
+

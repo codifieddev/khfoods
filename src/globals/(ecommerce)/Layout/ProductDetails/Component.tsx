@@ -2,9 +2,9 @@ import { notFound } from "next/navigation";
 import { getLocale } from "next-intl/server";
 import { type ReactNode } from "react";
 
+import { getShopLayoutData } from "@/data/storefront/globals";
 import { type Locale } from "@/i18n/config";
-import { type Product } from "@/payload-types";
-import { getCachedGlobal } from "@/utilities/getGlobals";
+import type { Product } from "@/types/cms";
 
 import { WithImageGalleryExpandableDetails } from "./variants/WithImageGalleryExpandableDetails";
 
@@ -19,9 +19,9 @@ export const ProductDetails = async ({
 }) => {
   try {
     const locale = (await getLocale()) as Locale;
-    const { productDetails } = await getCachedGlobal("shopLayout", locale, 1)();
+    const { productDetails } = await getShopLayoutData(locale);
 
-      let ProductDetailsComponent: ReactNode = null;
+    let ProductDetailsComponent: ReactNode = null;
     switch (productDetails.type) {
       case "WithImageGalleryExpandableDetails":
         ProductDetailsComponent = (
@@ -38,22 +38,20 @@ export const ProductDetails = async ({
       notFound();
     }
 
-
-    const category =
-      (product as any)?.category &&
-      typeof (product as any).category === "object"
-        ? ((product as any).category as { title?: string })
+    const primaryCategory =
+      product.categoriesArr?.[0]?.category && typeof product.categoriesArr[0].category !== "string"
+        ? product.categoriesArr[0].category
         : null;
 
     return (
       <>
         <section className="py-20 text-center">
           <p className="uppercase tracking-widest text-sm">
-            PRODUCTS / {category?.title}
+            PRODUCTS / {primaryCategory?.title ?? product.title}
           </p>
 
           <h1 className="text-5xl font-bold mt-4">
-            {category?.title}
+            {product.title}
           </h1>
         </section>
 
@@ -61,8 +59,6 @@ export const ProductDetails = async ({
         {ProductDetailsComponent}
       </>
     );
-
-
   } catch (error) {
     // console.log(error);
     notFound();

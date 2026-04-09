@@ -1,45 +1,39 @@
 import { unstable_cache } from "next/cache";
 import { getServerSideSitemap } from "next-sitemap";
-import { getPayload } from "payload";
-
-import config from "@payload-config";
+import { getMongoDb } from "@/data/mongo/client";
 
 const getPostsSitemap = unstable_cache(
   async () => {
-    const payload = await getPayload({ config });
+    const db = await getMongoDb();
     const SITE_URL =
       process.env.NEXT_PUBLIC_SERVER_URL ||
       process.env.VERCEL_PROJECT_PRODUCTION_URL ||
       "https://example.com";
 
-    const results = await payload.find({
-      collection: "posts",
-      overrideAccess: false,
-      draft: false,
-      depth: 0,
-      limit: 1000,
-      pagination: false,
-      where: {
-        _status: {
-          equals: "published"
-        }
-      },
-      select: {
-        slug: true,
-        updatedAt: true
-      }
-    });
+    const results = await db
+      .collection("posts")
+      .find(
+        {
+          _status: "published",
+        },
+        {
+          projection: {
+            slug: 1,
+            updatedAt: 1,
+          },
+        },
+      )
+      .limit(1000)
+      .toArray();
 
     const dateFallback = new Date().toISOString();
 
-    const sitemap = results.docs
-      ? results.docs
-          .filter((post) => Boolean(post?.slug))
-          .map((post) => ({
-            loc: `${SITE_URL}/posts/${post?.slug}`,
-            lastmod: post.updatedAt || dateFallback
-          }))
-      : [];
+    const sitemap = results
+      .filter((post) => Boolean(post?.slug))
+      .map((post) => ({
+        loc: `${SITE_URL}/posts/${post?.slug}`,
+        lastmod: post.updatedAt || dateFallback,
+      }));
 
     return sitemap;
   },

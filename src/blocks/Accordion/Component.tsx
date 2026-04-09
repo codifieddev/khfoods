@@ -10,7 +10,7 @@ import RichText from "@/components/RichText";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/utilities/cn";
 
-import type { AccordionBlock as AccordionBlockProps } from "@/payload-types";
+import type { AccordionBlock as AccordionBlockProps } from "@/types/cms";
 
 export const AccordionBlock = ({
   spacingBottom,
@@ -32,11 +32,11 @@ export const AccordionBlock = ({
     >
       {title && <RichText data={title} className="mb-6" />}
       <Accordion type="single" collapsible>
-        {items.map((item, index) => (
+        {(items ?? []).map((item, index) => (
           <AccordionItem key={item.id ?? index} value={item.id ?? index.toString()}>
             <AccordionTrigger className="text-base">{item.title}</AccordionTrigger>
             <AccordionContent>
-              <RichText data={item.content} />
+              <RichText data={item.content ?? null} />
             </AccordionContent>
           </AccordionItem>
         ))}
@@ -44,3 +44,5 @@ export const AccordionBlock = ({
     </section>
   );
 };
+
+

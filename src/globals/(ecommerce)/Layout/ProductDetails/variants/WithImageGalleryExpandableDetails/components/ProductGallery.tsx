@@ -3,7 +3,7 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { type ReactNode, useEffect, useState } from "react";
 
 import { Media } from "@/components/Media";
-import { type Product } from "@/payload-types";
+import { type Product } from "@/types/cms";
 
 import { type FilledVariant } from "../../../types";
 
@@ -121,3 +121,5 @@ export const ProductGallery = ({
     </TabGroup>
   );
 };
+
+

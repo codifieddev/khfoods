@@ -1,6 +1,6 @@
 import RichText from "@/components/RichText";
 
-import type { Page } from "@/payload-types";
+import type { Page } from "@/types/cms";
 
 type LowImpactHeroType =
   | {
@@ -32,3 +32,4 @@ export const LowImpactHero = ({ children, richText }: LowImpactHeroType) => {
     </div>
   );
 };
+

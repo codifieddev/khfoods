@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { type FilledVariant } from "@/globals/(ecommerce)/Layout/ProductDetails/types";
 import { type Locale } from "@/i18n/config";
 import { Link } from "@/i18n/routing";
-import { type Media, type Product } from "@/payload-types";
+import { type Media, type Product } from "@/types/cms";
 import { useCart } from "@/stores/CartStore";
 import { type Currency } from "@/stores/Currency/types";
 import { useWishListState } from "@/stores/WishListStateStore";
@@ -47,7 +47,7 @@ export const SlideOver = () => {
         const { data } = await axios.post<{
           status: number;
           filledProducts: ProductWithFilledVariants[];
-        }>("/next/wishListProducts", { wishlist: wishlistToFill, locale });
+        }>("/api/wishlist/products", { wishlist: wishlistToFill, locale });
         const { filledProducts = [] } = data;
         setWishListProducts(filledProducts);
       } catch (error) {
@@ -201,3 +201,5 @@ export const SlideOver = () => {
     </Dialog>
   );
 };
+
+

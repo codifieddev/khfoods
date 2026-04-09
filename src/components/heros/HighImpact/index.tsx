@@ -6,7 +6,7 @@ import { Media } from "@/components/Media";
 import RichText from "@/components/RichText";
 import { useHeaderTheme } from "@/providers/HeaderTheme";
 
-import type { Page } from "@/payload-types";
+import type { Page } from "@/types/cms";
 
 export const HighImpactHero = ({ links, media, richText }: Page["hero"]) => {
   const { setHeaderTheme } = useHeaderTheme();
@@ -41,3 +41,4 @@ export const HighImpactHero = ({ links, media, richText }: Page["hero"]) => {
     </div>
   );
 };
+

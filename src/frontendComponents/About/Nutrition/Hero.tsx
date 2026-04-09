@@ -1,6 +1,6 @@
 
 
-import { ProductCategory, ProductSubCategory } from "@/payload-types";
+import { ProductCategory, ProductSubCategory } from "@/types/cms";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
@@ -75,3 +75,5 @@ export const HeroSection = async ({ category, subcategory }: Heroprops) => {
     </section>
   );
 };
+
+

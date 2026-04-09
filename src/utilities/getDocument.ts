@@ -1,32 +1,37 @@
 import { unstable_cache } from "next/cache";
-import { getPayload } from "payload";
+import { ObjectId } from "mongodb";
 
-import configPromise from "@payload-config";
+import { getMongoDb } from "@/data/mongo/client";
+import { normalizeCollectionDocument, type SupportedCollectionSlug } from "@/data/storefront/mongoPayload";
+import { defaultLocale } from "@/i18n/config";
+import type { AppCollectionsMap } from "@/types/cms";
 
-import type { Config } from "@/payload-types";
-
-type Collection = keyof Config["collections"];
+type Collection = SupportedCollectionSlug;
 
 async function getDocument(collection: Collection, slug: string, depth = 0) {
-  const payload = await getPayload({ config: configPromise });
+  void depth;
+  const db = await getMongoDb();
+  const candidates: (string | ObjectId)[] = [slug];
 
-  const page = await payload.find({
-    collection,
-    depth,
-    where: {
-      slug: {
-        equals: slug
-      }
-    }
-  });
+  if (ObjectId.isValid(slug)) {
+    candidates.push(new ObjectId(slug));
+  }
 
-  return page.docs[0];
+  const document = await db.collection(collection).findOne({
+    $or: [{ _id: { $in: candidates } }, { id: { $in: candidates } }, { slug }],
+  } as never);
+
+  if (!document) {
+    return null;
+  }
+
+  return normalizeCollectionDocument(collection as never, document as Record<string, unknown>, defaultLocale, 1);
 }
 
 /**
  * Returns a unstable_cache function mapped with the cache tag for the slug
  */
-export const getCachedDocument = (collection: Collection, slug: string) =>
-  unstable_cache(async () => getDocument(collection, slug), [collection, slug], {
+export const getCachedDocument = (collection: Collection, slug: string): (() => Promise<AppCollectionsMap[Collection] | null>) =>
+  unstable_cache(async () => (await getDocument(collection, slug)) as AppCollectionsMap[Collection] | null, [collection, slug], {
     tags: [`${collection}_${slug}`]
   });

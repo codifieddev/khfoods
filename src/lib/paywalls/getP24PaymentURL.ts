@@ -3,7 +3,7 @@ import { createHash } from "crypto";
 import axios, { isAxiosError } from "axios";
 
 import { type Locale } from "@/i18n/config";
-import { type Customer } from "@/payload-types";
+import { type Customer } from "@/types/cms";
 import { type Currency } from "@/stores/Currency/types";
 
 export const getP24PaymentURL = async ({
@@ -84,3 +84,4 @@ export const getP24PaymentURL = async ({
     return null;
   }
 };
+

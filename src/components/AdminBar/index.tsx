@@ -157,7 +157,7 @@ export const AdminBar = (props: { adminBarProps?: PayloadAdminBarProps }) => {
             logo={<Title />}
             onAuthChange={onAuthChange}
             onPreviewExit={() => {
-              fetch("/next/exit-preview").then(() => {
+              fetch("/api/disable-preview").then(() => {
                 router.push("/");
                 router.refresh();
               });

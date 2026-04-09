@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPayload } from "payload";
-import configPromise from "@payload-config";
+import { findMongoDocumentById, updateMongoDocumentById } from "@/data/mongo/documents";
 
 export const updateField = async (request: NextRequest) => {
   try {
-    const payload = await getPayload({ config: configPromise });
     const { collection, docId, field, value, blockType, blockId, layoutId } = await request.json();
 
     if (!collection || !docId || !field || value === undefined) {
@@ -17,13 +15,11 @@ export const updateField = async (request: NextRequest) => {
     }
 
     // Fetch the current document
-    const currentDoc = await payload.findByID({
-      collection,
-      id: docId,
-      depth: 0,
-      overrideAccess: false,
-      //req: request as any
-    });
+    const currentDoc = await findMongoDocumentById(collection, docId);
+
+    if (!currentDoc) {
+      return NextResponse.json({ error: "Document not found" }, { status: 404 });
+    }
 
     console.log("📄 Current document fetched for updateField", currentDoc);
 
@@ -60,15 +56,12 @@ export const updateField = async (request: NextRequest) => {
       updateNestedField(updatedData, fieldParts, value);
     }
 
-    // Update the document in the database
-    const updatedDoc = await payload.update({
-      collection,
-      id: docId,
-      data: updatedData,
-      depth: 0,
-      overrideAccess: false,
-      // req: request as any
-    });
+    delete updatedData.id;
+    delete updatedData.createdAt;
+    delete updatedData.updatedAt;
+    delete updatedData.publishedAt;
+
+    const updatedDoc = await updateMongoDocumentById(collection, docId, updatedData);
 
     console.log("✅ Document updated successfully", updatedDoc);
 

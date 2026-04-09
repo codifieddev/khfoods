@@ -5,44 +5,41 @@ import Link from "next/link";
 
 type Product = {
   id: number;
-  name: string;
+  title: string;
   price: string;
   oldPrice?: string;
-  img: string;
-  qty: string;
+  image: string;
   badge?: string;
 };
 
 const products: Product[] = [
   {
     id: 1,
-    name: "Roasted Peanuts: 8 Packs (Taiwan)",
+    title: "Roasted Peanuts: 8 Packs (Taiwan)",
     price: "$36.00",
-    qty: "8 Packs",
-    img: "/assets/Image/khfoodImage/2Q6A4963.jpg",
-    badge: "-11%",
+    image: "/assets/2Q6A4963.jpg",
+    badge: "8 Packs",
   },
   {
     id: 2,
-    name: "Roasted Peanuts: 14 Packs (Taiwan)",
+    title: "Roasted Peanuts: 14 Packs (Taiwan)",
     price: "$55.00",
-    qty: "14 Packs",
-    img: "https://khfood.com/wp-content/uploads/2019/11/2Q6A4971.jpg",
-    badge: "-10%",
+    image: "/assets/2Q6A4971.jpg",
+    badge: "14 Packs",
   },
   {
     id: 3,
-    name: "Roasted Peanuts: 21 Packs (Taiwan)",
+    title: "Roasted Peanuts: 21 Packs (Taiwan)",
     price: "$75.00",
-    qty: "21 Packs",
-    img: "https://khfood.com/wp-content/uploads/2019/11/2Q6A4622-3-scaled.jpg",
+    image: "/assets/2Q6A4622-3-scaled.jpg",
+    badge: "21 Packs",
   },
   {
     id: 4,
-    name: "Roasted Peanuts: 6 Bags (Taiwan)",
+    title: "Roasted Peanuts: 6 Bags (Taiwan)",
     price: "$65.00",
-    qty: "6 Bags",
-    img: "https://khfood.com/wp-content/uploads/2019/10/6-bags.jpg",
+    image: "/assets/6-bags.jpg",
+    badge: "6 Bags",
   },
 ];
 
@@ -60,8 +57,8 @@ const ProductSectionRight: React.FC = () => {
                   {/* IMAGE: full size background */}
                   <div className="absolute inset-0 ">
                     <img
-                      src={product.img}
-                      alt={product.name}
+                      src={product.image}
+                      alt={product.title}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 "
                     />
                     {/* overlay for readability */}
@@ -69,23 +66,16 @@ const ProductSectionRight: React.FC = () => {
                   </div>
 
                   {/* TOP BADGE (qty) */}
-                  {product.qty && (
+                  {product.badge && (
                     <span className="absolute left-3 top-3 inline-flex items-center rounded-full bg-[#FFD100] text-[10px] font-bold px-2 py-1 shadow-sm z-10">
-                      {product.qty}
-                    </span>
-                  )}
-
-                  {/* OPTIONAL DISCOUNT BADGE (right) */}
-                  {/* {product.badge && (
-                    <span className="absolute right-4 top-4 z-10 inline-flex items-center rounded-full bg-white/95 text-black text-[12px] font-extrabold px-3 py-2 shadow">
                       {product.badge}
                     </span>
-                  )} */}
+                  )}
 
                   {/* CONTENT OVER IMAGE (bottom) */}
                   <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-6">
                     <h3 className="text-[21px] font-bold text-[#ffffff] leading-snug mb-2 line-clamp-2">
-                      {product.name}
+                      {product.title}
                     </h3>
 
                     <div className="mt-3 flex items-center gap-3">
@@ -112,31 +102,37 @@ const ProductSectionRight: React.FC = () => {
           <div className="w-full lg:w-[42%] flex-shrink-0 relative overflow-hidden rounded-3xl bg-black text-white min-h-[500px] lg:min-h-0">
             <div className="absolute inset-0">
               <img
-                src="/assets/Image/khfoodImage/Image-2.jpg"
-                alt="Promo"
+                src="/assets/uploads/Image-2.jpg"
+                alt="Taiwan International Shipping"
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-black/60" />
+              <div className="absolute inset-0 bg-black/55" />
             </div>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
             <div className="relative flex flex-col justify-between h-full p-8 md:p-10">
               <div className="mt-4">
-                <h2 className="text-3xl md:text-4xl font-semibold leading-tight max-w-sm">
-                  Product Ship International (Taiwan)
+                <h2 className="font-heading text-[32px] md:text-[40px] font-bold leading-[1.1] max-w-sm text-white">
+                  Product Ship 
+                  <br />
+                  International 
+                  <br />
+                  <span className="italic font-medium opacity-90">(Taiwan)</span>
                 </h2>
 
-                <p className="text-[16px] text-white mb-3 font-medium pt-4">
+                <p className="text-[15px] text-white/90 mb-3 font-medium pt-5 leading-relaxed max-w-xs">
                   Currently, we offer direct shipping to Taiwan only. If you are
                   interested to ship to other countries, please visit Contact Us
                   page to submit your inquiry.
                 </p>
               </div>
 
-              <button className="mt-8 self-start inline-flex items-center justify-center rounded-full bg-white text-black px-8 py-3 text-[13px] font-bold tracking-[0.16em] uppercase hover:bg-neutral-100 transition">
-                Shop Now <span className="ml-2 text-lg">↗</span>
-              </button>
+              <div className="mt-8">
+                <button className="self-start inline-flex items-center justify-center rounded-full bg-white text-black px-8 py-[14px] text-[13px] font-bold tracking-[0.16em] uppercase hover:bg-neutral-100 transition shadow-xl">
+                  Shop Now <span className="ml-2 text-lg">↗</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import axios from "axios";
 import { type TextFieldClientComponent } from "payload";
 import { useEffect, useState } from "react";
 
-import { type ShopSetting } from "@/payload-types";
+import { type ShopSetting } from "@/types/cms";
 
 export const CurrencySelect: TextFieldClientComponent = ({ path }) => {
   const { value, setValue } = useField<string>({ path });
@@ -47,3 +47,5 @@ export const CurrencySelect: TextFieldClientComponent = ({ path }) => {
     </div>
   );
 };
+
+

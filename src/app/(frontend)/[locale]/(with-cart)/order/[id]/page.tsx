@@ -1,57 +1,27 @@
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { DataFromGlobalSlug, getPayload } from "payload";
 
+import { getStorefrontOrderByNumber } from "@/data/storefront/commerce";
 import { Media as MediaComponent } from "@/components/Media";
 import RichText from "@/components/RichText";
 import { type Locale } from "@/i18n/config";
 import { Link } from "@/i18n/routing";
-import { type Media } from "@/payload-types";
-import config from "@/payload.config";
+import { type InpostCourier, type InpostCourierCod, type Media } from "@/types/cms";
 import { formatPrice } from "@/utilities/formatPrices";
 import { getCachedGlobal } from "@/utilities/getGlobals";
 import { getOrderProducts } from "@/utilities/getOrderProducts";
-import { headers } from "next/headers";
 
 const OrdersPage = async ({
   params,
 }: {
   params: Promise<{ locale: Locale; id: string }>;
 }) => {
-  const requestHeaders = await headers();
-  const host = requestHeaders.get("host");
-  const payload = await getPayload({ config });
-  // const website = await payload.find({
-  //   collection: "websites",
-  //   where: {
-  //     "domains.domain": {
-  //       equals: host,
-  //     },
-  //   },
-  // });
-
-  // const websiteId = website.docs[0].id;
-
   const { locale, id } = await params;
 
-  const orders = await payload.find({
-    collection: "orders",
-    where: {
-      id: {
-        equals: id,
-      },
-      // "orderDetails.website": {
-      //   equals: websiteId,
-      // }
-    },
-    locale,
-  });
+  const order = await getStorefrontOrderByNumber(id);
 
-  const order = orders.docs[0];
-
-  console.log(order);
-
-  if (!host) {
-    return null;
+  if (!order) {
+    notFound();
   }
 
   const t = await getTranslations("Order");
@@ -64,7 +34,7 @@ const OrdersPage = async ({
   //   (await getCachedGlobal(order?.orderDetails?.shipping, locale, 1)());
 
 
-let courier: DataFromGlobalSlug<"inpost-courier" | "inpost-courier-cod"> | null = null;
+let courier: InpostCourier | InpostCourierCod | null = null;
 if (
   order.orderDetails.shipping === "inpost-courier" ||
   order.orderDetails.shipping === "inpost-courier-cod"
@@ -255,7 +225,7 @@ if (
                 <dt className="font-medium text-gray-900">{t("shipping")}</dt>
                 <dd className="text-gray-700">
                   {formatPrice(
-                    order.orderDetails.shippingCost,
+                    order.orderDetails.shippingCost ?? 0,
                     order.orderDetails.currency,
                     locale
                   )}
@@ -279,3 +249,4 @@ if (
   );
 };
 export default OrdersPage;
+

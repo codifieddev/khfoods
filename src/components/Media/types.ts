@@ -1,4 +1,4 @@
-import type { Media as MediaType } from "@/payload-types";
+import type { Media as MediaType } from "@/types/cms";
 import type { StaticImageData } from "next/image";
 import type { ElementType, Ref } from "react";
 
@@ -19,3 +19,4 @@ export type Props = {
   videoClassName?: string;
   placeholder?: "blur" | "empty";
 };
+

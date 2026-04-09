@@ -1,21 +1,25 @@
-import { type PayloadRequest, type CollectionSlug } from "payload";
-
 import { type Locale } from "@/i18n/config";
 
-const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
+const collectionPrefixMap: Partial<Record<string, string>> = {
   posts: "/posts",
   pages: ""
 };
 
 type Props = {
-  collection: keyof typeof collectionPrefixMap;
+  collection: string;
   slug: string;
-  req: PayloadRequest;
+  req: {
+    query: {
+        locale: string;
+    };
+    host: string;
+    protocol: string;
+  };
 };
 
 export const generatePreviewPath1 = ({ collection, slug, req }: Props) => {
   const locale = req.query.locale as Locale;
-  const path = `${collectionPrefixMap[collection]}/${slug}`;
+  const path = `${collectionPrefixMap[collection] || ""}/${slug}`;
 
   const params = {
     locale,
@@ -34,12 +38,11 @@ export const generatePreviewPath1 = ({ collection, slug, req }: Props) => {
     process.env.NODE_ENV === "production" || Boolean(process.env.VERCEL_PROJECT_PRODUCTION_URL);
   const protocol = isProduction ? "https:" : req.protocol;
 
-  const url = `${protocol}//${req.host}/next/preview?${encodedParams.toString()}`;
+  const url = `${protocol}//${req.host}/api/enable-preview?${encodedParams.toString()}`;
 
   return url;
 };
 
-export const generatePreviewPath = ({ path, locale }) => {
-return `/next/preview?path=${encodeURIComponent(path as string)}&locale=${locale}`;
-}
-  
+export const generatePreviewPath = ({ path, locale }: { path: string; locale: string }) => {
+  return `/api/enable-preview?path=${encodeURIComponent(path)}&locale=${locale}`;
+};

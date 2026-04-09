@@ -16,11 +16,11 @@ import {
 import { getTranslations } from "next-intl/server";
 import { type CSSProperties } from "react";
 
+import { getEmailMessagesData } from "@/data/storefront/globals";
 import { type Locale } from "@/i18n/config";
-import { type Media, type Order } from "@/payload-types";
+import { type Media, type Order } from "@/types/cms";
 import { formatDateTime } from "@/utilities/formatDateTime";
 import { formatPrice } from "@/utilities/formatPrices";
-import { getCachedGlobal } from "@/utilities/getGlobals";
 import { getOrderProducts } from "@/utilities/getOrderProducts";
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -29,7 +29,8 @@ export const Default = async ({ order, locale }: { order: Order; locale: Locale 
   const t = await getTranslations({ locale, namespace: "Order" });
 
   const products = await getOrderProducts(order.products, locale);
-  const { messages } = await getCachedGlobal("emailMessages", locale, 1)();
+  const { messages } = await getEmailMessagesData(locale);
+  const emailMessages = messages ?? {};
 
   return (
     <Html>
@@ -53,10 +54,10 @@ export const Default = async ({ order, locale }: { order: Order; locale: Locale 
           )}
           <Hr style={global.hr} />
           <Section style={message}>
-            {messages?.logo && typeof messages.logo !== "string" && (
+            {emailMessages.logo && typeof emailMessages.logo !== "string" && (
               <Img
-                alt={messages.logo.alt ?? ""}
-                src={`${baseUrl}${messages.logo.url ?? ""}`}
+                alt={emailMessages.logo.alt ?? ""}
+                src={`${baseUrl}${emailMessages.logo.url ?? ""}`}
                 width="66"
                 height="22"
                 style={{ margin: "auto" }}
@@ -66,16 +67,16 @@ export const Default = async ({ order, locale }: { order: Order; locale: Locale 
             <Text style={global.text}>
               {t(`${order.orderDetails.status}.subtitle`, { orderID: order.id })}
             </Text>
-            {messages.additionalText && (
-              <Text style={{ ...global.text, marginTop: 24 }}>{messages.additionalText}</Text>
+            {emailMessages.additionalText && (
+              <Text style={{ ...global.text, marginTop: 24 }}>{emailMessages.additionalText}</Text>
             )}
           </Section>
           <Hr style={global.hr} />
           <Section style={global.defaultPadding}>
-            <Text style={adressTitle}>Shipping to: {order.shippingAddress.name}</Text>
+            <Text style={adressTitle}>Shipping to: {order.shippingAddress?.name ?? "-"}</Text>
             <Text style={{ ...global.text, fontSize: 14 }}>
-              {order.shippingAddress.address}, {order.shippingAddress.postalCode} {order.shippingAddress.city}
-              , {order.shippingAddress.region}
+              {order.shippingAddress?.address ?? "-"}, {order.shippingAddress?.postalCode ?? "-"} {order.shippingAddress?.city ?? "-"}
+              , {order.shippingAddress?.region ?? "-"}
             </Text>
           </Section>
           <Hr style={global.hr} />
@@ -118,7 +119,7 @@ export const Default = async ({ order, locale }: { order: Order; locale: Locale 
                       {product.quantity}
                     </Text>
                     <Text style={{ ...paragraph, fontWeight: "500" }}>
-                      {formatPrice(product.priceTotal, order.orderDetails.currency, locale)}
+                      {formatPrice(product.priceTotal ?? 0, order.orderDetails.currency, locale)}
                     </Text>
                   </Column>
                 </Row>
@@ -134,7 +135,7 @@ export const Default = async ({ order, locale }: { order: Order; locale: Locale 
               </Column>
               <Column>
                 <Text style={global.paragraphWithBold}>Order Date</Text>
-                <Text style={track.number}>{formatDateTime(order.createdAt, "EU")}</Text>
+                <Text style={track.number}>{formatDateTime(order.createdAt ?? new Date().toISOString(), "EU")}</Text>
               </Column>
             </Row>
             <Row>
@@ -455,3 +456,4 @@ const footer = {
     textAlign: "center"
   } as CSSProperties
 };
+

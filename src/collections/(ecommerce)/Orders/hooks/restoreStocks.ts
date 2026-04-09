@@ -1,4 +1,4 @@
-import { type Order } from "@/payload-types";
+import { type Order } from "@/types/cms";
 
 import type { FieldHook } from "payload";
 
@@ -17,6 +17,7 @@ export const restoreStocks: FieldHook<Order, Order["orderDetails"]["status"] | u
   try {
     for (const product of originalDoc.products) {
       if (!product.id || typeof product.quantity !== "number") continue;
+      const quantity = product.quantity;
 
       try {
         const originalProduct = await payload.findByID({
@@ -32,14 +33,14 @@ export const restoreStocks: FieldHook<Order, Order["orderDetails"]["status"] | u
         const productWithUpdatedStock = {
           ...originalProduct,
           ...(!originalProduct.enableVariants && {
-            stock: (originalProduct.stock ?? 0) + product.quantity
+            stock: (originalProduct.stock ?? 0) + quantity
           }),
           ...(originalProduct.enableVariants && {
             variants: originalProduct.variants?.map((variant) => {
               if (variant.variantSlug === product.variantSlug) {
                 return {
                   ...variant,
-                  stock: (variant.stock ?? 0) + product.quantity
+                  stock: (variant.stock ?? 0) + quantity
                 };
               }
               return variant;
@@ -72,3 +73,5 @@ export const restoreStocks: FieldHook<Order, Order["orderDetails"]["status"] | u
   }
   return value;
 };
+
+

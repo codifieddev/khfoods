@@ -3,7 +3,7 @@ import { Media } from "@/components/Media";
 import RichText from "@/components/RichText";
 import { cn } from "@/utilities/cn";
 
-import type { Page } from "@/payload-types";
+import type { Page } from "@/types/cms";
 
 export const MediumImpactHero = ({ links, media, richText, reversed }: Page["hero"]) => {
   return (
@@ -43,3 +43,4 @@ export const MediumImpactHero = ({ links, media, richText, reversed }: Page["her
     </div>
   );
 };
+

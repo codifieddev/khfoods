@@ -1,4 +1,3 @@
-import { withPayload } from "@payloadcms/next/withPayload";
 import createNextIntlPlugin from "next-intl/plugin";
 import { withPlausibleProxy } from "next-plausible";
 
@@ -13,7 +12,7 @@ const nextConfig = {
   output: "standalone",
   images: {
     remotePatterns: [
-      ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
+      ...[NEXT_PUBLIC_SERVER_URL, "https://khfood.com"].map((item) => {
         const url = new URL(item);
 
         return {
@@ -31,8 +30,6 @@ const nextConfig = {
     viewTransition: true,
     optimizePackageImports: ['react-icons'],
   },
-  // Enable SWC minification for faster builds
-  swcMinify: true,
   // Optimize runtime performance
   poweredByHeader: false,
   eslint: {
@@ -40,4 +37,4 @@ const nextConfig = {
   },
 };
 
-export default withNextIntl(withPayload(nextConfig));
+export default withNextIntl(nextConfig);

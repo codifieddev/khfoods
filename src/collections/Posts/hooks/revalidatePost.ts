@@ -1,6 +1,6 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 
-import type { Post } from "@/payload-types";
+import type { Post } from "@/types/cms";
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from "payload";
 
 export const revalidatePost: CollectionAfterChangeHook<Post> = ({
@@ -41,3 +41,5 @@ export const revalidateDelete: CollectionAfterDeleteHook<Post> = ({ doc, req: { 
 
   return doc;
 };
+
+

@@ -1,9 +1,64 @@
 import { getCachedGlobal } from "./getGlobals";
 
-export const getSiteSettings = async (sitesetting, locale, depth) => {
-  const data = await getCachedGlobal(sitesetting, locale, depth);
+export const defaultSiteSettings = {
+  primaryColor: "#0070f3",
+  primaryHover: "#0051cc",
+  primaryLight: "#e6f2ff",
+  secondaryColor: "#6c757d",
+  secondaryHover: "#545b62",
+  secondaryLight: "#f8f9fa",
+  tertiaryColor: "#17a2b8",
+  tertiaryHover: "#117a8b",
+  tertiaryLight: "#d1ecf1",
+  backgroundColor: "#ffffff",
+  backgroundSecondary: "#f8f9fa",
+  backgroundTertiary: "#e9ecef",
+  textPrimary: "#212529",
+  textSecondary: "#6c757d",
+  textMuted: "#adb5bd",
+  textLink: "#0070f3",
+  textLinkHover: "#0051cc",
+  successColor: "#28a745",
+  warningColor: "#ffc107",
+  errorColor: "#dc3545",
+  infoColor: "#17a2b8",
+  borderColor: "#dee2e6",
+  shadowColor: "rgba(0, 0, 0, 0.1)",
+  fontPrimary: "Inter, sans-serif",
+  fontSecondary: "Georgia, serif",
+  fontMonospace: "Monaco, monospace",
+  fontSizeBase: 16,
+  fontSizeH1: 48,
+  fontSizeH2: 40,
+  fontSizeH3: 32,
+  fontSizeH4: 24,
+  fontSizeH5: 20,
+  fontSizeH6: 18,
+  fontSizeSmall: 14,
+  fontSizeLarge: 20,
+  fontWeightLight: 300,
+  fontWeightNormal: 400,
+  fontWeightMedium: 500,
+  fontWeightSemibold: 600,
+  fontWeightBold: 700,
+  lineHeightBase: 1.5,
+  lineHeightHeading: 1.2,
+  letterSpacingNormal: "0",
+  letterSpacingWide: "0.05em",
+};
 
-  const d = await data();
+export const getSiteSettings = async (sitesetting, locale, depth) => {
+  let d = defaultSiteSettings;
+
+  try {
+    const data = await getCachedGlobal(sitesetting, locale, depth);
+    d = await data();
+  } catch (error) {
+    console.warn(
+      `Using fallback site settings because the database could not load global "${sitesetting}".`,
+      error
+    );
+  }
 
   return `
   :root {

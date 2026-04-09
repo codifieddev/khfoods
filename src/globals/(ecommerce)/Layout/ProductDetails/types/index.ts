@@ -1,4 +1,4 @@
-import { type Media } from "@/payload-types";
+import { type Media } from "@/types/cms";
 
 export type FilledVariant = {
   color:
@@ -28,3 +28,5 @@ export type FilledVariant = {
     | null
     | undefined;
 };
+
+

@@ -2,7 +2,7 @@ import { createHash } from "crypto";
 
 import axios from "axios";
 
-import { type Payment } from "@/payload-types";
+import { type Payment } from "@/types/cms";
 import { type Currency } from "@/stores/Currency/types";
 
 export const getAutopayPaymentURL = async ({
@@ -51,3 +51,4 @@ export const getAutopayPaymentURL = async ({
     return null;
   }
 };
+

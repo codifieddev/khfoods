@@ -1,7 +1,7 @@
 "use client";
 
 import axios, { isAxiosError } from "axios";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Eye, EyeOff } from "lucide-react";
@@ -33,6 +33,7 @@ type RegisterFormData = {
 
 export const MyAccountRegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const locale = useLocale();
   const t = useTranslations("RegisterForm");
   const tErrors = useTranslations("RegisterForm.errors");
 
@@ -91,10 +92,18 @@ export const MyAccountRegisterForm = () => {
     }
 
     try {
-      const res = await axios.post("/api/customers", {
-        email: values.email,
-        password: values.password,
-      });
+      const res = await axios.post(
+        "/api/customers/register",
+        {
+          email: values.email,
+          password: values.password,
+        },
+        {
+          headers: {
+            "x-locale": locale,
+          },
+        },
+      );
 
       console.log(" resposne --register", res);
       if (res.status === 200 || res.status === 201) {

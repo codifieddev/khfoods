@@ -4,7 +4,7 @@ import { redirect } from "@/i18n/routing";
 import { getCachedDocument } from "@/utilities/getDocument";
 import { getCachedRedirects } from "@/utilities/getRedirects";
 
-import type { Page, Post } from "@/payload-types";
+import type { Page, Post } from "@/types/cms";
 
 type Props = {
   disableNotFound?: boolean;
@@ -29,7 +29,11 @@ export const PayloadRedirects = async ({ disableNotFound, url, locale }: Props) 
       const collection = redirectItem.to?.reference?.relationTo;
       const id = redirectItem.to?.reference?.value;
 
-      const document = (await getCachedDocument(collection, id)()) as Page | Post;
+      if (!collection) {
+        notFound();
+      }
+
+      const document = (await getCachedDocument(collection as Parameters<typeof getCachedDocument>[0], id)()) as Page | Post;
       redirectUrl = `${redirectItem.to?.reference?.relationTo !== "pages" ? `/${redirectItem.to?.reference?.relationTo}` : ""}/${
         document?.slug
       }`;
@@ -46,3 +50,4 @@ export const PayloadRedirects = async ({ disableNotFound, url, locale }: Props) 
 
   notFound();
 };
+

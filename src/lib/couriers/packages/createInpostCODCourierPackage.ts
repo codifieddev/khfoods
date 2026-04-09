@@ -1,12 +1,11 @@
 import axios from "axios";
 import { getLocale } from "next-intl/server";
-import { getPayload } from "payload";
 
-import { type Dimensions } from "@/app/(frontend)/next/package/route";
+import { type Dimensions } from "@/app/api/shipping/package/route";
+import { getMongoDb } from "@/data/mongo/client";
 import { type Locale } from "@/i18n/config";
-import { type Order } from "@/payload-types";
+import { type Order } from "@/types/cms";
 import { getCachedGlobal } from "@/utilities/getGlobals";
-import config from "@payload-config";
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -17,8 +16,15 @@ export const createInpostCODCourierPackage = async (order: Order, dimensions: Di
   const { APIUrl, shipXAPIKey, clientId } = inpostCourierSettings;
   const { shopAddress } = fulfilment;
   const { shippingAddress } = order;
+  const db = await getMongoDb();
 
-  const payload = await getPayload({ config });
+  if (!shopAddress) {
+    throw new Error("No fulfilment address found");
+  }
+
+  if (!shippingAddress) {
+    throw new Error("No shipping address found");
+  }
 
   const addressParts = shopAddress.address.split(" ");
   const building_number = addressParts[addressParts.length - 1];
@@ -27,10 +33,6 @@ export const createInpostCODCourierPackage = async (order: Order, dimensions: Di
   const shippingAddressParts = shippingAddress.address.split(" ");
   const shippingBuildingNumber = shippingAddressParts[shippingAddressParts.length - 1];
   const shippingStreet = shippingAddressParts.slice(0, -1).join(" ");
-
-  if (!shippingAddress) {
-    throw new Error("No shipping address found");
-  }
 
   const { data } = await axios.post<{ id: string }>(
     `${APIUrl}/v1/organizations/${clientId}/shipments`,
@@ -111,18 +113,16 @@ export const createInpostCODCourierPackage = async (order: Order, dimensions: Di
         },
       );
       if (shipmentData.status === "confirmed" && shipmentData.tracking_number) {
-        await payload.update({
-          id: order.id,
-          collection: "orders",
-          data: {
-            orderDetails: {
-              trackingNumber: shipmentData.tracking_number
+        await db.collection("orders").updateOne(
+          { id: order.id },
+          {
+            $set: {
+              "orderDetails.trackingNumber": shipmentData.tracking_number,
+              "printLabel.packageNumber": packageID,
+              updatedAt: new Date().toISOString(),
             },
-            printLabel: {
-              packageNumber: packageID
-            }
-          }
-        });
+          },
+        );
 
         return packageID;
       }
@@ -137,3 +137,4 @@ export const createInpostCODCourierPackage = async (order: Order, dimensions: Di
 
   return packageID;
 };
+

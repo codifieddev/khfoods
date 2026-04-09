@@ -1,4 +1,4 @@
-import { getPayload } from "payload";
+import { getLocale } from "next-intl/server";
 import { type ReactNode } from "react";
 
 import {
@@ -8,8 +8,10 @@ import {
   spacingTopClasses
 } from "@/blocks/globals";
 import RichText from "@/components/RichText";
+import { getHotspotProducts } from "@/data/storefront/ecommerce";
 import { WithInlinePrice } from "@/globals/(ecommerce)/Layout/ProductList/variants/listings/WithInlinePrice";
-import { type Product } from "@/payload-types";
+import { type Locale } from "@/i18n/config";
+import { type Product } from "@/types/cms";
 import { cn } from "@/utilities/cn";
 
 // Define HotspotBlock interface locally since it's not in payload-types
@@ -35,7 +37,6 @@ interface HotspotBlockProps {
   subcategory?: any;
   sort?: string;
 }
-import config from "@payload-config";
 
 import { WithInlinePriceSlider } from "./variants/WithInlinePriceSlider";
 
@@ -53,39 +54,26 @@ export const HotspotBlock = async ({
   sort,
   products
 }: HotspotBlockProps) => {
-  const payload = await getPayload({ config });
-
+  const locale = (await getLocale()) as Locale;
   let productsToShow: Product[] = [];
 
   switch (type) {
     case "category": {
-      const { docs: categoryProducts } = await payload.find({
-        collection: "products",
-        depth: 2,
-        where: {
-          "categoriesArr.category": {
-            equals: typeof category === "string" ? category : category?.id
-          }
-        },
+      productsToShow = await getHotspotProducts({
+        categoryId: typeof category === "string" ? category : category?.id,
         limit: limit ?? 4,
-        sort: sort?.split(",") ?? ["-bought"]
+        locale,
+        sortBy: sort,
       });
-      productsToShow = categoryProducts;
       break;
     }
     case "subcategory": {
-      const { docs: subcategoryProducts } = await payload.find({
-        collection: "products",
-        depth: 2,
-        where: {
-          "categoriesArr.subcategories": {
-            in: typeof subcategory === "string" ? subcategory : subcategory?.id
-          }
-        },
+      productsToShow = await getHotspotProducts({
         limit: limit ?? 4,
-        sort: sort?.split(",") ?? ["-bought"]
+        locale,
+        sortBy: sort,
+        subcategoryId: typeof subcategory === "string" ? subcategory : subcategory?.id,
       });
-      productsToShow = subcategoryProducts;
       break;
     }
     case "manual": {
@@ -130,3 +118,5 @@ export const HotspotBlock = async ({
     </section>
   );
 };
+
+

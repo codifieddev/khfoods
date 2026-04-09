@@ -43,7 +43,7 @@ export const RegisterForm = () => {
     setMessage("");
     try {
       const res = await axios.post(
-        "/api/customers",
+        "/api/customers/register",
         {
           email: values.email,
           password: values.password,

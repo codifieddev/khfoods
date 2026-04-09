@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/utilities/cn";
 
-import type { CarouselBlock as CarouselBlockProps } from "@/payload-types";
+import type { CarouselBlock as CarouselBlockProps } from "@/types/cms";
 
 export const CarouselBlock = ({
   type,
@@ -85,8 +85,7 @@ export const CarouselBlock = ({
                   (slide.link.url ||
                     (typeof slide.link.reference?.value !== "string" && slide.link.reference?.value.slug)) ? (
                     <Link
-                      // @ts-expect-error - reference.value is not a string! TypeScript doesn't know that, it was checked above
-                      href={slide.link.url ?? `/${slide.link.reference?.value.slug}`}
+                      href={slide.link.url ?? `/${typeof slide.link.reference?.value === "object" ? slide.link.reference.value?.slug ?? "" : ""}`}
                       target={slide.link.newTab ? "_blank" : "_self"}
                     >
                       <Media resource={slide.image} />
@@ -109,3 +108,5 @@ export const CarouselBlock = ({
     </section>
   );
 };
+
+

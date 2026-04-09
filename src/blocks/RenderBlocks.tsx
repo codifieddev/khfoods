@@ -9,7 +9,7 @@ import { HotspotBlock } from "./(ecommerce)/Hotspot/Component";
 import { AccordionBlock } from "./Accordion/Component";
 import { CarouselBlock } from "./Carousel/Component";
 
-import type { Page } from "@/payload-types";
+import type { Page } from "@/types/cms";
 import { default as LayoutBlockRenderer } from "./Container/component";
 import { AboutPageRenderer } from "./About/component";
 
@@ -156,3 +156,5 @@ export const RenderBlocks = ({
 
   return null;
 };
+
+

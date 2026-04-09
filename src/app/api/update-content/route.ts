@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPayload } from "payload";
-import configPromise from "@payload-config";
+import { findMongoDocumentById, updateMongoDocumentById } from "@/data/mongo/documents";
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,16 +27,7 @@ export async function POST(req: NextRequest) {
     console.log("📝 Update request:", { collection, docId, field, valuePreview });
 
     // Get Payload instance
-    const payload = await getPayload({ config: configPromise });
-
-    // Fetch the current document with all data
-    // Using depth: 0 to get relationship IDs instead of populated objects
-    const currentDoc = await payload.findByID({
-      collection,
-      id: docId,
-      depth: 0,
-      overrideAccess: true
-    });
+    const currentDoc = await findMongoDocumentById(collection, docId);
 
     if (!currentDoc) {
       return NextResponse.json({ error: "Document not found" }, { status: 404 });
@@ -155,16 +145,7 @@ export async function POST(req: NextRequest) {
       ),
     );
 
-    // Update the document with the entire page data
-    // Using Local API as recommended for Next.js server-side operations
-    const updatedDoc = await payload.update({
-      collection,
-      id: docId,
-      data: pageData,
-      depth: 0, // Return IDs instead of populated objects
-      overrideAccess: true,
-      showHiddenFields: false
-    });
+    const updatedDoc = await updateMongoDocumentById(collection, docId, pageData);
 
     console.log("✅ Update successful!");
 

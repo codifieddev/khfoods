@@ -8,7 +8,7 @@ import {
   type CustomTranslationsKeys,
   type CustomTranslationsObject
 } from "@/admin/translations/custom-translations";
-import { type Dimensions } from "@/app/(frontend)/next/package/route";
+import { type Dimensions } from "@/app/api/shipping/package/route";
 import { AdminInput } from "@/components/ui/AdminInput";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/utilities/cn";
@@ -35,7 +35,7 @@ export const CourierShipmentMenuClient = ({ orderID }: { orderID: string }) => {
   const createPackage = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.post<string>(`/next/package`, {
+      const { data } = await axios.post<string>(`/api/shipping/package`, {
         orderID,
         dimensions
       });

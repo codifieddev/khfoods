@@ -3,7 +3,7 @@ import React from "react";
 import RichText from "@/components/RichText";
 import { cn } from "src/utilities/cn";
 
-import type { BannerBlock as BannerBlockProps } from "src/payload-types";
+import type { BannerBlock as BannerBlockProps } from "@/types/cms";
 
 type Props = {
   className?: string;
@@ -20,8 +20,10 @@ export const BannerBlock = ({ className, content, style }: Props) => {
           "border-warning bg-warning/30": style === "warning"
         })}
       >
-        <RichText data={content} enableGutter={false} enableProse={false} />
+        <RichText data={content ?? null} enableGutter={false} enableProse={false} />
       </div>
     </div>
   );
 };
+
+

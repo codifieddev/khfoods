@@ -1,9 +1,8 @@
 import axios from "axios";
 import { getLocale } from "next-intl/server";
-import config from "@payload-config";
+
 import { type Locale } from "@/i18n/config";
 import { getCachedGlobal } from "@/utilities/getGlobals";
-import { getPayload } from "payload";
 
 export const getInpostLabel = async (
   tracking_number: string,
@@ -74,8 +73,7 @@ export const getInpostLabel = async (
   // );
 
   // return data;
-  const payload = await getPayload({ config });
-  console.log(courierSlug)
+  console.log(courierSlug, tracking_number, inpostSettings?.APIUrl)
 
   // const url = await payload.find({})
 

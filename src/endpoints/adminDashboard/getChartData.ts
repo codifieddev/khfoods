@@ -3,7 +3,6 @@ import { format, startOfYear, endOfYear } from "date-fns";
 import { type PayloadRequest, type Where } from "payload";
 
 import { type CustomTranslationsKeys } from "@/admin/translations/custom-translations";
-import { type Order } from "@/payload-types";
 import { getCachedGlobal } from "@/utilities/getGlobals";
 
 export type ChartData = {
@@ -68,13 +67,13 @@ export const getChartData = async (req: PayloadRequest) => {
     const defaultCurrency = availableCurrencies[0];
 
     const monthlyData = Array.from({ length: 12 }, (_, index) => ({
-      name: t(`adminDashboard:${format(new Date(currentYear, index), "MMM").toLowerCase() as MonthUnion}`),
+      name: t(`adminDashboard:${format(new Date(currentYear, index), "MMM").toLowerCase() as MonthUnion}` as any),
       orders: 0,
       revenue: 0
     }));
 
-    docs.forEach((doc: Order) => {
-      const orderDate = new Date(doc.createdAt);
+    docs.forEach((doc) => {
+      const orderDate = new Date(doc.createdAt ?? new Date().toISOString());
       const monthIndex = orderDate.getMonth();
 
       monthlyData[monthIndex].orders++;
@@ -99,3 +98,4 @@ export const getChartData = async (req: PayloadRequest) => {
     return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 };
+

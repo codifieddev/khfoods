@@ -4,7 +4,7 @@ import { cn } from "@/utilities/cn";
 
 import { Card } from "../../components/Card";
 
-import type { Post } from "@/payload-types";
+import type { Post } from "@/types/cms";
 
 export type RelatedPostsProps = {
   className?: string;
@@ -29,3 +29,5 @@ export const RelatedPosts = (props: RelatedPostsProps) => {
     </div>
   );
 };
+
+

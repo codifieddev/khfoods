@@ -1,9 +1,5 @@
 "use client";
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
 import {
   Truck,
   Star,
@@ -11,77 +7,55 @@ import {
   MessageCircle,
   CreditCard
 } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 const brands = [
-  { img: "/assets/Image/khfoodImage/logo1.jpg", alt: "Highlow" },
-  { img: "/assets/Image/khfoodImage/logo2.jpg", alt: "Boosst" },
-  { img: "/assets/Image/khfoodImage/logo3.jpg", alt: "Emajine" },
-  { img: "/assets/Image/khfoodImage/logo4.jpg", alt: "BEBY.CO" },
-  { img: "/assets/Image/khfoodImage/logo5.jpg", alt: "GlowUP" },
+  { img: "/assets/uploads/logo1.jpg", alt: "CDPH" },
+  { img: "/assets/uploads/logo2.jpg", alt: "Made in USA" },
+  { img: "/assets/uploads/logo3.jpg", alt: "FDA" },
+  { img: "/assets/uploads/logo4.jpg", alt: "Non-GMO" },
+  { img: "/assets/uploads/logo5.jpg", alt: "Public Health" },
+];
+
+const features = [
+  {
+    icon: <Truck className="w-10 h-10 text-orange-500" />,
+    title: "Free Delivery",
+    desc: "Across the US on qualifying orders.",
+  },
+  {
+    icon: <Star className="w-10 h-10 text-orange-500" />,
+    title: "Best Quality",
+    desc: "Carefully selected ingredients, always.",
+  },
+  {
+    icon: <RotateCcw className="w-10 h-10 text-orange-500" />,
+    title: "Easy Returns",
+    desc: "A friendly process when plans change.",
+  },
+  {
+    icon: <MessageCircle className="w-10 h-10 text-orange-500" />,
+    title: "Feedback",
+    desc: "Quick support when you need it.",
+  },
+  {
+    icon: <CreditCard className="w-10 h-10 text-orange-500" />,
+    title: "Payments",
+    desc: "A simple checkout flow from start to finish.",
+  },
 ];
 
 const SliderBrand = () => {
-  const t = useTranslations("Home.features");
-
-  const features = [
-    {
-      icon: <Truck className="w-10 h-10 text-orange-500" />,
-      title: t("free-delivery.title"),
-      desc: t("free-delivery.desc")
-    },
-    {
-      icon: <Star className="w-10 h-10 text-orange-500" />,
-      title: t("best-quality.title"),
-      desc: t("best-quality.desc")
-    },
-    {
-      icon: <RotateCcw className="w-10 h-10 text-orange-500" />,
-      title: t("return.title"),
-      desc: t("return.desc")
-    },
-    {
-      icon: <MessageCircle className="w-10 h-10 text-orange-500" />,
-      title: t("feedback.title"),
-      desc: t("feedback.desc")
-    },
-    {
-      icon: <CreditCard className="w-10 h-10 text-orange-500" />,
-      title: t("payment.title"),
-      desc: t("payment.desc")
-    },
-  ];
   return (
-    <div className="bg-white md:py-20 py-8">
+    <div className="bg-white py-8 md:py-20">
       <div className="container mx-auto">
-        {/* ---------- Top Features ---------- */}
-
-        {/* ---------- Bottom Brand Slider ---------- */}
         <div className="pt-5">
-          <Swiper
-            slidesPerView={5}
-            spaceBetween={20}
-            loop={true}
-            // navigation={true}
-            modules={[Navigation]}
-            breakpoints={{
-              320: { slidesPerView: 3 },
-              640: { slidesPerView: 4 },
-              1024: { slidesPerView: 5 }
-            }}
-            className="flex items-center">
-            {brands.map((brand, i) => (
-              <SwiperSlide key={i}>
-                <div className="flex items-center justify-center  hover:opacity-100 transition-all">
-                  <img
-                    src={brand.img}
-                    alt={brand.alt}
-                    className="h-24 object-contain"
-                  />
-                </div>
-              </SwiperSlide>
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+            {brands.map((brand) => (
+              <div key={brand.alt} className="flex items-center justify-center transition-all hover:opacity-100">
+                <img src={brand.img} alt={brand.alt} className="h-24 object-contain" />
+              </div>
             ))}
-          </Swiper>
+          </div>
         </div>
       </div>
     </div>

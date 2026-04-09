@@ -7,7 +7,7 @@ import { Logo } from "@/components/Logo/Logo";
 import { Media } from "@/components/Media";
 import { cn } from "@/utilities/cn";
 
-import type { Header } from "@/payload-types";
+import type { Header } from "@/types/cms";
 
 export const FloatingHeader = ({ data }: { data: Header }) => {
   const [isMenuOpened, setisMenuOpened] = useState(false);

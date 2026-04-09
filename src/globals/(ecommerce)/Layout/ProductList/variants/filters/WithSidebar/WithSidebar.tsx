@@ -13,7 +13,7 @@ import { type ReactNode } from "react";
 
 import { SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Link } from "@/i18n/routing";
-import { type Product, type ProductCategory, type ProductSubCategory } from "@/payload-types";
+import { type Product, type ProductCategory, type ProductSubCategory } from "@/types/cms";
 
 import { FilterCheckbox } from "./components/FilterCheckbox";
 import { MobileFiltersCloseButton } from "./components/MobileFiltersCloseButton";
@@ -349,3 +349,5 @@ export const WithSidebar = ({
     </div>
   );
 };
+
+

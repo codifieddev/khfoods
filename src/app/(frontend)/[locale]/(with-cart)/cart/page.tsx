@@ -12,7 +12,7 @@ import { Media as MediaComponent } from "@/components/Media";
 import { type FilledVariant } from "@/globals/(ecommerce)/Layout/ProductDetails/types";
 import { type Locale } from "@/i18n/config";
 import { Link, redirect, useRouter } from "@/i18n/routing";
-import { Customer, type Media, type Product } from "@/payload-types";
+import { Customer, type Media, type Product } from "@/types/cms";
 import { useCart } from "@/stores/CartStore";
 import { type Cart } from "@/stores/CartStore/types";
 import { type Currency } from "@/stores/Currency/types";
@@ -66,7 +66,7 @@ const CartPage = () => {
             }[];
             totalQuantity: number;
           };
-        }>("/next/cartProducts", { cart: cartToCalculate, locale });
+        }>("/api/cart/products", { cart: cartToCalculate, locale });
         const { filledProducts = [], total = [] } = data.productsWithTotal;
         setCartProducts(filledProducts);
         setTotal(total);
@@ -89,7 +89,7 @@ const CartPage = () => {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        const { data } = await axios.get("/next/me");
+        const { data } = await axios.get("/api/customers/me");
         const custdata: Customer = data.user;
         setUser(custdata);
       } catch {
@@ -421,3 +421,4 @@ const CartPage = () => {
 };
 
 export default CartPage;
+

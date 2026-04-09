@@ -1,76 +1,168 @@
-import {
-  type DefaultNodeTypes,
-  type SerializedBlockNode,
-  type SerializedLinkNode
-} from "@payloadcms/richtext-lexical";
-import { type SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
-import {
-  type JSXConvertersFunction,
-  LinkJSXConverter,
-  RichText as RichTextWithoutBlocks
-} from "@payloadcms/richtext-lexical/react";
+import React from "react";
 
+import { AccordionBlock } from "@/blocks/Accordion/Component";
 import { BannerBlock } from "@/blocks/Banner/Component";
 import { CallToActionBlock } from "@/blocks/CallToAction/Component";
-// import { JSXConverters } from "payloadcms-lexical-ext";
 import { CarouselBlock } from "@/blocks/Carousel/Component";
-import { CodeBlock, type CodeBlockProps } from "@/blocks/Code/Component";
+import { CodeBlock } from "@/blocks/Code/Component";
+import { FormBlock } from "@/blocks/Form/Component";
 import { MediaBlock } from "@/blocks/MediaBlock/Component";
+import { Link } from "@/i18n/routing";
+import type { RichTextNode, RichTextState } from "@/types/richtext";
 import { cn } from "@/utilities/cn";
 
-import type {
-  BannerBlock as BannerBlockProps,
-  CallToActionBlock as CTABlockProps,
-  MediaBlock as MediaBlockProps
-} from "@/payload-types";
-import { AccordionBlock } from "@/blocks/Accordion/Component";
-import { FormBlock } from "@/blocks/Form/Component";
-
-type NodeTypes =
-  | DefaultNodeTypes
-  | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>;
-
-const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
-  const { value, relationTo } = linkNode.fields.doc!;
-  if (typeof value !== "object") {
-    throw new Error("Expected value to be an object");
+const isFormatEnabled = (format: RichTextNode["format"], bit: number, name: string) => {
+  if (typeof format === "number") {
+    return (format & bit) === bit;
   }
-  const slug = value.slug as string;
-  return relationTo === "posts" ? `/posts/${slug}` : `/${slug}`;
+
+  if (typeof format === "string") {
+    return format.split(",").map((entry) => entry.trim()).includes(name);
+  }
+
+  return false;
 };
 
-const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
-  ...defaultConverters,
-  ...LinkJSXConverter({ internalDocToHref }),
-  // ...JSXConverters,
-  blocks: {
-    banner: ({ node }) => <BannerBlock className="col-start-2 mb-4" {...node.fields} />,
-    mediaBlock: ({ node }) => (
-      <MediaBlock
-        className="col-span-3 col-start-1"
-        imgClassName="m-0"
-        {...node.fields}
-        captionClassName="mx-auto max-w-3xl"
-        enableGutter={false}
-        disableInnerContainer={true}
-      />
-    ),
-    accordion: ({ node }) => <AccordionBlock {...node.fields} />,
-    formBlock: ({ node }) => <FormBlock {...node.fields} />,
-    code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
-    cta: ({ node }) => <CallToActionBlock {...node.fields} />,
-    carousel: ({ node }) => <CarouselBlock {...node.fields} />
+const getLinkHref = (node: RichTextNode) => {
+  if (typeof node.url === "string" && node.url) {
+    return node.url;
   }
-});
+
+  const doc = node.fields?.doc;
+  if (doc?.value && typeof doc.value === "object" && doc.value.slug) {
+    return `${doc.relationTo === "posts" ? "/posts" : ""}/${doc.value.slug}`;
+  }
+
+  return undefined;
+};
+
+const renderBlockNode = (node: RichTextNode, key: React.Key) => {
+  const fields = node.fields ?? {};
+  const blockType = fields.blockType ?? node.blockType ?? fields.slug ?? fields.type;
+
+  switch (blockType) {
+    case "banner":
+      return <BannerBlock key={key} className="col-start-2 mb-4" {...fields} />;
+    case "mediaBlock":
+      return (
+        <MediaBlock
+          key={key}
+          className="col-span-3 col-start-1"
+          imgClassName="m-0"
+          captionClassName="mx-auto max-w-3xl"
+          disableInnerContainer={true}
+          enableGutter={false}
+          {...fields}
+        />
+      );
+    case "accordion":
+      return <AccordionBlock key={key} {...fields} />;
+    case "formBlock":
+      return <FormBlock key={key} {...fields} />;
+    case "code":
+      return <CodeBlock key={key} className="col-start-2" {...fields} />;
+    case "cta":
+      return <CallToActionBlock key={key} {...fields} />;
+    case "carousel":
+      return <CarouselBlock key={key} {...fields} />;
+    default:
+      return null;
+  }
+};
+
+const renderChildren = (children?: RichTextNode[]) =>
+  children?.map((child, index) => renderNode(child, child.id ?? index)) ?? null;
+
+const renderTextNode = (node: RichTextNode, key: React.Key) => {
+  let content: React.ReactNode = node.text ?? "";
+
+  if (isFormatEnabled(node.format, 16, "code")) {
+    content = <code>{content}</code>;
+  }
+  if (isFormatEnabled(node.format, 8, "underline")) {
+    content = <u>{content}</u>;
+  }
+  if (isFormatEnabled(node.format, 4, "strikethrough")) {
+    content = <s>{content}</s>;
+  }
+  if (isFormatEnabled(node.format, 2, "italic")) {
+    content = <em>{content}</em>;
+  }
+  if (isFormatEnabled(node.format, 1, "bold")) {
+    content = <strong>{content}</strong>;
+  }
+
+  return <React.Fragment key={key}>{content}</React.Fragment>;
+};
+
+const renderNode = (node: RichTextNode, key: React.Key): React.ReactNode => {
+  switch (node.type) {
+    case "root":
+      return <React.Fragment key={key}>{renderChildren(node.children)}</React.Fragment>;
+    case "paragraph":
+      return <p key={key}>{renderChildren(node.children)}</p>;
+    case "heading": {
+      const Tag = (node.tag || "h2") as keyof JSX.IntrinsicElements;
+      return <Tag key={key}>{renderChildren(node.children)}</Tag>;
+    }
+    case "quote":
+      return <blockquote key={key}>{renderChildren(node.children)}</blockquote>;
+    case "list": {
+      const ListTag = node.listType === "number" ? "ol" : "ul";
+      return <ListTag key={key}>{renderChildren(node.children)}</ListTag>;
+    }
+    case "listitem":
+      return <li key={key}>{renderChildren(node.children)}</li>;
+    case "linebreak":
+      return <br key={key} />;
+    case "link": {
+      const href = getLinkHref(node);
+      if (!href) {
+        return <React.Fragment key={key}>{renderChildren(node.children)}</React.Fragment>;
+      }
+
+      const isInternal = href.startsWith("/");
+      const newTab = Boolean(node.fields?.newTab);
+
+      if (isInternal) {
+        return (
+          <Link href={href} key={key} target={newTab ? "_blank" : undefined}>
+            {renderChildren(node.children)}
+          </Link>
+        );
+      }
+
+      return (
+        <a href={href} key={key} rel={newTab ? "noopener noreferrer" : undefined} target={newTab ? "_blank" : undefined}>
+          {renderChildren(node.children)}
+        </a>
+      );
+    }
+    case "block":
+      return renderBlockNode(node, key);
+    case "horizontalrule":
+      return <hr key={key} />;
+    case "upload":
+    case "relationship":
+      return null;
+    case "text":
+    default:
+      return renderTextNode(node, key);
+  }
+};
 
 type Props = {
-  data: SerializedEditorState;
+  data: RichTextState | null;
   enableGutter?: boolean;
   enableProse?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = false, ...rest } = props;
+  const { className, data, enableProse = true, enableGutter = false, ...rest } = props;
+
+  if (!data?.root) {
+    return null;
+  }
 
   return (
     <div
@@ -79,18 +171,20 @@ export default function RichText(props: Props) {
       data-block-type="richText"
       data-inline-editable="true"
     >
-      <RichTextWithoutBlocks
-        converters={jsxConverters}
+      <div
         className={cn(
           {
             container: enableGutter,
             "max-w-none": !enableGutter,
-            "prose md:prose-md dark:prose-invert mx-auto": enableProse
+            "prose md:prose-md dark:prose-invert mx-auto": enableProse,
           },
           className,
         )}
         {...rest}
-      />
+      >
+        {renderChildren(data.root.children)}
+      </div>
     </div>
   );
 }
+

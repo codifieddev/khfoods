@@ -1,6 +1,6 @@
 import { type NumberFieldServerComponent } from "payload";
 
-import { type Order, type Product } from "@/payload-types";
+import { type Order, type Product } from "@/types/cms";
 import { type Currency } from "@/stores/Currency/types";
 
 import { ProductUnitPriceFieldClient } from "./ProductUnitPriceField.client";
@@ -52,3 +52,5 @@ export const ProductUnitPriceField: NumberFieldServerComponent = async ({
     </div>
   );
 };
+
+

@@ -21,7 +21,7 @@ import {
 } from "@/admin/translations/custom-translations";
 import { type OrderCountResponse } from "@/endpoints/adminDashboard/getOrderCount";
 import { type RevenueResponse } from "@/endpoints/adminDashboard/getRevenue";
-import { type ShopSetting } from "@/payload-types";
+import { type ShopSetting } from "@/types/cms";
 import { type Currency } from "@/stores/Currency/types";
 import { formatPrice } from "@/utilities/formatPrices";
 
@@ -60,7 +60,7 @@ export const Overview = () => {
   useEffect(() => {
     const fetchCurrency = async () => {
       const { data } = await axios.get<ShopSetting>("/api/globals/shopSettings", { withCredentials: true });
-      setCurrency(data.availableCurrencies[0]);
+      setCurrency((data.availableCurrencies[0] as Currency | undefined) ?? null);
     };
 
     void fetchCurrency();
@@ -189,3 +189,5 @@ export const Overview = () => {
     </section>
   );
 };
+
+

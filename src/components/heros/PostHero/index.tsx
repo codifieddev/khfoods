@@ -4,7 +4,7 @@ import { Media } from "@/components/Media";
 import { formatAuthors } from "@/utilities/formatAuthors";
 import { formatDateTime } from "src/utilities/formatDateTime";
 
-import type { Post } from "@/payload-types";
+import type { Post } from "@/types/cms";
 
 export const PostHero = ({ post }: { post: Post }) => {
   const { categories, heroImage, populatedAuthors, publishedAt, title } = post;

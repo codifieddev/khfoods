@@ -27,7 +27,7 @@ import { populateAuthors } from "./hooks/populateAuthors";
 import { revalidateDelete, revalidatePost } from "./hooks/revalidatePost";
 
 import type { AccessArgs, CollectionConfig } from "payload";
-import { Administrator } from "@/payload-types";
+import { Administrator } from "@/types/cms";
 import { checkUserPermission } from "@/access/roleBasedAccess";
 
 const isReadAccess = async (args: AccessArgs<Administrator>) => {
@@ -273,3 +273,5 @@ export const Posts: CollectionConfig<"posts"> = {
     maxPerDoc: 50
   }
 };
+
+

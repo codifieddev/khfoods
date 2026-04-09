@@ -1,16 +1,20 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getPayload } from 'payload';
-import configPromise from '@payload-config';
+import { getMongoDb } from '@/data/mongo/client';
 
 async function getAllowedOrigins() {
-  const payload = await getPayload({ config: configPromise });
-  const { docs: websites } = await payload.find({
-    collection: 'websites',
-    limit: 0,
-    pagination: false,
-    select: { domains: true }
-  });
+  const db = await getMongoDb();
+  const websites = await db
+    .collection('websites')
+    .find(
+      {},
+      {
+        projection: {
+          domains: 1
+        }
+      }
+    )
+    .toArray();
   const allowed = websites.flatMap(site =>
     Array.isArray(site.domains)
       ? site.domains.map(d => d.domain)
@@ -34,12 +38,8 @@ async function getCorsOrigin(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   const corsOrigin = await getCorsOrigin(req);
-  const payload = await getPayload({ config: configPromise });
-  const { docs: roles } = await payload.find({
-    collection: 'roles',
-    limit: 0,
-    pagination: false
-  });
+  const db = await getMongoDb();
+  const roles = await db.collection('roles').find({}).toArray();
   const res = new NextResponse(JSON.stringify({ docs: roles }), {
     status: 200
   });

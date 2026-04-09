@@ -1,21 +1,20 @@
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { Link } from "@/i18n/routing";
+import type { Page, Post } from "@/types/cms";
 import { cn } from "src/utilities/cn";
 
-import type { Page, Post } from "@/payload-types";
-
 type CMSLinkType = {
-  appearance?: "inline" | ButtonProps["variant"];
+  appearance?: "inline" | ButtonProps["variant"] | string | null;
   children?: React.ReactNode;
   className?: string;
   label?: string | null;
   newTab?: boolean | null;
   reference?: {
-    relationTo: "pages" | "posts";
-    value: Page | Post | string | number;
+    relationTo?: "pages" | "posts" | null;
+    value?: Page | Post | string | number | null;
   } | null;
   size?: ButtonProps["size"] | null;
-  type?: "custom" | "reference" | null;
+  type?: "custom" | "reference" | string | null;
   url?: string | null;
 };
 
@@ -32,7 +31,10 @@ export const CMSLink = (props: CMSLinkType) => {
     url
   } = props;
   const href =
-    type === "reference" && typeof reference?.value === "object" && reference.value.slug
+    type === "reference" &&
+    reference?.value &&
+    typeof reference.value === "object" &&
+    reference.value.slug
       ? `${reference?.relationTo !== "pages" ? `/${reference?.relationTo}` : ""}/${reference.value.slug}`
       : url;
 
@@ -52,7 +54,7 @@ export const CMSLink = (props: CMSLinkType) => {
   }
 
   return (
-    <Button asChild className={className} size={size} variant={appearance}>
+    <Button asChild className={className} size={size} variant={appearance as ButtonProps["variant"]}>
       <Link className={cn(className)} href={(href || url) ?? ""} {...newTabProps}>
         {label && label}
         {children && children}

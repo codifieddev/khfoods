@@ -1,19 +1,25 @@
 import { unstable_cache } from "next/cache";
-import { getPayload } from "payload";
+import { ObjectId } from "mongodb";
 
-import configPromise from "@payload-config";
+import { getMongoDb } from "@/data/mongo/client";
+import type { Redirect } from "@/types/cms";
 
 export async function getRedirects(depth = 1) {
-  const payload = await getPayload({ config: configPromise });
+  void depth;
+  const db = await getMongoDb();
+  const redirects = await db.collection("redirects").find({}).toArray();
 
-  const { docs: redirects } = await payload.find({
-    collection: "redirects",
-    depth,
-    limit: 0,
-    pagination: false
-  });
-
-  return redirects;
+  return redirects.map((redirect) => ({
+    ...(redirect as Record<string, unknown>),
+    id:
+      typeof (redirect as { id?: unknown }).id === "string"
+        ? (redirect as unknown as { id: string }).id
+        : redirect._id instanceof ObjectId
+          ? redirect._id.toString()
+          : typeof redirect._id === "string"
+            ? redirect._id
+            : "",
+  })) as Redirect[];
 }
 
 /**

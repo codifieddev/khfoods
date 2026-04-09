@@ -1,10 +1,11 @@
-import { getPayload } from "payload";
+import { getLocale } from "next-intl/server";
 
 import { CollectionArchive } from "@/components/CollectionArchive";
+import { getArchiveBlockPosts } from "@/data/storefront/posts";
+import { type Locale } from "@/i18n/config";
 import RichText from "@/components/RichText";
-import config from "@payload-config";
 
-import type { Post, ArchiveBlock as ArchiveBlockProps } from "@/payload-types";
+import type { Post, ArchiveBlock as ArchiveBlockProps } from "@/types/cms";
 
 export const ArchiveBlock = async (
   props: ArchiveBlockProps & {
@@ -12,42 +13,30 @@ export const ArchiveBlock = async (
   },
 ) => {
   const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs } = props;
+  const locale = (await getLocale()) as Locale;
 
   const limit = limitFromProps ?? 3;
 
   let posts: Post[] = [];
 
   if (populateBy === "collection") {
-    const payload = await getPayload({ config });
-
     const flattenedCategories = categories?.map((category) => {
       if (typeof category === "object") return category.id;
       else return category;
     });
-
-    const fetchedPosts = await payload.find({
-      collection: "posts",
-      depth: 1,
+    posts = await getArchiveBlockPosts({
+      categoryIds: flattenedCategories,
       limit,
-      ...(flattenedCategories && flattenedCategories.length > 0
-        ? {
-            where: {
-              categories: {
-                in: flattenedCategories
-              }
-            }
-          }
-        : {})
+      locale,
     });
-
-    posts = fetchedPosts.docs;
   } else {
     if (selectedDocs?.length) {
       const filteredSelectedPosts = selectedDocs.map((post) => {
-        if (typeof post.value === "object") return post.value;
+        if (post?.value && typeof post.value === "object") return post.value;
+        return null;
       }) as Post[];
 
-      posts = filteredSelectedPosts;
+      posts = filteredSelectedPosts.filter(Boolean);
     }
   }
 
@@ -62,3 +51,5 @@ export const ArchiveBlock = async (
     </div>
   );
 };
+
+

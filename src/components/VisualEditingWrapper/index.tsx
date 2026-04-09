@@ -45,15 +45,9 @@ export const VisualEditingWrapper: React.FC<VisualEditingWrapperProps> = ({
 
     const adminUrl = process.env.NEXT_PUBLIC_SERVER_URL || window.location.origin;
 
-    // If we have a blockId, edit the specific block, otherwise edit the page
-    if (blockId) {
-      const editUrl = `${adminUrl}/admin/collections/${collection}/${blockId}`;
-      window.open(editUrl, "_blank");
-    } else {
-      // For blocks without specific IDs, we'll try to edit the page's layout
-      const pageEditUrl = `${adminUrl}/admin/collections/pages`;
-      window.open(pageEditUrl, "_blank");
-    }
+    const editTarget = docId || blockId;
+    const editUrl = editTarget ? `${adminUrl}/edit/${editTarget}` : `${adminUrl}/admin`;
+    window.open(editUrl, "_blank");
   };
 
   const wrapperStyle = isDraft

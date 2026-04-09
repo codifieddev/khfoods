@@ -4,7 +4,7 @@ import { type ReactNode } from "react";
 import { PriceClient } from "@/components/(ecommerce)/PriceClient";
 import { Media } from "@/components/Media";
 import { Link } from "@/i18n/routing";
-import { type Product } from "@/payload-types";
+import { type Product } from "@/types/cms";
 import { getPriceRange } from "@/utilities/getPriceRange";
 
 export const WithInlinePrice = ({ products }: { products: Product[] }) => {
@@ -72,3 +72,5 @@ export const WithInlinePrice = ({ products }: { products: Product[] }) => {
     </>
   );
 };
+
+

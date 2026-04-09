@@ -3,7 +3,7 @@ import { type ReactNode } from "react";
 import { DefaultHeader } from "./variants/DefaultHeader";
 import { FloatingHeader } from "./variants/FloatingHeader";
 
-import type { Header } from "@/payload-types";
+import type { Header } from "@/types/cms";
 
 type HeaderClientProps = {
   data: Header;

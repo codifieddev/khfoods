@@ -6,7 +6,7 @@ import { Pencil, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { type Country } from "@/globals/(ecommerce)/Couriers/utils/countryList";
-import { type Customer } from "@/payload-types";
+import { type Customer } from "@/types/cms";
 import { cn } from "@/utilities/cn";
 
 import { AddNewAddressDialog } from "../../Checkout/variants/OneStepWithSummary/components/AddNewAddressDialog";
@@ -44,7 +44,7 @@ export const OrdersData = ({
 
     try {
       const { data } = await axios.patch<{ doc: Customer }>(
-        `/api/customers/${user.id}`,
+        "/api/customers/me",
         {
           shippings: updatedShippings
         }
@@ -70,7 +70,7 @@ export const OrdersData = ({
       const updatedShippings = shippings.filter((shipping) => shipping.id !== addressId);
       
       const { data } = await axios.patch<{ doc: Customer }>(
-        `/api/customers/${user.id}`,
+        "/api/customers/me",
         {
           shippings: updatedShippings
         }
@@ -212,3 +212,5 @@ export const OrdersData = ({
     </section>
   );
 };
+
+

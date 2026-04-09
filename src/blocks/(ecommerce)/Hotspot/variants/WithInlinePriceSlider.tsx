@@ -11,7 +11,7 @@ import {
   CarouselPrevious
 } from "@/components/ui/carousel";
 import { Link } from "@/i18n/routing";
-import { type Product } from "@/payload-types";
+import { type Product } from "@/types/cms";
 import { getPriceRange } from "@/utilities/getPriceRange";
 
 import type useEmblaCarousel from "embla-carousel-react";
@@ -98,3 +98,5 @@ export const WithInlinePriceSlider = ({
     </Carousel>
   );
 };
+
+

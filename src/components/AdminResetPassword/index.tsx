@@ -16,7 +16,7 @@ export const AdminResetPassword = () => {
     if (emailInput) {
       const email = emailInput.value;
       try {
-        const res = await axios.post("/next/reset-password", { email, collection: "administrators" });
+        const res = await axios.post("/api/forgot-password", { email, collection: "administrators" });
         console.log(res);
         if (res.status === 200) {
           setMessage(t("custom:resetPasswordSuccess"));

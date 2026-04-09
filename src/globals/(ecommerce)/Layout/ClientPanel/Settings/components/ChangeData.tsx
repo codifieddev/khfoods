@@ -27,7 +27,7 @@ export const ChangeData = ({
   const onSubmit = async (values) => {
     try {
       await axios.patch<void>(
-        `/api/customers/${userID}`,
+        "/api/customers/me",
         // TODO: type that
         // eslint-disable-next-line
         { [name]: type === "date" ? new Date(values[name]).toISOString() : values[name] },

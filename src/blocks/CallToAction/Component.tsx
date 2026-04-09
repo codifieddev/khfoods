@@ -9,7 +9,7 @@ import RichText from "@/components/RichText";
 import { VisualEditingWrapper } from "@/components/VisualEditingWrapper";
 import { cn } from "@/utilities/cn";
 
-import type { CallToActionBlock as CTABlockProps } from "@/payload-types";
+import type { CallToActionBlock as CTABlockProps } from "@/types/cms";
 
 export const CallToActionBlock = ({
   links,
@@ -47,3 +47,5 @@ export const CallToActionBlock = ({
     </div>
   );
 };
+
+

@@ -1,8 +1,8 @@
 import { RegisterPageWithoutOAuth } from "@/components/(ecommerce)/RegisterPage/WithoutOAuth";
+import { getShopSettingsData } from "@/data/storefront/globals";
 import { type Locale } from "@/i18n/config";
 import { redirect } from "@/i18n/routing";
 import { getCustomer } from "@/utilities/getCustomer";
-import { getCachedGlobal } from "@/utilities/getGlobals";
 
 const RegisterPage = async ({ params }: { params: Promise<{ locale: Locale }> }) => {
   const user = await getCustomer();
@@ -10,7 +10,7 @@ const RegisterPage = async ({ params }: { params: Promise<{ locale: Locale }> })
   if (user) {
     return redirect({ locale: locale, href: "/account" });
   }
-  const shopSettings = await getCachedGlobal("shopSettings", locale, 1)();
+  const shopSettings = await getShopSettingsData(locale, 1);
 
   return shopSettings.enableOAuth ? <></> : <RegisterPageWithoutOAuth />;
 };

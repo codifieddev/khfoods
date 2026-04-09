@@ -1,34 +1,18 @@
 import { draftMode } from "next/headers";
 import { setRequestLocale } from "next-intl/server";
-import { getPayload } from "payload";
-import React, { cache } from "react";
+import React from "react";
 
 import { RenderBlocks } from "@/blocks/RenderBlocks";
-import { LivePreviewListener } from "@/components/LivePreviewListener";
-import { PayloadRedirects } from "@/components/PayloadRedirects";
-import { RenderHero } from "@/components/heros/RenderHero";
-import { VisualEditingToolbar } from "@/components/VisualEditingToolbar";
-import { VisualEditingClient } from "@/components/VisualEditingClient";
+import { getStaticStorefrontPageSlugs, getStorefrontPageByDomain } from "@/data/storefront/pages";
 import { type Locale } from "@/i18n/config";
 import { routing } from "@/i18n/routing";
-import { generateMeta } from "@/utilities/generateMeta";
-import config from "@payload-config";
-import { config as pageconfig } from "../../../../../EditorComp/config";
-import PageClient from "./page.client";
 
 import type { Metadata } from "next";
-import { getTenantByDomain } from "@/lib/getPage";
 
-import AboutKarloBan from "@/frontendComponents/sections/AboutKarloBan";
-import AboutStrip from "@/frontendComponents/sections/AboutStrip";
-import Testimonials from "@/frontendComponents/sections/Testimonials";
-import ProductTabsGrid from "@/frontendComponents/sections/ProductTabsGrid";
 import { mergeOpenGraph } from "@/utilities/mergeOpenGraph";
-import { Config, Media } from "@/payload-types";
+import { Config, Media } from "@/types/cms";
 import { getServerSideURL } from "@/utilities/getURL";
 import NotFound from "@/components/NotFound";
-import { Render } from "@measured/puck";
-import { RenderClient } from "@/EditorComp/RenderClient";
 
 // Force dynamic rendering to avoid headers() conflicts
 export const dynamic = 'force-dynamic';
@@ -124,6 +108,11 @@ const categories = [
 // }
 
 export async function generateStaticParams() {
+  const slugs = await getStaticStorefrontPageSlugs();
+  return routing.locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
+}
+/*
+
   const payload = await getPayload({ config });
   const pages = await payload.find({
     collection: "pages",
@@ -152,6 +141,7 @@ export async function generateStaticParams() {
   });
   return params;
 }
+*/
 // Removed generateStaticParams since we're using dynamic rendering
 // export async function generateStaticParams() {
 //   const payload = await getPayload({ config });
@@ -194,7 +184,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
   // For dynamic rendering, we can use domain-specific logic
   try {
-    page = await getTenantByDomain("default", slug, locale);
+    page = await getStorefrontPageByDomain({ domain: "default", slug, locale });
     console.log("Page fetched:", {
       slug,
       locale,
@@ -296,7 +286,7 @@ export async function generateMetadata({
   let page;
   try {
     // Use the same tenant-based approach as the main component
-    page = await getTenantByDomain("default", slug, locale);
+    page = await getStorefrontPageByDomain({ domain: "default", slug, locale });
     console.log("Page fetched for metadata:", { slug, locale, hasPage: !!page, hasMeta: !!page?.meta });
   } catch (error) {
     console.error("Error fetching page for metadata:", error);
@@ -342,31 +332,3 @@ export async function generateMetadata({
   };
 }
 
-const queryPageBySlug = cache(
-  async ({ slug, locale }: { slug: string; locale: Locale }) => {
-    const { isEnabled: draft } = await draftMode();
-
-    const payload = await getPayload({ config });
-
-    try {
-      const result = await payload.find({
-        collection: "pages",
-        draft,
-        limit: 1,
-        locale,
-        pagination: false,
-        overrideAccess: draft,
-        where: {
-          slug: {
-            equals: slug
-          }
-        }
-      });
-      return result.docs?.[0] || null;
-    } catch (error) {
-      // Now instead of global error we will know at least where the error is
-      console.log("Main page error: ", error);
-      return null;
-    }
-  }
-);

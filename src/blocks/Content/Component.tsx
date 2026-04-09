@@ -10,7 +10,7 @@ import RichText from "@/components/RichText";
 import { VisualEditingWrapper } from "@/components/VisualEditingWrapper";
 import { cn } from "@/utilities/cn";
 
-import type { ContentBlock as ContentBlockProps } from "@/payload-types";
+import type { ContentBlock as ContentBlockProps } from "@/types/cms";
 
 export const ContentBlock = (props: ContentBlockProps) => {
   const colsSpanClasses = {
@@ -38,7 +38,7 @@ export const ContentBlock = (props: ContentBlockProps) => {
         spacingBottomClasses[props.spacingBottom ?? "medium"],
         paddingTopClasses[props.paddingTop ?? "medium"],
         paddingBottomClasses[props.paddingBottom ?? "medium"],
-        getCenteringClasses(props.alignment ?? undefined),
+        getCenteringClasses((props.alignment as "left" | "center" | "right" | "full" | undefined) ?? undefined),
         isSingleRadius && props.radiusAll,
         isMultiRadius &&
           `${props.radiusTopLeft} ${props.radiusTopRight} ${props.radiusBottomRight} ${props.radiusBottomLeft}`,
@@ -91,3 +91,5 @@ export const ContentBlock = (props: ContentBlockProps) => {
     </section>
   );
 };
+
+

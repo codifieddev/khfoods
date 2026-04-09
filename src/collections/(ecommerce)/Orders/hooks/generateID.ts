@@ -1,6 +1,6 @@
 import { getPayload, type CollectionBeforeValidateHook } from "payload";
 
-import { type Order } from "@/payload-types";
+import { type Order } from "@/types/cms";
 import config from "@payload-config";
 
 export const generateID: CollectionBeforeValidateHook<Order> = async ({ data }) => {
@@ -41,3 +41,5 @@ export const generateID: CollectionBeforeValidateHook<Order> = async ({ data }) 
 
   return data;
 };
+
+

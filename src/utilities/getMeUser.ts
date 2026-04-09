@@ -1,12 +1,14 @@
 import { cookies } from "next/headers";
 
+import { getAuthenticatedAdministrator } from "@/data/storefront/adminAuth";
 import { type Locale } from "@/i18n/config";
 import { redirect } from "@/i18n/routing";
 
-import { getClientSideURL } from "./getURL";
+import type { Administrator } from "@/types/cms";
 
-import type { Administrator } from "@/payload-types";
-
+/**
+ * Native Next.js utility to retrieve the current authenticated user session.
+ */
 export const getMeUser = async (args?: {
   nullUserRedirect?: string;
   locale?: Locale;
@@ -17,26 +19,19 @@ export const getMeUser = async (args?: {
 }> => {
   const { nullUserRedirect, validUserRedirect, locale } = args ?? {};
   const cookieStore = await cookies();
-  const token = cookieStore.get("payload-token")?.value;
+  const token = cookieStore.get("auth-token")?.value;
+  const user = (await getAuthenticatedAdministrator()) as Administrator | null;
 
-  const meUserReq = await fetch(`${getClientSideURL()}/api/administrators/me`, {
-    headers: {
-      Authorization: `JWT ${token}`
-    }
-  });
-
-  const {
-    user
-  }: {
-    user: Administrator;
-  } = (await meUserReq.json()) as { user: Administrator };
-
-  if (validUserRedirect && meUserReq.ok && user) {
+  if (validUserRedirect && user) {
     return redirect({ locale: locale ?? "en", href: validUserRedirect });
   }
 
-  if (nullUserRedirect && (!meUserReq.ok || !user)) {
+  if (nullUserRedirect && !user) {
     return redirect({ locale: locale ?? "en", href: nullUserRedirect });
+  }
+
+  if (!user) {
+    throw new Error("Administrator session is not available.");
   }
 
   // Token will exist here because if it doesn't the user will be redirected

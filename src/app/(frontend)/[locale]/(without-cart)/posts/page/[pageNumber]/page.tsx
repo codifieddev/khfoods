@@ -1,12 +1,11 @@
 import { notFound } from "next/navigation";
-import { getPayload } from "payload";
 import React from "react";
 
 import { CollectionArchive } from "@/components/CollectionArchive";
 import { PageRange } from "@/components/PageRange";
 import { Pagination } from "@/components/Pagination";
+import { getPostCount, getPostsPage, POSTS_PAGE_SIZE } from "@/data/storefront/posts";
 import { type Locale } from "@/i18n/config";
-import configPromise from "@payload-config";
 
 import PageClient from "./page.client";
 
@@ -23,19 +22,14 @@ type Args = {
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { pageNumber, locale } = await paramsPromise;
-  const payload = await getPayload({ config: configPromise });
-
   const sanitizedPageNumber = Number(pageNumber);
 
   if (!Number.isInteger(sanitizedPageNumber)) notFound();
 
-  const posts = await payload.find({
-    collection: "posts",
-    depth: 1,
-    limit: 12,
+  const posts = await getPostsPage({
     locale,
     page: sanitizedPageNumber,
-    overrideAccess: true
+    limit: POSTS_PAGE_SIZE,
   });
 
   return (
@@ -48,7 +42,12 @@ export default async function Page({ params: paramsPromise }: Args) {
       </div>
 
       <div className="container mb-8">
-        <PageRange collection="posts" currentPage={posts.page} limit={12} totalDocs={posts.totalDocs} />
+        <PageRange
+          collection="posts"
+          currentPage={posts.page}
+          limit={POSTS_PAGE_SIZE}
+          totalDocs={posts.totalDocs}
+        />
       </div>
 
       <CollectionArchive posts={posts.docs} />
@@ -70,13 +69,8 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
 }
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise });
-  const { totalDocs } = await payload.count({
-    collection: "posts",
-    overrideAccess: true
-  });
-
-  const totalPages = Math.ceil(totalDocs / 10);
+  const totalDocs = await getPostCount();
+  const totalPages = Math.ceil(totalDocs / POSTS_PAGE_SIZE);
 
   const pages: { pageNumber: string }[] = [];
 

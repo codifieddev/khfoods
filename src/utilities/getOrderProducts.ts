@@ -1,34 +1,13 @@
-import { getPayload } from "payload";
-
+import { getFilledOrderProducts } from "@/data/storefront/commerce";
 import { type Locale } from "@/i18n/config";
-import { type Order } from "@/payload-types";
-import config from "@/payload.config";
+import { type Order } from "@/types/cms";
 
 export const getOrderProducts = async (orderProducts: Order["products"] | null, locale: Locale) => {
   try {
-    const payload = await getPayload({ config });
-
-    return (
-      orderProducts &&
-      (await Promise.all(
-        orderProducts.map(async (product) => {
-          const filledProduct = await payload.findByID({
-            collection: "products",
-            id:
-              typeof product.product === "string"
-                ? product.product
-                : (product.product?.id ?? product.id ?? ""),
-            locale
-          });
-          return {
-            ...product,
-            ...filledProduct
-          };
-        }),
-      ))
-    );
+    return await getFilledOrderProducts({ locale, orderProducts });
   } catch (error) {
     console.error(error);
     return [];
   }
 };
+

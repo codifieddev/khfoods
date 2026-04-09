@@ -1,4 +1,4 @@
-import { type Product } from "@/payload-types";
+import { type Product } from "@/types/cms";
 
 export type CartProduct = {
   id: Product["id"];

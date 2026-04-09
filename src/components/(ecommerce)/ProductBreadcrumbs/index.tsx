@@ -1,5 +1,5 @@
 import { Link } from "@/i18n/routing";
-import { type Product } from "@/payload-types";
+import { type Product } from "@/types/cms";
 
 export const ProductBreadcrumbs = ({ product }: { product: Product }) => {
   return (
@@ -52,3 +52,5 @@ export const ProductBreadcrumbs = ({ product }: { product: Product }) => {
     </>
   );
 };
+
+

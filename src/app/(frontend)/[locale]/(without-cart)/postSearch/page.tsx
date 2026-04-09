@@ -1,12 +1,11 @@
 import { getLocale } from "next-intl/server";
-import { getPayload } from "payload";
 import React from "react";
 
 import { type CardPostData } from "@/components/Card";
 import { CollectionArchive } from "@/components/CollectionArchive";
 import { Search } from "@/components/search/Component";
+import { getPostsPage, POSTS_PAGE_SIZE } from "@/data/storefront/posts";
 import { type Locale } from "@/i18n/config";
-import config from "@payload-config";
 
 import PageClient from "./page.client";
 
@@ -19,51 +18,11 @@ type Args = {
 };
 export default async function Page({ searchParams: searchParamsPromise }: Args) {
   const { q: query } = await searchParamsPromise;
-  console.log(query);
-  const payload = await getPayload({ config });
   const locale = (await getLocale()) as Locale;
-
-  const posts = await payload.find({
-    collection: "search",
-    depth: 1,
-    limit: 12,
+  const posts = await getPostsPage({
     locale,
-    select: {
-      title: true,
-      slug: true,
-      categories: true,
-      meta: true
-    },
-    // pagination: false reduces overhead if you don't need totalDocs
-    pagination: false,
-    ...(query
-      ? {
-          where: {
-            or: [
-              {
-                title: {
-                  like: query
-                }
-              },
-              {
-                "meta.description": {
-                  like: query
-                }
-              },
-              {
-                "meta.title": {
-                  like: query
-                }
-              },
-              {
-                slug: {
-                  like: query
-                }
-              },
-            ]
-          }
-        }
-      : {})
+    limit: POSTS_PAGE_SIZE,
+    query,
   });
 
   return (

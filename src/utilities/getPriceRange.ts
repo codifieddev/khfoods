@@ -1,4 +1,4 @@
-import { type Product } from "@/payload-types";
+import type { Product } from "@/types/cms";
 import { type Currency } from "@/stores/Currency/types";
 
 export const getPriceRange = (variants: Product["variants"], enableVariantPrices: boolean) => {

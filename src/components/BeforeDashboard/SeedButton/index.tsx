@@ -14,6 +14,10 @@ const SuccessMessage: React.FC = () => (
   </div>
 );
 
+const DisabledMessage: React.FC = () => (
+  <div>Database seeding is disabled while the app is being migrated away from Payload.</div>
+);
+
 export const SeedButton: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [seeded, setSeeded] = useState(false);
@@ -42,11 +46,14 @@ export const SeedButton: React.FC = () => {
         toast.promise(
           new Promise((resolve, reject) => {
             try {
-              fetch("/next/seed", { method: "POST", credentials: "include" })
-                .then((res) => {
+              fetch("/api/admin/seed", { method: "POST", credentials: "include" })
+                .then(async (res) => {
                   if (res.ok) {
                     resolve(true);
                     setSeeded(true);
+                  } else if (res.status === 410) {
+                    const data = (await res.json().catch(() => null)) as { message?: string } | null;
+                    reject(new Error(data?.message || "Database seeding is disabled."));
                   } else {
                     reject(new Error("An error occurred while seeding."));
                   }
@@ -61,7 +68,7 @@ export const SeedButton: React.FC = () => {
           {
             loading: "Seeding with data....",
             success: <SuccessMessage />,
-            error: "An error occurred while seeding."
+            error: <DisabledMessage />
           },
         );
       } catch (err) {

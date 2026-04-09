@@ -27,7 +27,7 @@ export const createTokenAndSendEmail: CollectionAfterOperationHook<"customers"> 
 
     const html = await render(
       await VerifyAccountEmail({
-        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/next/verify-email?token=${user._verificationToken}`,
+        url: `${process.env.NEXT_PUBLIC_SERVER_URL}/api/verify-email?token=${user._verificationToken}`,
         locale,
         name: result.firstName ?? "Customer"
       }),

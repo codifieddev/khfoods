@@ -1,4 +1,4 @@
-import type { Block } from "payload";
+import type { Block } from "@/types/cms";
 import { CallToAction } from "@/blocks/CallToAction/config";
 import { Content } from "@/blocks/Content/config";
 import { MediaBlock } from "@/blocks/MediaBlock/config";

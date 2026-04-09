@@ -13,10 +13,6 @@ import TestimonialsSection from "@/frontendComponents/Home/TestimonialsSection";
 import BlogSection from "@/frontendComponents/sections/BlogSection";
 import OurStorySection from "@/frontendComponents/sections/OurStorySection";
 
-
-
-import { getCachedGlobal } from "@/utilities/getGlobals";
-
 export const dynamic = "force-dynamic";
 
 const HomePage = async () => {

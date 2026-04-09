@@ -31,7 +31,7 @@ import { type Country } from "@/globals/(ecommerce)/Couriers/utils/countryList";
 import { type ProductWithFilledVariants } from "@/globals/(ecommerce)/Layout/Cart/variants/SlideOver";
 import { type Locale } from "@/i18n/config";
 import { useRouter } from "@/i18n/routing";
-import { type Customer, type Media } from "@/payload-types";
+import { type Customer, type Media } from "@/types/cms";
 import {
   type CheckoutFormData,
   useCheckoutFormSchema
@@ -158,7 +158,7 @@ export const CheckoutForm = ({
             totalQuantity: number;
             couriers: FilledCourier[];
           };
-        }>("/next/checkout", {
+        }>("/api/checkout", {
           cart: cartToCalculate,
           selectedCountry: countryToCalculate,
           locale
@@ -204,7 +204,7 @@ export const CheckoutForm = ({
       form.clearErrors();
 
       const { data } = await axios.post<{ status: number; url?: string }>(
-        "/next/payment",
+        "/api/payment",
         {
           cart,
           selectedCountry: shipping.country,
@@ -555,3 +555,5 @@ export const CheckoutForm = ({
     </>
   );
 };
+
+

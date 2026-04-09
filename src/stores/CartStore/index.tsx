@@ -17,7 +17,9 @@ type CartState = {
 
 const saveCartToUserAccount = async (cart: Cart) => {
   try {
-    await axios.post("/next/cart", cart);
+    await axios.post("/api/cart", cart, {
+      validateStatus: (status) => (status >= 200 && status < 300) || status === 401,
+    });
   } catch (error) {
     console.error("Failed to save cart to UserAccount:", error);
   }
@@ -25,8 +27,10 @@ const saveCartToUserAccount = async (cart: Cart) => {
 
 const fetchCartFromUserAccount = async (): Promise<Cart | null> => {
   try {
-    const { data } = await axios.get<{ data: Cart; status: number }>("/next/cart");
-    if (data.status === 400) return null;
+    const { data } = await axios.get<{ data: Cart; status: number }>("/api/cart", {
+      validateStatus: (status) => (status >= 200 && status < 300) || status === 401,
+    });
+    if (data.status === 401) return null;
     return data.data;
   } catch (error) {
     console.error("Failed to fetch cart from UserAccount:", error);

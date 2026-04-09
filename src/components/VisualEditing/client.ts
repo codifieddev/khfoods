@@ -25,26 +25,7 @@ export const initializeVisualEditing = () => {
 
         // For nested blocks, we'll need to navigate to the parent page and highlight the specific block
         // Since nested blocks don't have direct edit URLs, we'll edit the parent page
-        let editUrl;
-
-        // Try to determine the collection based on block type
-        if (
-          blockType === "story" ||
-          blockType === "timeline" ||
-          blockType === "values" ||
-          blockType === "team" ||
-          blockType === "stats" ||
-          blockType === "culture" ||
-          blockType === "cta" ||
-          blockType === "missionVision"
-        ) {
-          // These are nested blocks within an aboutPage block
-          // We need to edit the parent page
-          editUrl = `${adminUrl}/admin/collections/pages`;
-        } else {
-          // For other blocks, try to edit them directly
-          editUrl = `${adminUrl}/admin/collections/pages/${blockId}`;
-        }
+        const editUrl = `${adminUrl}/edit/${blockId}`;
 
         window.open(editUrl, "_blank");
       }

@@ -5,7 +5,7 @@ import { type TextFieldClientComponent } from "payload";
 import { stringify } from "qs-esm";
 import { useCallback, useEffect } from "react";
 
-import { type Product } from "@/payload-types";
+import { type Product } from "@/types/cms";
 
 export const ProductNameField: TextFieldClientComponent = ({ path }) => {
   const { setValue } = useField<string>({ path });
@@ -45,3 +45,5 @@ export const ProductNameField: TextFieldClientComponent = ({ path }) => {
 
   return null;
 };
+
+

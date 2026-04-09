@@ -7,7 +7,7 @@ import { Media } from "@/components/Media";
 import RichText from "@/components/RichText";
 import { useHeaderTheme } from "@/providers/HeaderTheme";
 
-import type { Page } from "@/payload-types";
+import type { Page } from "@/types/cms";
 
 export const VideoModalHero = (props: Page["hero"]) => {
   const { links, video_backgroundColor, video_description, video_heading, video_subheading, video_url } =
@@ -123,3 +123,4 @@ export const VideoModalHero = (props: Page["hero"]) => {
     </>
   );
 };
+

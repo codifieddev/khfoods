@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { type VariantsArr } from ".";
 
-import { type Product } from "@/payload-types";
+import { type Product } from "@/types/cms";
 
 export const VariantSelectClient = ({ path }: { path: string }) => {
   const { value, setValue } = useField<string>({ path });
@@ -75,3 +75,5 @@ export const VariantSelectClient = ({ path }: { path: string }) => {
     />
   );
 };
+
+

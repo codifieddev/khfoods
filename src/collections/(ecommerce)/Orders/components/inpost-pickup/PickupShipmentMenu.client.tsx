@@ -47,7 +47,7 @@ export const PickupShipmentMenuClient = ({ orderID }: { orderID: string }) => {
   const createPackage = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.post<string>(`/next/package`, {
+      const { data } = await axios.post<string>(`/api/shipping/package`, {
         orderID,
         dimension
       });

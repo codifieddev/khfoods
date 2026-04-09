@@ -6,6 +6,7 @@ import Link from "next/link";
 type Product = {
   id: string;
   title: string;
+  slug: string;
   price: number;
   oldPrice?: number;
   quantity?: string;
@@ -29,8 +30,8 @@ const ProductSection: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("/api/collections/products", {
-          cache: "no-store", // 🔥 admin update turant reflect hoga
+        const res = await fetch("/api/products", {
+          cache: "no-store", 
         });
 
         const data = await res.json();
@@ -89,7 +90,7 @@ const ProductSection: React.FC = () => {
                 product.images?.[0]?.url || FALLBACK_IMAGES[index];
 
               return (
-                <Link key={product.id} href="/products/single">
+                <Link key={product.id} href={`/products/${product.slug}`}>
                   <article className="bg-[#f7f7f7] rounded-xl overflow-hidden flex flex-col h-full group cursor-pointer">
 
                     <div className="relative pt-4 pb-2 px-4">

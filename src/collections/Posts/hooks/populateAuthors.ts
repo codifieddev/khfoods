@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { type Administrator } from "@/payload-types";
+import { type Administrator } from "@/types/cms";
 
 import type { CollectionAfterReadHook } from "payload";
 
@@ -32,3 +32,5 @@ export const populateAuthors: CollectionAfterReadHook = async ({ doc, req, req: 
 
   return doc;
 };
+
+

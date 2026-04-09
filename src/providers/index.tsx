@@ -5,7 +5,7 @@ import { type ReactNode } from "react";
 // import { ThemeProvider } from "./Theme";
 
 // import { type Locale } from "@/i18n/config";
-// import { type ShopSetting } from "@/payload-types";
+// import { type ShopSetting } from "@/types/cms";
 // import { getCachedGlobal } from "@/utilities/getGlobals";
 
 export const Providers = async ({ children }: { children: ReactNode }) => {
@@ -13,3 +13,5 @@ export const Providers = async ({ children }: { children: ReactNode }) => {
   // const shopSettings: ShopSetting = await getCachedGlobal("shopSettings", locale, 1)();
   return children;
 };
+
+

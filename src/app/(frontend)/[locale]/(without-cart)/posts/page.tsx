@@ -1,12 +1,11 @@
 import { getLocale } from "next-intl/server";
-import { getPayload } from "payload";
 import React from "react";
 
 import { CollectionArchive } from "@/components/CollectionArchive";
 import { PageRange } from "@/components/PageRange";
 import { Pagination } from "@/components/Pagination";
+import { getPostsPage, POSTS_PAGE_SIZE } from "@/data/storefront/posts";
 import { type Locale } from "@/i18n/config";
-import config from "@payload-config";
 
 import PageClient from "./page.client";
 
@@ -16,22 +15,8 @@ export const dynamic = "force-static";
 export const revalidate = 600;
 
 export default async function Page() {
-  const payload = await getPayload({ config });
   const locale = (await getLocale()) as Locale;
-
-  const posts = await payload.find({
-    collection: "posts",
-    depth: 1,
-    limit: 12,
-    locale,
-    overrideAccess: true,
-    select: {
-      title: true,
-      slug: true,
-      categories: true,
-      meta: true
-    }
-  });
+  const posts = await getPostsPage({ locale, limit: POSTS_PAGE_SIZE });
 
   return (
     <div className="pb-24 pt-24">
@@ -43,7 +28,12 @@ export default async function Page() {
       </div>
 
       <div className="container mb-8">
-        <PageRange collection="posts" currentPage={posts.page} limit={12} totalDocs={posts.totalDocs} />
+        <PageRange
+          collection="posts"
+          currentPage={posts.page}
+          limit={POSTS_PAGE_SIZE}
+          totalDocs={posts.totalDocs}
+        />
       </div>
 
       <CollectionArchive posts={posts.docs} />

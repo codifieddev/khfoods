@@ -148,7 +148,7 @@ const compat = new FlatCompat({
 
 export default [
   {
-    ignores: ["**/*.js", "**/*.jsx", "src/app/(payload)/**/*", "src/payload-types.ts"],
+    ignores: ["**/*.js", "**/*.jsx"],
   },
   ...fixupConfigRules(
     compat.extends(
@@ -200,7 +200,7 @@ export default [
     },
   },
   {
-    files: ["src/app/**/**/**/**", "**/tailwind.config.ts", "src/payload.config.ts", "src/middleware.ts"],
+    files: ["src/app/**/**/**/**", "**/tailwind.config.ts", "src/middleware.ts"],
 
     rules: {
       "import/no-default-export": "off",

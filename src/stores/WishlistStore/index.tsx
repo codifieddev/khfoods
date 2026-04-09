@@ -16,7 +16,7 @@ type WishListState = {
 
 const saveWishListToUserAccount = async (wishlist: WishList) => {
   try {
-    await axios.post("/next/wishlist", wishlist);
+    await axios.post("/api/wishlist", wishlist);
   } catch (error) {
     console.error("Failed to save wishlist to UserAccount:", error);
   }
@@ -24,7 +24,7 @@ const saveWishListToUserAccount = async (wishlist: WishList) => {
 
 const fetchWishListFromUserAccount = async (): Promise<WishList | null> => {
   try {
-    const { data } = await axios.get<{ data: WishList; status: number }>("/next/wishlist");
+    const { data } = await axios.get<{ data: WishList; status: number }>("/api/wishlist");
     if (data.status === 400) return null;
     return data.data;
   } catch (error) {

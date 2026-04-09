@@ -1,12 +1,11 @@
 import axios from "axios";
 import { getLocale } from "next-intl/server";
-import { getPayload } from "payload";
 
-import { type Dimensions } from "@/app/(frontend)/next/package/route";
+import { type Dimensions } from "@/app/api/shipping/package/route";
+import { getMongoDb } from "@/data/mongo/client";
 import { type Locale } from "@/i18n/config";
-import { type Order } from "@/payload-types";
+import { type Order } from "@/types/cms";
 import { getCachedGlobal } from "@/utilities/getGlobals";
-import config from "@payload-config";
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -25,9 +24,16 @@ export const createInpostCourierPackage = async (
   const { shopAddress } = fulfilment;
   const { shippingAddress } = order;
 
-  const secretKey = "bb9faebf8294424398ed7344829fd5fb";
+  if (!shopAddress) {
+    throw new Error("No fulfilment address found");
+  }
 
-  const payload = await getPayload({ config });
+  if (!shippingAddress) {
+    throw new Error("No shipping address found");
+  }
+
+  const secretKey = "bb9faebf8294424398ed7344829fd5fb";
+  const db = await getMongoDb();
 
   const addressParts = shopAddress.address.split(" ");
   const building_number = addressParts[addressParts.length - 1];
@@ -37,10 +43,6 @@ export const createInpostCourierPackage = async (
   const shippingBuildingNumber =
     shippingAddressParts[shippingAddressParts.length - 1];
   const shippingStreet = shippingAddressParts.slice(0, -1).join(" ");
-
-  if (!shippingAddress) {
-    throw new Error("No shipping address found");
-  }
 
   const url = "https://apis-sandbox.fedex.com/oauth/token";
   const params = new URLSearchParams();
@@ -228,19 +230,17 @@ export const createInpostCourierPackage = async (
 
   const packageID: string = shipmentResult.transactionId;
 
-    await payload.update({
-    id: order.id,
-    collection: "orders",
-    data: {
-      orderDetails: {
-        trackingNumber: trackingNumber
+  await db.collection("orders").updateOne(
+    { id: order.id },
+    {
+      $set: {
+        "orderDetails.trackingNumber": trackingNumber,
+        "printLabel.labelurl": pieceResponse.packageDocuments[0].url,
+        "printLabel.packageNumber": packageID,
+        updatedAt: new Date().toISOString(),
       },
-      printLabel: {
-        packageNumber: packageID, 
-        labelurl: pieceResponse.packageDocuments[0].url
-      }
-    }
-  });
+    },
+  );
 
   // const checkShipmentStatus = async (maxAttempts = 10): Promise<string> => {
   //   for (let attempt = 0; attempt < maxAttempts; attempt++) {
@@ -279,3 +279,4 @@ export const createInpostCourierPackage = async (
 
   return trackingNumber;
 };
+

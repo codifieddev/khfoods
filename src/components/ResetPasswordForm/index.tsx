@@ -23,7 +23,13 @@ export const ResetPasswordForm = ({ token, collection }: { token: string; collec
 
   const onSubmit = async (values: ResetPasswordFormData) => {
     try {
-      const { status } = await axios.post(`/api/${collection}/reset-password`, {
+      const resetPasswordUrl =
+        collection === "customers"
+          ? "/api/customers/reset-password"
+          : collection === "administrators"
+            ? "/api/administrators/reset-password"
+            : `/api/${collection}/reset-password`;
+      const { status } = await axios.post(resetPasswordUrl, {
         token: token,
         password: values.newPassword
       });
@@ -32,7 +38,7 @@ export const ResetPasswordForm = ({ token, collection }: { token: string; collec
 
       if (status === 200) {
         console.log(status);
-        router.push("/admin/login");
+        router.push(collection === "customers" ? "/login" : "/admin/login");
       }
     } catch (error) {
       if (isAxiosError(error)) {

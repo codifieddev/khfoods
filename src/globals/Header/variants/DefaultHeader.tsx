@@ -6,7 +6,7 @@ import { CMSLink } from "@/components/Link";
 import { Logo } from "@/components/Logo/Logo";
 import { Media } from "@/components/Media";
 import { Link } from "@/i18n/routing";
-import { type Header } from "@/payload-types";
+import type { Header } from "@/types/cms";
 import { useCartState } from "@/stores/CartStateStore";
 import { useCart } from "@/stores/CartStore";
 import { useWishListState } from "@/stores/WishListStateStore";

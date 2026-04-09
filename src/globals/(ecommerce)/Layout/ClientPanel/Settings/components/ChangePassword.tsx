@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { type Customer } from "@/payload-types";
+import { type Customer } from "@/types/cms";
 import {
   type ChangePasswordModalFormData,
   useChangePasswordModalForm
@@ -51,7 +51,7 @@ export const ChangePassword = ({ user }: { user: Customer }) => {
 
       if (status === 200) {
         await axios.patch(
-          `/api/customers/${user.id}`,
+          "/api/customers/me",
           {
             password: values.newPassword
           },
@@ -141,3 +141,5 @@ export const ChangePassword = ({ user }: { user: Customer }) => {
     </>
   );
 };
+
+

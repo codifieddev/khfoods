@@ -1,16 +1,13 @@
 import { notFound } from "next/navigation";
 import { getLocale } from "next-intl/server";
-import { getPayload } from "payload";
 
-import { ListingBreadcrumbs } from "@/components/(ecommerce)/ListingBreadcrumbs";
+import { getShopLayoutData } from "@/data/storefront/globals";
 import { type Locale } from "@/i18n/config";
 import {
   type Product,
   type ProductCategory,
   type ProductSubCategory,
-} from "@/payload-types";
-import { getCachedGlobal } from "@/utilities/getGlobals";
-import config from "@payload-config";
+} from "@/types/cms";
 
 import { None } from "./variants/filters/None";
 import { WithSidebar } from "./variants/filters/WithSidebar/WithSidebar";
@@ -18,12 +15,14 @@ import { WithInlinePrice } from "./variants/listings/WithInlinePrice";
 import { HeroSection } from "@/frontendComponents/About/Nutrition/Hero";
 
 export const ProductList = async ({
+  allProducts,
   filteredProducts,
   title,
   category,
   subcategory,
   searchParams,
 }: {
+  allProducts: Product[];
   filteredProducts: Product[];
   title: string;
   category?: ProductCategory;
@@ -36,7 +35,7 @@ export const ProductList = async ({
 }) => {
   try {
     const locale = (await getLocale()) as Locale;
-    const { productList } = await getCachedGlobal("shopLayout", locale, 1)();
+    const { productList } = await getShopLayoutData(locale);
  
     let ProductDetailsComponent: typeof WithSidebar | typeof None = None;
     switch (productList?.filters) {
@@ -47,34 +46,12 @@ export const ProductList = async ({
         ProductDetailsComponent = None;
     }
 
-    const payload = await getPayload({ config });
-
-    const { docs: allProducts } = await payload.find({
-      collection: "products",
-      depth: 2,
-      locale,
-      where: {
-        or: [
-          {
-            "categoriesArr.category": {
-              equals: category?.id,
-            },
-          },
-          // {
-          //   "categoriesArr.subcategories": {
-          //     equals: subcategory?.id,
-          //   },
-          // },
-        ],
-      },
-    });
-
     return (
       <div>
         {(category ||
           (subcategory && typeof subcategory.category !== "string")) && (
           <HeroSection
-            category={subcategory && typeof subcategory.category !== "string" ? subcategory?.category : category}
+            category={subcategory && typeof subcategory.category !== "string" ? subcategory?.category ?? undefined : category ?? undefined}
             subcategory={subcategory && subcategory}
           />
         )}
@@ -88,7 +65,7 @@ export const ProductList = async ({
         <ProductDetailsComponent
           products={allProducts}
           title={title}
-          category={category}
+          category={category ?? undefined}
           searchParams={searchParams}
         >
           <WithInlinePrice products={filteredProducts} />

@@ -1,23 +1,15 @@
 import { unstable_cache } from "next/cache";
-import { type DataFromGlobalSlug, getPayload } from "payload";
 
+import { getStorefrontGlobal, type StorefrontGlobal } from "@/data/storefront/globals";
 import { type Locale } from "@/i18n/config";
-import configPromise from "@payload-config";
 
-import type { Config } from "@/payload-types";
+import type { AppGlobalsMap } from "@/types/cms";
 
-type Global = keyof Config["globals"];
+type Global = keyof AppGlobalsMap;
 
 async function getGlobal(slug: Global, depth = 5, locale: Locale) {
-  const payload = await getPayload({ config: configPromise });
-
-  const global = await payload.findGlobal({
-    slug,
-    locale,
-    depth
-  });
-
-  return global;
+  void depth;
+  return getStorefrontGlobal(slug as StorefrontGlobal, locale);
 }
 
 /**
@@ -27,10 +19,10 @@ export const getCachedGlobal = <T extends Global>(
   slug: T,
   locale: Locale,
   depth?: number,
-): (() => Promise<DataFromGlobalSlug<T>>) =>
+): (() => Promise<AppGlobalsMap[T]>) =>
   unstable_cache(
-    async (): Promise<DataFromGlobalSlug<T>> => {
-      return (await getGlobal(slug, depth, locale)) as DataFromGlobalSlug<T>;
+    async (): Promise<AppGlobalsMap[T]> => {
+      return (await getGlobal(slug, depth, locale)) as AppGlobalsMap[T];
     },
     [slug],
     {

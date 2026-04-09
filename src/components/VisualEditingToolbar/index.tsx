@@ -89,7 +89,7 @@ export const VisualEditingToolbar: React.FC<VisualEditingToolbarProps> = ({ page
   const handleExitPreview = async () => {
     setIsLoading(true);
     try {
-      await fetch("/api/exit-preview");
+      await fetch("/api/disable-preview");
       window.location.reload();
     } catch (error) {
       console.error("Failed to exit preview:", error);
@@ -99,9 +99,7 @@ export const VisualEditingToolbar: React.FC<VisualEditingToolbarProps> = ({ page
 
   const handleOpenAdmin = () => {
     const adminUrl = process.env.NEXT_PUBLIC_SERVER_URL || window.location.origin;
-    const editUrl = pageId
-      ? `${adminUrl}/admin/collections/pages/${pageId}`
-      : `${adminUrl}/admin/collections/pages`;
+    const editUrl = pageId ? `${adminUrl}/edit/${pageId}` : `${adminUrl}/admin`;
 
     window.open(editUrl, "_blank");
   };

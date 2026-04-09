@@ -2,7 +2,7 @@
 import { authenticated } from "@/access/authenticated";
 // import { readAccess } from "@/Access/readaccess";
 import type { AccessArgs } from "payload";
-import type { Administrator } from "@/payload-types";
+import type { Administrator } from "@/types/cms";
 import type { CollectionConfig } from "payload";
 import { checkUserPermission } from "@/access/roleBasedAccess";
 import { permission } from "process";
@@ -389,3 +389,4 @@ afterChange: [
   ],
   timestamps: true
 };  
+

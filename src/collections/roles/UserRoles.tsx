@@ -3,7 +3,7 @@
 
 import { CollectionConfig } from "payload";
 import type { AccessArgs } from "payload";
-import type { Administrator } from "@/payload-types";
+import type { Administrator } from "@/types/cms";
 import { authenticated } from "@/access/authenticated";
 import { checkUserPermission } from "@/access/roleBasedAccess";
 
@@ -1016,3 +1016,5 @@ export const Roles: CollectionConfig = {
   ],
   timestamps: true
 };
+
+

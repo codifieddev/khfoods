@@ -1,7 +1,6 @@
 import { subDays } from "date-fns";
 import { type PayloadRequest, type Where } from "payload";
 
-import { type Order } from "@/payload-types";
 import { getCachedGlobal } from "@/utilities/getGlobals";
 
 export type RevenueResponse = {
@@ -113,7 +112,7 @@ export const getRevenue = async (req: PayloadRequest) => {
 
     const totalRevenue = Number(
       docs
-        .reduce((acc: number, doc: Order) => {
+        .reduce((acc: number, doc) => {
           if (doc.orderDetails.currency === defaultCurrency) {
             return acc + doc.orderDetails.total;
           }
@@ -142,7 +141,7 @@ export const getRevenue = async (req: PayloadRequest) => {
 
     const previousPeriodRevenue = Number(
       previousPeriodDocs
-        .reduce((acc: number, doc: Order) => {
+        .reduce((acc: number, doc) => {
           if (doc.orderDetails.currency === defaultCurrency) {
             return acc + doc.orderDetails.total;
           }
@@ -173,3 +172,4 @@ export const getRevenue = async (req: PayloadRequest) => {
     return Response.json({ message: "Internal server error" }, { status: 500 });
   }
 };
+

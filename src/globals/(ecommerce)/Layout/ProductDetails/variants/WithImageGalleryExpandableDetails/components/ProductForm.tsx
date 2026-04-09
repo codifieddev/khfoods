@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { QuantityInput } from "@/components/(ecommerce)/QuantityInput";
-import { type Product } from "@/payload-types";
+import { type Product } from "@/types/cms";
 import { useCart } from "@/stores/CartStore";
 import { useWishList } from "@/stores/WishlistStore";
 import { cn } from "@/utilities/cn";
@@ -21,6 +21,7 @@ export const ProductForm = ({
 }: {
   product: Product;
   selectedVariant?: FilledVariant;
+  filledVariants?: FilledVariant[];
   minQuantity: number;
   maxQuantity: number;
 }) => {
@@ -101,3 +102,5 @@ export const ProductForm = ({
     </div>
   );
 };
+
+

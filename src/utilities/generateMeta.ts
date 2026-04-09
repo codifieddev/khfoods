@@ -1,10 +1,10 @@
 import { getServerSideURL } from "./getURL";
 import { mergeOpenGraph } from "./mergeOpenGraph";
 
-import type { Media, Page, Post, Config } from "@/payload-types";
+import type { Media, Page, Post } from "@/types/cms";
 import type { Metadata } from "next";
 
-const getImageURL = (image?: Media | Config["db"]["defaultIDType"] | null) => {
+const getImageURL = (image?: Media | string | null) => {
   const serverUrl = getServerSideURL();
 
   let url = serverUrl + "/website-template-OG.webp";
@@ -20,8 +20,6 @@ const getImageURL = (image?: Media | Config["db"]["defaultIDType"] | null) => {
 
 export const generateMeta = async (args: { doc: Partial<Page> | Partial<Post> }): Promise<Metadata> => {
   const { doc } = args || {};
-
-  console.log("====>>>", args)
 
   const ogImage = getImageURL(doc?.meta?.image);
 

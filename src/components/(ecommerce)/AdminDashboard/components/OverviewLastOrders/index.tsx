@@ -37,7 +37,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { type Order } from "@/payload-types";
+import { type Order } from "@/types/cms";
 import { formatPrice } from "@/utilities/formatPrices";
 
 const select = {
@@ -82,7 +82,7 @@ export const OverviewLastOrders = () => {
         );
       },
       cell: ({ row }) => {
-        const date = new Date(row.original.createdAt);
+        const date = new Date(row.original.createdAt ?? new Date().toISOString());
         return date.toLocaleDateString();
       }
     },
@@ -101,7 +101,7 @@ export const OverviewLastOrders = () => {
         );
       },
       cell: ({ row }) => {
-        return <p>{t(`adminDashboard:${row.original.orderDetails.status}`)}</p>;
+        return <p>{t(`adminDashboard:${row.original.orderDetails.status}` as any)}</p>;
       }
     },
     {
@@ -118,7 +118,7 @@ export const OverviewLastOrders = () => {
           </Button>
         );
       },
-      cell: ({ row }) => <div className="lowercase">{row.original.shippingAddress.email}</div>
+      cell: ({ row }) => <div className="lowercase">{row.original.shippingAddress?.email ?? "-"}</div>
     },
     {
       id: "amount",
@@ -159,7 +159,7 @@ export const OverviewLastOrders = () => {
               {order.customer && (
                 <DropdownMenuItem>
                   <Link
-                    href={`/admin/collections/customers/${typeof order.customer === "string" ? order.customer : order.customer.id}`}
+                    href={`/admin/customers/${typeof order.customer === "string" ? order.customer : order.customer.id}`}
                     className="no-underline"
                   >
                     {t("adminDashboard:viewCustomer")}
@@ -167,7 +167,7 @@ export const OverviewLastOrders = () => {
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem asChild>
-                <Link href={`/admin/collections/orders/${order.id}`} className="no-underline">
+                <Link href={`/admin/orders/${order.id}`} className="no-underline">
                   {t("adminDashboard:viewOrder")}
                 </Link>
               </DropdownMenuItem>
@@ -373,3 +373,5 @@ export const OverviewLastOrders = () => {
     </Card>
   );
 };
+
+

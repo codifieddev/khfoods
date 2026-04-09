@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { PriceClient } from "@/components/(ecommerce)/PriceClient";
 import { Media } from "@/components/Media";
 import RichText from "@/components/RichText";
-import { type Product, type ShopLayout } from "@/payload-types";
+import { type Product, type ShopLayout } from "@/types/cms";
 import { type Currency } from "@/stores/Currency/types";
 import { cn } from "@/utilities/cn";
 
@@ -177,7 +177,7 @@ export const WithImageGalleryExpandableDetails = ({
                     <DisclosurePanel className="pb-6">
                       <RichText
                         className="list-disc space-y-1 pl-5 text-sm/6 text-gray-700 marker:text-gray-300"
-                        data={detail.content}
+                        data={detail.content ?? null}
                       />
                     </DisclosurePanel>
                   </Disclosure>
@@ -190,3 +190,5 @@ export const WithImageGalleryExpandableDetails = ({
     </div>
   );
 };
+
+

@@ -1,10 +1,9 @@
 import { notFound } from "next/navigation";
 import { getLocale } from "next-intl/server";
-import { getPayload } from "payload";
 
+import { getStorefrontProductBySlug } from "@/data/storefront/ecommerce";
 import { ProductDetails } from "@/globals/(ecommerce)/Layout/ProductDetails/Component";
 import { type Locale } from "@/i18n/config";
-import config from "@payload-config";
 
 const ProductPage = async ({
   params,
@@ -14,22 +13,12 @@ const ProductPage = async ({
   searchParams: Promise<Record<string, string | undefined>>;
 }) => {
   try {
-    const payload = await getPayload({ config });
     const locale = (await getLocale()) as Locale;
     const { slug } = await params;
-    const { docs } = await payload.find({
-      collection: "products",
-      depth: 2,
-      locale,
-      where: {
-        slug: {
-          equals: slug
-        }
-      }
-    });
+    const product = await getStorefrontProductBySlug({ locale, slug });
     const { variant } = await searchParams;
 
-    if (docs.length === 0) {
+    if (!product) {
       notFound();
     }
 
@@ -46,7 +35,7 @@ const ProductPage = async ({
 
     return (
       <>
-        <ProductDetails variant={variant} product={docs[0]} />
+        <ProductDetails variant={variant} product={product} />
 
         {/* <div className="container mx-auto py-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">

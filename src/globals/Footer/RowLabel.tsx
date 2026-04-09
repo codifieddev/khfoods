@@ -1,7 +1,7 @@
 "use client";
 import { useRowLabel } from "@payloadcms/ui";
 
-import { type Header } from "@/payload-types";
+import { type Header } from "@/types/cms";
 
 export const RowLabel = () => {
   const data = useRowLabel<NonNullable<Header["navItems"]>[number]>();
@@ -12,3 +12,5 @@ export const RowLabel = () => {
 
   return <div>{label}</div>;
 };
+
+

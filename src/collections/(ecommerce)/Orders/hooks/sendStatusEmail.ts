@@ -3,7 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 
 import { OrderStatusEmail } from "@/components/Emails/OrderStatusEmail";
 import { type Locale } from "@/i18n/config";
-import { type Order } from "@/payload-types";
+import { type Order } from "@/types/cms";
 import { sendEmail } from "@/utilities/nodemailer";
 
 import type { FieldHook } from "payload";
@@ -36,3 +36,5 @@ export const sendStatusEmail: FieldHook<Order, Order["orderDetails"]["status"] |
   }
   return value;
 };
+
+

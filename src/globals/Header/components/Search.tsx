@@ -3,8 +3,6 @@ import axios from "axios";
 import debounce from "lodash.debounce";
 import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { type Where } from "payload";
-import { stringify } from "qs-esm";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -21,7 +19,7 @@ import {
 } from "@/components/ui/command";
 import { type Locale } from "@/i18n/config";
 import { useRouter, usePathname, Link } from "@/i18n/routing";
-import { type ProductCategory, type Product } from "@/payload-types";
+import { type ProductCategory, type Product } from "@/types/cms";
 import { getPriceRange } from "@/utilities/getPriceRange";
 
 export const Search = () => {
@@ -60,76 +58,14 @@ export const Search = () => {
 
   const fetchProductsAndCategories = debounce(async (value: string) => {
     try {
-      const where: Where = {
-        or: [
-          {
-            title: {
-              contains: value
-            }
-          },
-          {
-            slug: {
-              contains: value
-            }
-          },
-        ]
-      };
-
-      const productsSelect = {
-        id: true,
-        slug: true,
-        title: true,
-        images: true,
-        variants: {
-          pricing: true
-        },
-        enableVariantPrices: true,
-        pricing: true
-      };
-
-      const categorySelect = {
-        id: true,
-        slug: true,
-        title: true
-      };
-
-      const productStringifiedQuery = stringify(
-        {
-          where,
-          select: productsSelect
-        },
-        { addQueryPrefix: true }
-      );
-
-      const categoryStringifiedQuery = stringify(
-        {
-          where,
-          select: categorySelect
-        },
-        { addQueryPrefix: true }
-      );
-
-      const { data: productData } = await axios.get<{ docs: Product[] }>(
-        `/api/products${productStringifiedQuery}&locale=${locale}&limit=5`,
+      const { data } = await axios.get<{ categories: ProductCategory[]; products: Product[] }>(
+        `/api/search?query=${encodeURIComponent(value)}&locale=${locale}`,
         {
           withCredentials: true
         }
       );
-
-      const { data: categoriesData } = await axios.get<{
-        docs: ProductCategory[];
-      }>(
-        `/api/productCategories${categoryStringifiedQuery}&locale=${locale}&limit=5`,
-        {
-          withCredentials: true
-        }
-      );
-
-      const products = productData.docs;
-      const categories = categoriesData.docs;
-
-      setResultProducts(products);
-      setResultCategories(categories);
+      setResultProducts(data.products ?? []);
+      setResultCategories(data.categories ?? []);
     } catch (error) {
       // console.log(error);
     }
@@ -252,3 +188,5 @@ export const Search = () => {
     </Command>
   );
 };
+
+

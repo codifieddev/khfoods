@@ -17,15 +17,21 @@ import { getTranslations } from "next-intl/server";
 import { type CSSProperties } from "react";
 
 import { type Locale } from "@/i18n/config";
-import { type Customer } from "@/payload-types";
-import { getCachedGlobal } from "@/utilities/getGlobals";
+import { type Customer, type EmailMessage } from "@/types/cms";
 
 const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
-export const Default = async ({ customer, locale }: { customer: Customer; locale: Locale }) => {
+export const Default = async ({
+  customer,
+  locale,
+  emailMessages,
+}: {
+  customer: Customer;
+  locale: Locale;
+  emailMessages: EmailMessage;
+}) => {
   const t = await getTranslations({ locale, namespace: "Emails.welcome" });
-
-  const { messages } = await getCachedGlobal("emailMessages", locale, 1)();
+  const { messages } = emailMessages;
 
   return (
     <Html>
@@ -300,3 +306,4 @@ const footer = {
     textAlign: "center"
   } as CSSProperties
 };
+

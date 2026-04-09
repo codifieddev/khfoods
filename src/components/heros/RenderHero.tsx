@@ -2,7 +2,7 @@ import { HighImpactHero } from "@/components/heros/HighImpact";
 import { LowImpactHero } from "@/components/heros/LowImpact";
 import { MediumImpactHero } from "@/components/heros/MediumImpact";
 
-import type { Page } from "@/payload-types";
+import type { Page } from "@/types/cms";
 import { VideoModalHero } from "./VideoModal";
 import Hero from "@/frontendComponents/Home/Hero";
 
@@ -25,3 +25,4 @@ export const RenderHero = (props: Page["hero"]) => {
 
   return <HeroToRender {...props} />;
 };
+

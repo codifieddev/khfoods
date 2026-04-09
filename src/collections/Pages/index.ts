@@ -27,7 +27,7 @@ import type {
   AccessResult,
   CollectionConfig,
 } from "payload";
-import type { Administrator } from "@/payload-types";
+import type { Administrator } from "@/types/cms";
 import { checkUserPermission } from "@/access/roleBasedAccess";
 
 import { revalidateDelete, revalidatePage } from "./hooks/revalidatePage";
@@ -802,3 +802,5 @@ export const Pages: CollectionConfig<"pages"> = {
     maxPerDoc: 50,
   },
 };
+
+

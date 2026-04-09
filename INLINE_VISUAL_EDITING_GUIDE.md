@@ -49,7 +49,7 @@ This payload ecommerce template now includes an advanced inline visual editing s
 
 ### 4. Exit Visual Editing Mode
 - Click the "Exit Preview" button in the visual editing toolbar
-- Or navigate to `/next/exit-preview` manually
+- Or navigate to `/api/disable-preview` manually
 
 ## Technical Implementation
 
@@ -102,11 +102,7 @@ The system uses these data attributes to identify editable content:
 - Enables draft mode for visual editing
 - Redirects to the preview URL
 
-#### `/next/preview`
-- Handles preview mode activation
-- Redirects to the requested page with draft mode enabled
-
-#### `/next/exit-preview`
+#### `/api/disable-preview`
 - Disables draft mode
 - Returns user to normal viewing mode
 
@@ -251,4 +247,4 @@ For issues or questions about the visual editing system:
 4. Test in different browsers and devices
 5. Verify authentication and permissions
 
-The inline visual editing system provides a powerful, user-friendly way to edit content directly on your website while maintaining the flexibility and power of Payload CMS.
+The inline visual editing system provides a powerful, user-friendly way to edit content directly on your website while maintaining the flexibility and power of a native Next.js architecture.

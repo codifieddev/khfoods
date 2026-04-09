@@ -1,4 +1,4 @@
-import { type Product } from "@/payload-types";
+import type { Product } from "@/types/cms";
 type BaseProduct = {
   id: string;
   choosenVariantSlug?: string;

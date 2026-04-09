@@ -3,7 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 
 import { WelcomeEmail } from "@/components/Emails/WelcomeEmail";
 import { type Locale } from "@/i18n/config";
-import { type Customer } from "@/payload-types";
+import { type Customer } from "@/types/cms";
 import { sendEmail } from "@/utilities/nodemailer";
 
 import type { CollectionAfterChangeHook } from "payload";
@@ -63,3 +63,5 @@ export const sendWelcomeEmail: CollectionAfterChangeHook<Customer> = async ({
 
   return doc;
 };
+
+

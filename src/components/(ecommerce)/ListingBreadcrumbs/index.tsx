@@ -1,6 +1,6 @@
 import { Link } from "@/i18n/routing";
 import { getTranslations, getLocale } from "next-intl/server";
-import { type ProductCategory, type ProductSubCategory } from "@/payload-types";
+import { type ProductCategory, type ProductSubCategory } from "@/types/cms";
 
 export const ListingBreadcrumbs = async ({
   category,
@@ -44,3 +44,5 @@ export const ListingBreadcrumbs = async ({
     </>
   );
 };
+
+

@@ -6,7 +6,7 @@ import { Media } from "@/components/Media";
 import { cn } from "@/utilities/cn";
 import { useClickableCard } from "@/utilities/useClickableCard";
 
-import type { Post } from "@/payload-types";
+import type { Post } from "@/types/cms";
 
 export type CardPostData = Pick<Post, "slug" | "categories" | "meta" | "title">;
 

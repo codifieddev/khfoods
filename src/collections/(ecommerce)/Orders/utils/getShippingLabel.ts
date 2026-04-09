@@ -12,7 +12,7 @@ export const getShippingLabel = async ({
 }) => {
   setIsDownloading(true);
   try {
-    const response = await axios.get(`/next/printLabel?orderID=${orderID}`, {
+    const response = await axios.get(`/api/shipping/print-label?orderID=${orderID}`, {
       responseType: "blob"
     });
 

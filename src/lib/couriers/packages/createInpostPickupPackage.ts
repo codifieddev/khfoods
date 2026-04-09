@@ -3,7 +3,7 @@
 // import { getPayload } from "payload";
 
 // import { type Locale } from "@/i18n/config";
-// import { type Order } from "@/payload-types";
+// import { type Order } from "@/types/cms";
 // import { getCachedGlobal } from "@/utilities/getGlobals";
 // import config from "@payload-config";
 
@@ -108,3 +108,5 @@
 
 //   return packageID;
 // };
+
+

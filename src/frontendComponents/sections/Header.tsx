@@ -1,368 +1,224 @@
-import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { cn } from "@/lib/cn";
-import logo from "../../../public/assets/Image/logo.svg"
-import cart from "../../../public/assets/Image/cart.svg"
-/* ===========================
-   Types
-=========================== */
-export type NavItem = {
-  label: string;
-  href?: string;
-  children?: { label: string; href: string }[];
-};
+"use client";
 
-type Lang = { code: string; label: string };
+import * as React from "react";
+import Link from "next/link";
+import { ChevronDown, Facebook, Globe, Instagram, Linkedin, ShoppingCart, Twitter } from "lucide-react";
+import { useSelector } from "react-redux";
+import { selectCartCount } from "@/lib/store/cart/cartSlice";
 
 type HeaderProps = {
   className?: string;
-  leftNav?: NavItem[];
-  logoSrc?: string; // if not provided, shows inline SVG logo
-  phoneText?: string; // e.g. "Kontaktirajte nas"
-  phoneHref?: string; // e.g. "tel:+385..." 
-  cartCount?: number;
-  languages?: Lang[];
-  currentLang?: string; // code
 };
 
-/* ===========================
-   Anim helpers
-=========================== */
-const fade = {
-  hidden: { opacity: 0, y: -6 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.18 } },
-  exit: { opacity: 0, y: -6, transition: { duration: 0.12 } }
-};
+const socialLinks = [
+  { Icon: Facebook, label: "Facebook" },
+  { Icon: Twitter, label: "Twitter" },
+  { Icon: Instagram, label: "Instagram" },
+  { Icon: Linkedin, label: "LinkedIn" },
+  { Icon: Globe, label: "Globe" },
+];
 
-const drawer = {
-  hidden: { x: "-100%" },
-  show: { x: 0, transition: { duration: 0.22 } },
-  exit: { x: "-100%", transition: { duration: 0.15 } }
-};
+const aboutLinks = [
+  { label: "History", href: "/about/history", title: "Our History" },
+  { label: "Nutrition", href: "/about/nutrition", title: "Nutrition" },
+  { label: "Process", href: "/about/process", title: "Our Process" },
+];
 
-/* ===========================
-   Header
-=========================== */
-export default function Header({
-  className,
-  leftNav = [
-    {
-      label: "Noževi",
-      children: [
-        { label: "Petty", href: "/petty" },
-        { label: "Gyuto", href: "/gyuto" },
-        { label: "Santoku", href: "/santoku" },
-        { label: "Nakiri", href: "/nakiri" },
-      ]
-    },
-    { label: "O Noževima", href: "/o-nozevima" },
-    { label: "O Karlo Banu", href: "/o-karlo-banu" },
-    { label: "Što drugi kažu", href: "/recenzije" },
-  ],
-  logoSrc,
-  phoneText = "Kontaktirajte nas",
-  phoneHref = "#",
-  cartCount = 4,
-  languages = [
-    { code: "hr", label: "Hr" },
-    { code: "en", label: "En" },
-  ],
-  currentLang = "hr"
-}: HeaderProps) {
-  const [openDropdown, setOpenDropdown] = React.useState<number | null>(null);
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
+const productLinks = [
+  { label: "Domestic (US)", href: "/products/domestic", title: "Domestic Products" },
+  { label: "International (Taiwan)", href: "/products/international", title: "International Products" },
+];
+
+export default function Header({ className }: HeaderProps) {
+  const headerRef = React.useRef<HTMLElement | null>(null);
+  const [openMenu, setOpenMenu] = React.useState<"about" | "products" | null>(null);
   const [langOpen, setLangOpen] = React.useState(false);
+  const [locale, setLocale] = React.useState("EN");
+  const cartCount = useSelector(selectCartCount);
 
-  // close dropdowns on escape
   React.useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpenDropdown(null);
+    const onPointerDown = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) {
+        setOpenMenu(null);
         setLangOpen(false);
-        setDrawerOpen(false);
       }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
   }, []);
 
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    setLocale(window.location.pathname.startsWith("/zh") ? "ZH" : "EN");
+  }, []);
+
+  function handleLanguageChange(nextLocale: "en" | "zh") {
+    setLangOpen(false);
+    if (typeof window === "undefined") return;
+
+    const { pathname, search, hash } = window.location;
+    const normalized = pathname.replace(/^\/(en|zh)(?=\/|$)/, "") || "/";
+    const nextPath = nextLocale === "en" ? normalized : `/${nextLocale}${normalized}`;
+    window.location.assign(`${nextPath}${search}${hash}`);
+  }
+
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-40 w-full bg-white/80 backdrop-blur border-b border-zinc-200",
-        className
-      )}
-    >
-      <div className="container mx-auto">
-        <div className="grid grid-cols-3 items-center py-3">
-          {/* Left: nav / hamburger */}
-          <div className="flex items-center gap-2">
-            {/* Mobile: hamburger */}
-            <button
-              className="mr-2 inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-zinc-100 lg:hidden"
-              aria-label="Open menu"
-              onClick={() => setDrawerOpen(true)}
-            >
-              <BurgerIcon />
-            </button>
+    <header ref={headerRef} className={className}>
+      <div className="fixed inset-x-0 top-0 z-50 w-full">
+        <div className="h-10 w-full bg-[#D6A574]">
+          <div className="mx-auto flex h-full max-w-[1300px] items-center justify-between px-5 text-[14px] text-black">
+            <span className="leading-none">Welcome to Khfoods!</span>
 
-            {/* Desktop nav */}
-            <nav className="hidden items-center gap-5 lg:flex">
-              {leftNav.map((item, idx) => {
-                const hasChildren = !!item.children?.length;
-                return (
-                  <div
-                    key={item.label}
-                    className="relative"
-                    onMouseEnter={() => hasChildren && setOpenDropdown(idx)}
-                    onMouseLeave={() => hasChildren && setOpenDropdown(null)}
-                  >
-                    <a
-                      href={item.href || "#"}
-                      className={cn(
-                        "text-[14px] text-[#4F4640] font-semibold hover:text-[#4F4640] inline-flex items-center gap-1"
-                      )}
-                      onClick={(e) => {
-                        if (hasChildren) {
-                          e.preventDefault();
-                          setOpenDropdown(openDropdown === idx ? null : idx);
-                        }
-                      }}
+            <div className="flex items-center gap-5 leading-none">
+              <a href="#" className="hover:opacity-90">
+                Store locator
+              </a>
+              <a href="#" className="hover:opacity-90">
+                Wholesale
+              </a>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setLangOpen((current) => !current)}
+                  className="inline-flex items-center gap-1 hover:opacity-90"
+                  aria-haspopup="menu"
+                  aria-expanded={langOpen}
+                >
+                  <span className="uppercase">{locale}</span>
+                  <ChevronDown className={`h-3.5 w-3.5 transition-transform ${langOpen ? "rotate-180" : ""}`} />
+                </button>
+
+                {langOpen ? (
+                  <div className="absolute right-0 top-full z-50 mt-2 w-[124px] rounded-md bg-white py-3 shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
+                    <button
+                      type="button"
+                      onClick={() => handleLanguageChange("en")}
+                      className={`block w-full px-4 py-2 text-left text-[14px] transition-colors hover:bg-black/5 ${locale === "en" ? "font-semibold text-[#f0b400]" : "text-black"}`}
                     >
-                      {item.label}
-                      {hasChildren && <ChevronDown className="h-3 w-3" />}
-                    </a>
-
-                    {/* Dropdown */}
-                    <AnimatePresence>
-                      {hasChildren && openDropdown === idx && (
-                        <motion.div
-                          variants={fade}
-                          initial="hidden"
-                          animate="show"
-                          exit="exit"
-                          className="absolute left-0 mt-2 min-w-[180px] overflow-hidden rounded-md border border-zinc-200 bg-white shadow-md"
-                        >
-                          <ul className="p-2">
-                            {item.children!.map((c) => (
-                              <li key={c.label}>
-                                <a
-                                  href={c.href}
-                                  className="block rounded-sm px-3 py-2 text-sm text-[#4F4640]/90 hover:bg-zinc-100"
-                                >
-                                  {c.label}
-                                </a>
-                              </li>
-                            ))}
-                          </ul>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                      English
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleLanguageChange("zh")}
+                      className={`block w-full px-4 py-2 text-left text-[14px] transition-colors hover:bg-black/5 ${locale === "zh" ? "font-semibold text-[#f0b400]" : "text-black"}`}
+                    >
+                      繁體中文
+                    </button>
                   </div>
-                );
-              })}
-            </nav>
-          </div>
+                ) : null}
+              </div>
 
-          {/* Center: logo */}
-          <div className="flex items-center justify-center">
-            <a href="/" aria-label="Home">
-        
-                <img
-                  src={logo}
-                  alt="Logo"
-                  className="h-6 w-auto md:h-10 select-none"
-                />
-             
-            </a>
-          </div>
-
-          {/* Right: phone, cart, lang */}
-          <div className="flex items-center justify-end gap-4">
-            <a
-              href={phoneHref}
-              className="hidden items-center gap-2 text-[14px] text-[#4F4640] font-semibold hover:text-[#4F4640] md:flex"
-            >
-              <PhoneIcon className="h-6 w-6 text-[#aaaaaa]" />
-              {phoneText}
-            </a>
-
-            <a
-              href="/cart"
-              className="relative inline-flex h-8 w-8 items-center justify-center rounded-md hover:bg-zinc-100"
-              aria-label="Cart"
-            >
-              {/* <CartIcon className="h-5 w-5" /> */}
-              <img src={cart}></img>
-              {cartCount > 0 && (
-                <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-[16px] items-center justify-center rounded-full bg-[#FF7020] px-1 text-[10px] font-bold text-white">
-                  {cartCount}
-                </span>
-              )}
-            </a>
-
-            {/* Language selector */}
-            <div className="relative">
-              <button
-                onClick={() => setLangOpen((v) => !v)}
-                className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-sm hover:bg-zinc-100"
-                aria-haspopup="menu"
-                aria-expanded={langOpen}
-              >
-                {languages.find((l) => l.code === currentLang)?.label ?? "Lang"}
-                <ChevronDown className="h-3 w-3" />
-              </button>
-              <AnimatePresence>
-                {langOpen && (
-                  <motion.div
-                    variants={fade}
-                    initial="hidden"
-                    animate="show"
-                    exit="exit"
-                    className="absolute right-0 mt-2 w-28 rounded-md border border-zinc-200 bg-white shadow-md"
-                  >
-                    <ul className="p-1">
-                      {languages.map((l) => (
-                        <li key={l.code}>
-                          <a
-                            href={`?lang=${l.code}`}
-                            className={cn(
-                              "block rounded px-2 py-1.5 text-sm hover:bg-zinc-100",
-                              l.code === currentLang && "font-semibold"
-                            )}
-                            onClick={() => setLangOpen(false)}
-                          >
-                            {l.label}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <div className="flex items-center gap-3">
+                {socialLinks.map(({ Icon, label }) => (
+                  <a key={label} href="#" aria-label={label} className="inline-flex items-center justify-center">
+                    <Icon className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
+
+        <div className="relative h-[74px] w-full bg-black/80 backdrop-blur-sm">
+          <div className="mx-auto flex h-full max-w-[1280px] items-center justify-between px-8">
+            <div className="flex w-[200px] items-center">
+              <Link href="/" aria-label="Home" className="inline-flex items-center">
+                <img src="/assets/khfood_logo.png" alt="KHFOOD" className="h-10 md:h-12 w-auto object-contain" />
+              </Link>
+            </div>
+
+            <nav className="flex flex-1 items-center justify-center gap-12 text-[14px] font-semibold tracking-[0.04em] text-white">
+              <Link href="/" className="transition-colors hover:text-[#facc15]">
+                HOME
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => setOpenMenu((current) => (current === "about" ? null : "about"))}
+                onMouseEnter={() => setOpenMenu("about")}
+                className={`inline-flex items-center gap-1.5 transition-colors hover:text-[#facc15] ${
+                  openMenu === "about" ? "text-[#facc15]" : "text-white"
+                }`}
+              >
+                ABOUT US
+                <ChevronDown className="h-3.5 w-3.5 opacity-80" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setOpenMenu((current) => (current === "products" ? null : "products"))}
+                onMouseEnter={() => setOpenMenu("products")}
+                className={`inline-flex items-center gap-1.5 transition-colors hover:text-[#facc15] ${
+                  openMenu === "products" ? "text-[#facc15]" : "text-white"
+                }`}
+              >
+                PRODUCTS
+                <ChevronDown className="h-3.5 w-3.5 opacity-80" />
+              </button>
+
+              <Link href="/contact" className="transition-colors hover:text-[#facc15]">
+                CONTACT US
+              </Link>
+            </nav>
+
+            <div className="flex w-[200px] items-center justify-end gap-5 text-[14px] font-semibold tracking-[0.04em] text-white">
+              <Link href="/shop" className="transition-colors hover:text-[#facc15]">
+                SHOP
+              </Link>
+
+              <Link href="/cart" aria-label="Cart" className="relative inline-flex items-center justify-center">
+                <ShoppingCart className="h-7 w-7 text-white" />
+                <span className="absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-[#facc15] px-1 text-[11px] font-bold leading-none text-black">
+                  {cartCount}
+                </span>
+              </Link>
+            </div>
+          </div>
+
+          {openMenu === "about" ? (
+            <div className="absolute left-0 top-full z-50 w-full border-t border-[#e5e7eb] bg-white">
+              <div className="mx-auto flex max-w-[1300px] gap-20 px-10 py-14">
+                <div className="w-[280px] pt-2">
+                  <h2 className="text-[36px] font-semibold tracking-[0.02em] text-[#202020]">ABOUT US</h2>
+                </div>
+
+                <div className="flex flex-1 justify-between">
+                  {aboutLinks.map((item) => (
+                    <div key={item.label} className="min-w-[180px] border-r border-[#e5e7eb] pr-10 last:border-r-0">
+                      <p className="text-[16px] font-bold uppercase tracking-[0.02em] text-black">{item.label.toUpperCase()}</p>
+                      <Link href={item.href} className="mt-3 block text-[18px] text-[#202020] transition-colors hover:text-black">
+                        {item.title}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {openMenu === "products" ? (
+            <div className="absolute left-0 top-full z-50 w-full border-t border-[#e5e7eb] bg-white">
+              <div className="mx-auto flex max-w-[1300px] gap-20 px-10 py-14">
+                <div className="w-[280px] pt-2">
+                  <h2 className="text-[36px] font-semibold tracking-[0.02em] text-[#202020]">PRODUCTS</h2>
+                </div>
+
+                <div className="flex flex-1 justify-between">
+                  {productLinks.map((item) => (
+                    <div key={item.label} className="min-w-[240px] border-r border-[#e5e7eb] pr-10 last:border-r-0">
+                      <p className="text-[16px] font-bold uppercase tracking-[0.02em] text-black">{item.label}</p>
+                      <Link href={item.href} className="mt-3 block text-[18px] text-[#202020] transition-colors hover:text-black">
+                        {item.title}
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
       </div>
-
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {drawerOpen && (
-          <>
-            <motion.aside
-              variants={drawer}
-              initial="hidden"
-              animate="show"
-              exit="exit"
-              className="fixed inset-y-0 left-0 z-50 w-[78%] max-w-sm bg-white shadow-xl"
-            >
-              <div className="flex items-center justify-between border-b px-4 py-3">
-                <span className="text-sm font-semibold">Menu</span>
-                <button
-                  aria-label="Close menu"
-                  onClick={() => setDrawerOpen(false)}
-                  className="rounded-md p-1 hover:bg-zinc-100"
-                >
-                  <CloseIcon />
-                </button>
-              </div>
-
-              <nav className="px-2 py-3">
-                {leftNav.map((item) => (
-                  <div key={item.label} className="px-1 py-1">
-                    <a
-                      href={item.href || "#"}
-                      className="block rounded-md px-3 py-2 text-sm hover:bg-zinc-100"
-                    >
-                      {item.label}
-                    </a>
-                    {item.children?.length ? (
-                      <ul className="ml-2 mt-1 space-y-1 border-l pl-2">
-                        {item.children.map((c) => (
-                          <li key={c.label}>
-                            <a
-                              href={c.href}
-                              className="block rounded-md px-3 py-1.5 text-sm text-[#4F4640]/90 hover:bg-zinc-100"
-                            >
-                              {c.label}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </div>
-                ))}
-              </nav>
-
-              <div className="mt-auto border-t px-4 py-3 text-sm">
-                <a
-                  href={phoneHref}
-                  className="inline-flex items-center gap-2 text-[#4F4640]/80 hover:text-[#4F4640]"
-                >
-                  <PhoneIcon className="h-4 w-4 text-zinc-400" />
-                  {phoneText}
-                </a>
-              </div>
-            </motion.aside>
-
-            {/* Backdrop */}
-            <motion.div
-              onClick={() => setDrawerOpen(false)}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.3 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40 bg-black"
-            />
-          </>
-        )}
-      </AnimatePresence>
     </header>
-  );
-}
-
-/* ===========================
-   Inline icons (no deps)
-=========================== */
-function BurgerIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-function CloseIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-function ChevronDown({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 20 20" fill="currentColor">
-      <path d="M5.25 7.5L10 12.25 14.75 7.5" />
-    </svg>
-  );
-}
-function PhoneIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M6.6 10.8a15.6 15.6 0 006.6 6.6l2.2-2.2a1.2 1.2 0 011.3-.3c1.2.4 2.6.7 3.3.9a1.2 1.2 0 011 1.2v3.3a1.2 1.2 0 01-1.2 1.2A18.8 18.8 0 013 5.2 1.2 1.2 0 014.2 4h3.3a1.2 1.2 0 011.2 1.1c.1.8.4 2.1.8 3.3.1.5 0 1-.3 1.3l-2.6 2.1z" />
-    </svg>
-  );
-}
-function CartIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M7 18a2 2 0 11-.01 4.01A2 2 0 017 18zm10 0a2 2 0 11-.01 4.01A2 2 0 0117 18zM2 3h2l2.7 12.3a2 2 0 002 1.7h8.9a2 2 0 002-1.6L21 8H7" />
-    </svg>
-  );
-}
-function LogoIcon({ className }: { className?: string }) {
-  // Simple "feather" crown-like mark in orange
-  return (
-    <svg className={className} viewBox="0 0 64 20" fill="none">
-      <path d="M6 18l8-16-3 16 7-16 2 16 2-16 7 16-3-16 8 16" stroke="#FF7020" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }

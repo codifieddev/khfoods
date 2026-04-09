@@ -4,7 +4,7 @@ import { FieldLabel, Select, useField, useForm } from "@payloadcms/ui";
 import { type TextFieldClientComponent } from "payload";
 import { useCallback, useEffect } from "react";
 
-import { type Product } from "@/payload-types";
+import { type Product } from "@/types/cms";
 
 export const SizeSelect: TextFieldClientComponent = ({ path }) => {
   const { value, setValue } = useField<string>({ path });
@@ -62,3 +62,5 @@ export const SizeSelect: TextFieldClientComponent = ({ path }) => {
     </div>
   ) : null;
 };
+
+

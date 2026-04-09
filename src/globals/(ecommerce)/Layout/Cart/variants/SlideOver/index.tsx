@@ -13,7 +13,7 @@ import { Media as MediaComponent } from "@/components/Media";
 import { type FilledVariant } from "@/globals/(ecommerce)/Layout/ProductDetails/types";
 import { type Locale } from "@/i18n/config";
 import { Link } from "@/i18n/routing";
-import { type Media, type Product } from "@/payload-types";
+import { type Media, type Product } from "@/types/cms";
 import { useCartState } from "@/stores/CartStateStore";
 import { useCart } from "@/stores/CartStore";
 import { type Cart } from "@/stores/CartStore/types";
@@ -60,7 +60,7 @@ export const SlideOver = () => {
             }[];
             totalQuantity: number;
           };
-        }>("/next/cartProducts", { cart: cartToCalculate, locale });
+        }>("/api/cart/products", { cart: cartToCalculate, locale });
         const { filledProducts = [], total = [] } = data.productsWithTotal;
         setCartProducts(filledProducts);
         setTotal(total);
@@ -284,3 +284,5 @@ export const SlideOver = () => {
     </Dialog>
   );
 };
+
+

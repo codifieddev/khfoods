@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import type { Product } from "@/payload-types";
+import type { Product } from "@/types/cms";
 import { Media } from "@/components/Media";
 import { Link } from "@/i18n/routing";
 
@@ -253,3 +253,5 @@ function ProductInernationalMarking() {
     </div>
   );
 }
+
+

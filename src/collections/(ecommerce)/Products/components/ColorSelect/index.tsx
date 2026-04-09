@@ -4,7 +4,7 @@ import { FieldLabel, Select, useField, useForm } from "@payloadcms/ui";
 import { type TextFieldClientComponent } from "payload";
 import { useCallback, useEffect } from "react";
 
-import { type Product } from "@/payload-types";
+import { type Product } from "@/types/cms";
 
 export const ColorSelect: TextFieldClientComponent = ({ path }) => {
   const { value, setValue } = useField<string>({ path });
@@ -62,3 +62,5 @@ export const ColorSelect: TextFieldClientComponent = ({ path }) => {
     </div>
   ) : null;
 };
+
+

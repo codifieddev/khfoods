@@ -1,51 +1,20 @@
-export async function POST(req: NextRequest) {
-  const corsOrigin = await getCorsOrigin(req);
-  const payload = await getPayload({ config: configPromise });
-  let data;
-  try {
-    data = req.json()
-
-    console.log("data--------", data)
-  } catch (err) {
-    console.log("err--->",err)
-    return new NextResponse(JSON.stringify({ error: 'Invalid JSON' }), {
-      status: 400
-    });
-  }
-  try {
-    const created = await payload.create({
-      collection: 'websites',
-      data
-    });
-    const res = new NextResponse(JSON.stringify(created), {
-      status: 201
-    });
-    res.headers.set('Access-Control-Allow-Origin', corsOrigin);
-    res.headers.set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    res.headers.set('Access-Control-Allow-Headers', 'Content-Type');
-    res.headers.set('Access-Control-Allow-Credentials', 'true');
-    return res;
-  } catch (err) {
-    console.log(" post error---", err)
-    return new NextResponse(JSON.stringify({ error: err.message }), {
-      status: 500
-    });
-  }
-}
-
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { getPayload } from 'payload';
-import configPromise from '@payload-config';
+import { getMongoDb } from '@/data/mongo/client';
 
 async function getAllowedOrigins() {
-  const payload = await getPayload({ config: configPromise });
-  const { docs: websites } = await payload.find({
-    collection: 'websites',
-    limit: 0,
-    pagination: false,
-    select: { domains: true }
-  });
+  const db = await getMongoDb();
+  const websites = await db
+    .collection('websites')
+    .find(
+      {},
+      {
+        projection: {
+          domains: 1
+        }
+      }
+    )
+    .toArray();
   // Flatten all domains from all websites
   const allowed = websites.flatMap(site =>
     Array.isArray(site.domains)
@@ -73,6 +42,38 @@ async function getCorsOrigin(req: NextRequest) {
     return origin;
   }
   return '';
+}
+
+export async function POST(req: NextRequest) {
+  const corsOrigin = await getCorsOrigin(req);
+  const db = await getMongoDb();
+
+  try {
+    const data = await req.json();
+    const insertResult = await db.collection('websites').insertOne(data);
+    const created = await db.collection('websites').findOne({
+      _id: insertResult.insertedId
+    });
+
+    const res = new NextResponse(JSON.stringify(created), {
+      status: 201
+    });
+    res.headers.set('Access-Control-Allow-Origin', corsOrigin);
+    res.headers.set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+    res.headers.set('Access-Control-Allow-Headers', 'Content-Type');
+    res.headers.set('Access-Control-Allow-Credentials', 'true');
+    return res;
+  } catch (error) {
+    console.log('websites-new POST error', error);
+    return new NextResponse(
+      JSON.stringify({
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }),
+      {
+        status: 500
+      }
+    );
+  }
 }
 
 export async function GET(req: NextRequest) {
