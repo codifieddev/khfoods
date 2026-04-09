@@ -3,7 +3,10 @@ node_modules
 out
 dist
 .env
+.env.local
+check_users.js
+tmp/
 .DS_Store
 *.log
 
-reference
+reference
